@@ -1,0 +1,31 @@
+ .map_canvas {
+
+    }
+    #placeDetails {
+      position: absolute;
+      width: 300px;
+      bottom: 0;
+      right: -320px;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      /* Semi-transparent background */
+      background-color: rgba(0,0,0,0.8);
+      color: white;
+      font-size: 80%;
+
+      /* Rounded top left corner */
+      border-top-left-radius: 15px;
+      -moz-border-radius-topleft: 15px;
+      -webkit-border-top-left-radius: 15px;
+    }
+
+    /* Fit the text nicely inside the box */
+    h1 {
+      font-family: sans-serif;
+      margin-bottom: 0;
+    }
+    #placeDetails p {
+      margin-top: 0;
+    }
+

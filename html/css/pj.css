@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'SteinerRegular';
+    src: url('fonts/steiner/steinerlight-webfont.eot');
+    src: url('fonts/steiner/steinerlight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/steiner/steinerlight-webfont.woff') format('woff'),
+         url('fonts/steiner/steinerlight-webfont.ttf') format('truetype'),
+         url('fonts/steiner/steinerlight-webfont.svg#SteinerRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#pj_holder {position: absolute; top: 100px; left: 0; width: 100%; background: url(/sprites/pj/b.png);}
+#pj_holder2 {width: 100%; background: url(/sprites/pj/bb.png) repeat-x; padding-top: 120px;}
+#pj_holder3 {width: auto; max-width: 1400px; margin: 0 auto; float: none;}
+#pj_left {float: left; width: 50%; padding-left: 10%; padding-bottom: 150px;}
+#pj_right {float: right; width: 27%;}
+ul.pj_menu {list-style-type: none; padding: 50px 0 0 0; margin: 0;}
+ul.pj_menu li {margin-bottom: 12px; color: #FFF; float: left; clear: both;}
+.pj_menu a:link, .pj_menu a:visited {color: #5F8396; text-decoration: underline;}
+.pj_menu a:hover, .pj_menu a:active {color: #AD477B; text-decoration: underline;}
+.pjm_a {background: url(/sprites/pj/m.png) no-repeat; padding: 8px 15px 8px 20px; margin-left: -10px;}
+.pj_d {clear: both; font-size: 90%; color: #565656; padding-top: 25px; margin: 0 0 3px 0;}
+.pj_mk {float: left; clear: both; width: 153px; height: 34px; background: url(/sprites/pj/mk.png); cursor: pointer; margin-left: -5px;}
+.pj_mk:hover {background-position: -155px 0;}
+.pj_mk:active {background-position: -310px 0;}
+.pj_s {font-size: 90%; color: #7B7B7B; clear: both;}
+.pj_t {font-size: 300%; clear: both; margin: 0; padding: 0.4em 0 0 0; color: #333;}
+.pj_t span {display: block; position: absolute; font-size: 17px; margin: 3px 0 0 -40px;}
+.pj_m {padding: 0; clear: both;}
+#pj_left h1 {color: #5C5C5C; font-size: 300%; font-weight: bold; clear: both;}
+.pj_mt {font-size: 170%; color: #383838;}
+.pj_c {float: left; width: 45%; padding-right: 5%; line-height: 180%; color: #383838;}
+span.pj_sh {float: left; font-weight: normal; font-size: 140%; color: #5C5C5C; width: 100%; padding-bottom: 1em;}
+.pj_b {clear: both; float: left; width: 270px; text-align: center;}
+.pj_spe {clear: both; float: left; width: 320px; text-align: center;}
+.pj_bccc {float: left; width: 50% !important; color: #474747;}
+h4.bcc {font-family: Georgia; font-size: 350%; font-weight: bold; font-style: italic; margin: 0; color: #454545;}
+h4.bcc span {font-family: arial; font-size: 24px;}
+.pj_pac {float: left; width: 100%; clear: both; background: url(/sprites/pj/p.png) repeat-x 44px 10px; margin: 30px 0;}
+.pj_pac2 {float: left; width: 100%; text-align: right; clear: both; background: url(/sprites/pj/p.png) repeat-x right 10px; margin: 30px 0;}
+.pj_w {font-size: 200%; font-family: Georgia; font-weight: bold; font-style: italic; color: #767676; text-align: center; clear: both;}
+a.pink:link, a.pink:visited {color: #AD477B; text-decoration: none;}
+a.pink:hover {color: #86335D; text-decoration: none;}
+a.pink:active {color: #CA7AA3; text-decoration: none;}
+.suck_it {margin: 10px 0;}
+ul.pj_ls {font-size: 130%; color: #383838; padding: 0; margin: 0; list-style-type: disc;}
+ul.pj_ls li {padding-bottom: 1em;}
+.pj_bd {width: 70%; background: #2EAFBC; font-size: 110%; color: #FFF; padding: 10px; margin: 70px 0 0 -30px; float: left;}
+.pj_bd img {float: right;}
+.pj_bd p {float: left; width: 70%; padding: 0; margin: 0;}
+p.pj_sd {width: 100% !important;}
+::selection {background: #EA60A5; color:#FFF;}
+::-moz-selection {background: #EA60A5; color: #FFF;}

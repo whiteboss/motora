@@ -1,0 +1,71 @@
+<?php
+    $commentCount = $this->model->commentCount();
+?>
+    
+<div class="Q1">
+	<div class="w74-1">
+            
+        <div>
+            <a href="<?=$this->url(array('brandId' => $this->model->getBrand()->id), 'carbrand')?>"><img width="164" height="94" src="/files/brand/<?= $this->model->getBrand()->getLogo() ?>" alt="Модельный ряд <?= $this->model->getBrand() ?>" /></a>
+        </div>
+	<div class="BRAND-3 mar-bot3">
+            <h2 class="lh-150 mar-bot0"><?= $this->model->getBrand() ?> <?= $this->model->name ?></h2>
+            <?php if ($this->offers) : ?><a href="<?=$this->url(array(), 'carfilter');?>/<?=$this->model->id?>">Автомобили на продажу</a> <em><?=$this->offers?></em><?php endIf; ?>&nbsp;&nbsp;&nbsp;<?php if ($commentCount > 0) :?><a class="blue lineon" href="<?=$this->url(array('modelId' => $this->model->id), 'carmodel')?>#commentsList">Мнения о модели</a> <em><?=$commentCount;?></em><?php endIf; ?>
+        </div>
+        <?php $images = json_decode($this->model->photo, true);
+        if (!empty($images)): ?>
+            <div class="BMOD-GAL ETT-PH CMY-GL mar-bot3">
+                
+                <ul class="photo_switcher">
+                    <li class="coll prev active" id="slide_prev"></li>
+                    <li class="coll next active" id="slide_next"></li>
+                    <li class="how_much">Фотографии модели: <?php print count($images); ?></li>
+                </ul>
+                
+            
+            <ul id="gallery" class="mod-s">
+                <?php
+                foreach ($images as $img):
+                    if (empty($img))
+                        continue;
+                    ?>
+                    <li><img src="/files/model/<?= $img ?>" /></li>
+                <?php endforeach; ?>
+            </ul>
+
+            </div>
+
+        <?php endif; ?>
+        
+        <div class="BMOD-D">
+            <?= $this->model->description ?>
+        </div>
+		
+	</div>
+            
+        <div class="w25">
+            
+            <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+                <?= $this->left_banner ?>
+            </div>
+            
+            <div id="vk_groups"></div>
+            <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 0, width: "256", height: "300"}, 26971787);
+            </script>
+		
+	</div>
+</div>
+
+
+
+<div class="Q1">    
+    <a id="commentsList"></a>
+    <div class="w74-1">	
+	<h2 class="PUB-COMM">Мнения о модели<span><?= (int) $this->model->commentCount() ?></span></h2>	
+	<?php include('comments.phtml') ?>
+    </div>
+    <div class="w25">
+	&nbsp;
+    </div>
+</div>

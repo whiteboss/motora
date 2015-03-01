@@ -1,0 +1,7 @@
+<a name="commentsList"></a>
+<div class="cmn BREAK mar-bot">
+<?php if(empty($this->commentsList) || !$this->commentsList) echo '<ul id="commentsList" ></ul>'; else echo $this->commentsList;?>
+<?php if ($this->getLogged()) : echo $this->commentForm; else : ?>
+<p class="grey">Solamente usuarios <a href="#auth" role="button" data-toggle="modal" class="grey lineon">registrados</a> pueden dejar comentarios</p>
+<?php endIf ?>    
+</div>

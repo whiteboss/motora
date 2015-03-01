@@ -1,0 +1,43 @@
+.cnth_orama {background: #FFF !important;}
+
+.ORAMA {background: url(../sprites/orama/orama.png) no-repeat left top;}
+
+.primates_logo {position: absolute; z-index: 50; margin: 0 auto; text-align: center; width: 100%; padding-top: 7px;}
+	.primates_logo img {width: 190px; height: 157px;}
+
+#orama_menu {padding: 0 0 5px 0 !important;}	
+
+
+.primates_menu_holder {float: left; clear: both; background: url(../sprites/orama/3lines.png) repeat-x left bottom; width: 980px; padding: 69px 0 16px 0; margin-bottom: 16px}	
+
+ul.orama_menu_main {float: left; clear: both; padding: 60px 0 0 0; margin: 0;}
+	ul.orama_menu_main li {float: left; padding: 0; margin: 0 10px 0 0; height: 27px;}
+	ul.orama_menu_main li.or_entertainments {width: 103px; background-position: 0 -40px;}
+		ul.orama_menu_main li.or_entertainments:hover {background-position: 0 -171px;}
+	ul.orama_menu_main li.or_restaurants {width: 139px; background-position: 0 -68px;}
+		ul.orama_menu_main li.or_restaurants:hover {background-position: 0 -199px;}
+	ul.orama_menu_main li.or_streets {width: 162px; background-position: 0 -96px;}
+		ul.orama_menu_main li.or_streets:hover {background-position: 0 -227px;}
+	ul.orama_menu_main li.or_scenes {width: 188px; background-position: 0 -124px;}
+		ul.orama_menu_main li.or_scenes:hover {width: 188px; background-position: 0 -255px;}
+	ul.orama_menu_main li.or_hotels {width: 93px; background-position: -116px -40px;}
+		ul.orama_menu_main li.or_hotels:hover {width: 93px; background-position: -104px -171px;}
+	
+	div.primates_teaser {float: right; margin-top: 8px; background: url(../sprites/orama/primates_teaser.png) no-repeat left top; padding-top: 25px; height: 64px; width: 140px; padding-left: 100px; cursor: pointer;}
+		
+		
+ul.primates_menu {float: left; clear: both; padding: 0; margin: 0; width: 978px;}
+	ul.primates_menu li {float: left; padding: 0; margin: 0; height: 15px;}
+	ul.primates_menu a li {cursor: pointer;}
+	ul.primates_menu li.pm_spacer {background-position: -299px 0; width: 1px; margin: 0 9px !important;}
+	ul.primates_menu li.havana {width: 57px; background-position: 0 0;}
+	ul.primates_menu li.cayococo {width: 75px; background-position: -60px 0;}
+	ul.primates_menu li.backtoUSSR {float: right !important;}
+	
+	
+ul.orama_listing {margin: 0; background: #FFF; float: left; clear: both; width: 958px; padding: 20px 0 20px 10px; list-style-type: none;}
+	ul.orama_listing li {float: left; margin: 0; padding: 0 33px 20px 0;}
+		ul.orama_listing li div {padding: 3px; border: 1px #C1C1C1 solid; margin-bottom: 5px;}
+			ul.orama_listing li div:hover {background: #C1C1C1;} 
+
+h1.orama_sec_title {width: 978px; text-align: center; float: left; clear: both; font-family: calibri; text-transform: uppercase; font-weight: bold; border-bottom: 1px #808080 solid; padding: 20px 0 10px 0;} 

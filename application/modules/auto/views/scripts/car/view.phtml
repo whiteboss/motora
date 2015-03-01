@@ -1,0 +1,215 @@
+<?php 
+
+    $identity = $this->getUserByIdentity();
+    $author = $this->item->getAuthor();
+
+    if ((!is_null($identity) && !is_null($author) && $author->id == $identity->id) || $this->isGodOfProject()) :
+?>
+
+<div class="Q1 QGGGGG">
+<?php
+    else :
+?>        
+<div class="QGG BREAK">  
+<?php    
+    endif;
+
+        if ((!is_null($identity) && !is_null($author) && $author->id == $identity->id) || $this->isGodOfProject()) :
+    ?>
+    <div class="QGGGG BREAK">
+    <?php
+        else :
+    ?>        
+    <div class="QGGG BREAK">  
+    <?php    
+        endif;
+    ?>
+    </div>
+
+    <?php         
+        
+        $model = $this->item->getModel();
+        $series = $model->getSeries();
+        $mark = $model->getMark();
+    
+	if (!is_null($author) || $this->isGodOfProject()) :                            
+	    if ((!is_null($identity) && !is_null($author) && $author->id == $identity->id) || $this->isGodOfProject())  :                        
+    ?>	
+	<span>Это ваше объявление &nbsp;&nbsp;&nbsp;</span>
+	<a href="<?=$this->url(array('carId' => $this->item->id, 'action' => 'edit'), 'car_ad_adm');?>"><img class="coll OB-RED" src="/sprites/null.png" width="17" height="19" alt="">Редактировать</a> &nbsp;&nbsp;&nbsp;
+	<a id="remove" href="<?=$this->url(array('carId' => $this->item->id, 'action' => 'delete'), 'car_ad_adm');?>"><img class="coll OB-DEL" src="/sprites/null.png" width="14" height="19" alt="">Удалить</a>
+    <?php
+	    endIf;
+	endIf;
+    ?>        
+</div>
+
+<div class="QG">
+    
+    <div class="BREAK mar-bot"></div>
+    
+    <div class="w70">
+	<h1 class="ETT-H">
+	    <?= $this->item->getName() ?>    
+	</h1>
+	<span class="f90"><em class="cursiv">Дата публикации: <?php print $this->dateFormatComments($this->item->date)?> &nbsp;&nbsp; Просмотров: <?= (int) $this->item->getCounter() ?> &nbsp;&nbsp; 
+	
+	</em></span>
+	
+    </div>
+    
+    <div class="w20 right align-right ETT-U">
+    <?php if(!is_null($author)) : ?>Разместил <strong><a class="black" href="<?= $this->url(array('userId' => $author->id), 'profile') ?>"><?=$author->username?></a></strong><?php print $author->getAvatar(25,25); ?></span>    
+    <?php else : ?><span>Частное объявление</span><?php endIf ?>    
+    </div>
+    
+    <div class="BREAK mar-bot"></div>
+    
+    <div class="ETT-D lh-150">
+	<?=nl2br($this->item->description)?>
+	</div>
+    
+    <div class="W-3">&nbsp;</div>
+    
+    <div class="ETT-A lh-180">
+	
+	<div class="W-12"><strong>Kilometraje</strong></div>
+	<div class="W-18"><strong><?php if ($this->item->mileage > 0) : ?><?=$this->item->getMileage()?><?php else : ?>Без пробега<?php endIf ?></strong></div>
+	
+	<div>Motor&nbsp;.........&nbsp;</div>
+	<div class="W-18"><?=$this->item->getEngineVolume()?> c.c.</div>
+        
+	<div>Transmisión&nbsp;........&nbsp;</div>
+	<div><?=ucfirst($this->item->getGearbox())?></div>
+        
+	<div class="BREAK"></div>
+	
+	<div class="W-12"><strong>Año</strong></div>
+	<div class="W-18"><strong><?=$this->item->getYear()?></strong></div>
+        
+	<div>Combustible&nbsp;............&nbsp;</div>
+	<div class="W-18"><?= $this->item->getEngineType() ?></div>        
+	
+	<div>Tipo de caja de cambios&nbsp;...................&nbsp;</div>
+	<div><?= $this->item->getGearType() ?></div>
+	
+	<div class="BREAK mar-bot2"></div>
+	
+	<div class="ETT-P">
+	    <div>Precio: <?=$this->item->getPrice()?></div>
+	</div>
+	
+	<div class="BREAK mar-bot"></div>
+
+	
+	
+		
+	
+    </div>
+     
+    <div class="ETT-PH CMY-GL" style="margin-top: 0;">
+	
+    <?php
+        if ( !empty($this->item->photo) ) {
+    ?>
+
+    <?php 
+                $images = json_decode($this->item->photos, true);
+                if (count($images) > 1) {
+    ?>
+
+                <ul class="photo_switcher">
+                    <li class="coll prev active" id="slide_prev"></li>
+                    <li class="coll next active" id="slide_next"></li>
+                    <li class="how_much">Всего фотографий: <?=count($images)?></li>
+                </ul>
+
+     <?php
+                }
+     ?>
+            <div class="auto_gallery">
+                <ul id="gallery">
+                <?php
+                    if (count($images) > 0) {
+                        foreach ( $images as $img ) {
+                ?>
+                    <li><img src="/files/cars/<?=$img?>" /></li>
+                <?php
+                        }
+                    }
+                ?>
+                </ul>
+            </div>
+     <?php
+        }
+     ?>
+        	
+    </div>
+    
+    <div class="ETT-DCR" style="margin-top: 0;">
+	
+	<div class="ETT-CO">
+	    <div class="f120" style="background-position: bottom left; margin-top: 0; padding-bottom: 15px;">
+		
+	    <h2>Контакты:</h2>
+	    <em>Телефон</em>
+	    <br><?=$this->item->getPhone()?>
+	    <?php if (!empty($this->item->email)) : ?>
+		<br><br><em>Эл. почта</em><br>
+		<?=$this->item->getEmail()?>
+		<?php endif; ?>
+		
+		<?php if (!empty($this->item->skype)) : ?>
+		<br><br><em>Skype</em><br>
+		<?=$this->item->getSkype()?>
+		<?php endif; ?>
+	    
+	    </div>
+	</div>
+	
+	
+    </div>
+    
+    
+</div>
+
+<div class="Q1">
+    <div class="w25">
+	
+	<a class="black" href="<?= $this->item->getModelLink() ?>">
+	<div class="ATO-MMM mar-bot2">
+            <?php if (!empty($model->main_photo)) { ?>                    
+                <img src="/files/model/main_photo/<?= $model->main_photo ?>" width="216" height="110" alt="" />                    
+            <?php } else { ?>
+                <img src="/zeta/NO_model_pic.jpg" width="216" height="110" alt="" />
+            <?php } ?>
+		<div class="BREAK lh-150 align-center">
+			Mas de <?= $series->getBrandModel() ?><br />
+		</div>
+	</div>
+	</a>
+	<div class="ATO-MMMM">
+		<div>
+			<a href="<?= $this->item->getMarkLink() ?>"><img src="/files/marks/<?= $mark->getLogo() ?>" width="164" height="94" alt="" /></a>
+		</div>
+		<a href="<?= $this->item->getMarkLink() ?>">Modelos de<br /><?= $mark ?></a>
+	</div>
+	
+    </div>
+</div>
+
+<?php            
+    if (!is_null($author) || $this->isGodOfProject()) :                            
+        if ((!is_null($identity) && $author->id == $identity->id) || $this->isGodOfProject())  :                        
+?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#remove").click(function(){
+            if(!confirm("Вы действительно хотите удалить объявление?")) return false;
+        });     
+    });    
+</script>
+<?php
+        endIf;
+    endif;        
+?>

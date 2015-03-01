@@ -1,0 +1,122 @@
+#FORM_HEADER {float: left; width: 938px; background: #FFF; padding: 20px;}
+	.back_to_main_section {float: left; width: 100%; text-transform: uppercase; font-size: 80%; padding: 30px 0 20px 0;}
+		.back_to_main_section span {display: inline !important; background-position: -142px -111px; padding-left: 15px; margin-left: 5px;}
+		.back_to_main_section a:link, .back_to_main_section a:visited {text-decoration: underline !important;}
+	
+	h1.form_title {font-family: Calibri; font-size: 330%; text-transform: uppercase; font-weight: bold; margin-bottom: 12px;}
+	span.form_title_describe {color: #6E6D6D; font-size: 90%;}
+#FORM_CONTAINER {float: left; width: 938px; background: #FAF7F7; padding: 20px; border-top: 1px #DBDBDB solid;}
+
+div.standard_element_container {float: left; clear: both; width: 433px;}
+	label.standard_label {clear: both; display: block; margin-top: 21px;}
+	input.standard_input {clear: both; display: block; font-size: 170%; padding: 5px 2px; margin: 2px 0 0 0; width: 100%;}
+	input.short_input {display: inline; font-size: 170%; padding: 5px 2px; margin: 2px 0 0 0; width: 188px;}
+	select.short_select {display: inline; width: 197px; font-size: 130%; padding: 3px 4px; border: 1px #BBB solid; margin: 2px 0 0 0;}
+	select.standard_select {clear: both; display: block; width: 439px; font-size: 130%; padding: 3px 4px; border: 1px #BBB solid; margin: 2px 0 0 0;}
+	textarea.standard_textarea {clear: both; display: block; width: 428px; margin: 2px 0 0 0; font-family: Arial; height: 90px;}
+        textarea.imperavi_textarea {width: 935px; height: 500px; margin-top: 50px;}
+	span.counter {display: block; position: absolute; font-size: 90%; margin: -4.9em 0 0 421px;}
+	span.countertextarea {display: block; position: relative; font-size: 90%; margin: 2px 0 0 421px;}
+div.standard_element_help {float: left; width: 181px; padding-left: 20px; color: #6E6D6D; font-size: 90%; padding-top: 37px;}
+	img.ajax_loader {position: absolute; margin-top: 8px; width: 16px; height: 16px;}
+	
+	.radio_section {padding-top: 8px; margin-bottom: 19px;}
+	input.standard_radio {margin: 0;}
+	input.standard_checkbox {margin: 0 0 7px 0; float: left;}
+	label.label_radio {font-weight: normal; margin-right: 17px;}
+	label.label_checkbox_fix {font-weight: normal; margin: -1px 17px 7px 4px; width: 180px; display: block; float: left;}
+div.standard_departer {width: 930px; border-top: 1px #DBDBDB solid; clear: both; float: left; margin: 31px 0 11px 0;}
+
+.check_error {clear: both; float: left; font-size: 90%; color: #9D4444; margin-top: 6px;}
+	.check_error span {background-position: -364px -152px; padding-left: 14px; margin-right: 3px;}
+	
+.check_correct {clear: both; float: left; font-size: 90%; color: #56AC10; margin-top: 6px;}
+	.check_correct span {background-position: -385px -152px; padding-left: 14px; margin-right: 3px;}
+
+.standard_save_button {float: left; clear: both; margin: 0 0 30px 30px; width: 95px; height: 42px; background-position: -292px -258px !important;}
+	.standard_save_button:hover {background-position: -388px -258px !important;}
+	.standard_save_button:active {background-position: -484px -258px !important;}
+        
+.standard_publish_button {float: left; clear: both; margin: 0 0 30px 30px; width: 95px; height: 42px; background-position: 0 -344px !important;}
+	.standard_publish_button:hover {background-position: -95px -344px !important;}
+	.standard_publish_button:active {background-position: -191px -344px !important;}
+        
+ .standard_draft_button {float: left; margin: 0 0 30px 10px; width: 95px; height: 42px; background-position: 0 -301px !important;}
+	.standard_draft_button:hover {background-position: -95px -301px !important;}
+	.standard_draft_button:active {background-position: -191px -301px !important;}
+
+.uploadify {float: left; clear: both; margin: 30px 0 0 0; width: 145px; height: 42px; background-position: -292px -301px !important;}
+	.uploadify:hover {background-position: -438px -301px !important;}
+	.uploadify:active {background-position: -584px -301px !important;}
+	
+#photo-list {float: left; clear: both; width: 938px;}
+#photo-list span {float: left; display: block;}
+	#photo-list img {margin: 10px 10px 0 0; cursor: pointer;}
+	#photo-list img:hover {filter: alpha(opacity=90); opacity: 0.9; cursor: pointer;}
+	#photo-list img:active {filter: alpha(opacity=70); opacity: 0.7; cursor: pointer;}
+p.delete_notificitation {clear: both; float: left; color: #6E6D6D; font-size: 90%;}
+
+.floorplan_link {padding-top: 30px;}
+#FLOORPLANS {float: left; clear: both; width: 100%;}
+ul#mycarousel {background: url(../sprites/grid.png) 50% 0; float: left; clear: both; width: 928px !important; padding: 20px; margin: 20px 0 0 0 !important; box-shadow: 0 0 10px #CCC;}
+    ul#mycarousel li {text-align: center; width: 938px !important; padding: 0 0 50px 0; margin: 0;}
+    .floorplans_descr {padding: 0; margin: 0; font-size: 95%; color: #6E6E6E;}
+     ul#mycarousel li div {background: #F2F2F2; width: 938px; margin-bottom: 50px; padding: 15px 0; border-bottom: 1px #D9D9D9 solid;}
+     
+img.add_workplace {background-position: -512px -443px; width: 116px; height: 29px; display: block; margin: 0 0 20px 0;}
+img.add_workplace:hover {background-position: -628px -443px; width: 116px; height: 29px; cursor: pointer;}
+img.add_workplace:active {background-position: -744px -443px; width: 116px; height: 29px; cursor: pointer;}
+
+/* ФОРМЫ ВНУТРИ ПРОФИЛЯ */
+.profile_form {float: left; clear: both; padding: 0 20px; width: 635px;}
+.profile_form_cont {float: left; clear: both; background: #F8F4F4; border: 1px #DBDBDB solid; width: 595px; padding: 60px 20px 20px 20px;}
+    .short_column {width: 300px; padding: 20px !important;}
+.account_form_cont {float: left; clear: both; background: #FFF; border: 1px #FFF solid; border-top: 2px #333 solid !important; width: 595px; padding: 20px; margin-top: 20px;}
+h3.prof_title {text-transform: uppercase; font-size: 200%; font-weight: normal; text-transform: uppercase; font-family: Calibri, Arial; margin: 0; padding: 0 0 15px 0;}
+.prifile_inputs_cont {float: left; width: 390px;}
+
+.prof_element {float: left; clear: both; width: 390px;}
+.prof_inp_header {clear: left; float: left; width: 110px; color: #242424; font-size: 90%; padding-top: 13px; text-transform: uppercase; font-family: Calibri, arial;}
+.group_header {clear: left; float: left; width: 390px; color: #242424; border-bottom: 1px solid #BBB; font-size: 90%; padding: 40px 0 6px 0; margin-bottom: 12px; text-transform: uppercase; font-family: Calibri, arial;}
+.prof_input {float: left; width: 280px;}
+
+input.prof_string {width: 95%; padding: 5px 2px; color: #333;}
+input.input_dis {color: #999 !important;}
+select.prof_sel {width: 97.5%; padding: 5px 2px; color: #333; border: 1px solid #BBB;}
+
+.prof_error {clear: both; font-size: 90%; padding-bottom: 1em; color: #9D4444;}
+.prof_error img {width: 14px; height: 13px; background-position: -364px -152px; margin: 0 5px -2px 0;}
+
+.prof_departer {float: left; width: 390px; border-bottom: 1px #DBDBDB solid; margin: 25px 0 10px 0;}
+
+.prof_inp_header img {width: 16px; height: 16px; margin: 0 6px -4px 0;}
+.prof_st2 img {background-position: -595px -151px;}
+.prof_em2 img {background-position: -579px -151px;}
+.prof_sk2 img {background-position: -563px -151px;}
+.prof_vk2 img {background-position: -515px -151px;}
+.prof_tw2 img {background-position: -531px -151px;}
+.prof_lj2 img {background-position: -547px -151px;}
+
+.avatar_edit_area_cont {float: right; width: 185px; padding-top: 6px;}
+.avatar_edit_area_cont p.grey {clear: both; padding: 0;}
+.jcrop-holder_1 {overflow: hidden; width: auto !important; height: auto !important; border: 0px #DBDBDB solid !important;}
+span.uploadifyButtonText {display: none;}
+
+#avatar-uploader_button {width: 106px; height: 29px; margin-top: 10px; background-image: url(../sprites/collection.png); background-position: -137px -208px;}
+#avatar-uploader_button:hover {background-position: -137px -238px;}
+#avatar-uploader_button:active {background-position: -137px -268px;}
+.avatar_edit_area_cont p {font-size: 90%; padding-top: 20px; margin: 0;}
+
+.acc_short_cont {float: left; width: 235px;}
+.acc_short_cont .acc_input {clear: both; float: left; width: 235px;}
+.acc_largo_cont {float: left; width: 325px; padding-left: 30px;}
+.acc_largo_cont .acc_input {clear: both; float: left; width: 325px;}
+input.acc_string {width: 95%; padding: 5px 2px; color: #333;}
+.acc_short_cont .prof_inp_header {width: 95% !important;}
+.acc_largo_cont .prof_inp_header {width: 95% !important;}
+
+.acc_short_cont .prof_inp_comment {clear: left; float: left; width: 95%; color: #666; font-size: 80%; padding-top: 13px;}
+.acc_largo_cont .prof_inp_comment {clear: left; float: left; width: 95%; color: #666; font-size: 80%; padding-top: 13px;}
+.prof_inp_comment ul {padding: 0; margin: 0; list-style-type: disc;}
+
+.change_link {float: right; text-transform: none; font-size: 11px; font-family: arial;}

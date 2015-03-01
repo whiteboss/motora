@@ -1,0 +1,23 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#name").charCount({ allowed: 40 });
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->name?>
+    <?=$this->element->id_body?>
+    <?=$this->element->id_brand?>
+    <?=$this->element->main_photo?>
+    <?=$this->element->photo?>
+    <?=$this->element->description?>
+
+    <div class="standard_departer"></div>
+
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

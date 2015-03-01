@@ -1,0 +1,45 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#email").charCount({ allowed: 50 });
+	});
+</script>
+
+
+                <div class="w100 clear">
+                No tienes perfil? <a class="straight lineon" href="#signup" role="button" data-toggle="modal">Regístrate</a>
+                <h2>Entrar a Qlick.cl</h2>
+		</div>
+	    
+<form id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+	
+    <?=$this->element->email?>
+    <?=$this->element->password?>
+    <?php if (1 != 1) : ?>
+    <div class="standard_element_container">
+        <label class="standard_label">&nbsp;</label>
+        <?=$this->element->figli?>
+    </div>
+    <div class="standard_element_help">Вы ввели несколько раз подряд неверные данные, <a href="<?= $this->url(array(''), 'userrestore') ?>">¿Olvidó su contraseña?</a></div>
+    <?php endIf ?>    
+    <?=$this->element->token?>
+    <?=$this->element->referrer?>
+	
+    <div class="w100 clear mb15"><a href="<?= $this->url(array(''), 'userrestore') ?>" class="blue">¿Olvidó su contraseña?</a></div>
+    <div class="w100 clear mb15">
+    <?=$this->element->signin?>
+    </div>
+    
+    <div class="AU3 bor4">
+        <div class="AU2">
+            <a id="facebook" href="<?= $this->url(array('social' => 'facebook'), 'auth') ?>"><img class="Iconectar" src="/zeta/0.png" width="105" height="21" src="" /></a>
+        </div>
+        <div class="AU5 pull-right f10 grey">
+            Si usted tiene una cuenta en Facebook, se puede<br />ir una comprobación rápida.
+        </div>
+    </div>
+    
+</div>
+
+</form>

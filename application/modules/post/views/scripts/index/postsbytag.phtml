@@ -1,0 +1,100 @@
+<?php
+    $user = $this->GetUserByIdentity();
+?>
+<div class="container">
+    <div class="REVISTA-LIST">
+    
+        <?= $this->LentsHeader(); ?>
+<!--
+            <form class="form-horizontal pull-right mb15" id="search_form" name="search_form" enctype="application/x-www-form-urlencoded" method="get" action="<?=$this->url(array(), 'search');?>">
+                <input type="hidden" name="search_type" value="<?php
+                    if ($this->rubricId == 1) :
+                        print 'video';    
+                    else :    
+                        print 'post';
+                    endif;
+                ?>" />
+                <input id="search_str" name="q" class="Qsearch-eventos bor4 no-margin-right" type="text" x-webkit-speech="1" placeholder="Búsqueda..." /><input type="image" class="Isearch1 in-eventos" src="/zeta/0.png" width="16" height="16" alt="" />
+            </form>
+-->
+
+        <div id="posts_list">
+            
+            <span>Búsqueda por tema: <?= $this->tag ?></span><br /><br />
+            
+            <?php            
+                $i = 1;
+                if (count($this->posts) > 0) :
+
+                    $rows = ceil(count($this->posts) / 4);
+                    
+                    $col = 0;
+                    for ($row=0; $row < count($this->posts); $row++) :
+
+                        if ($row < 2) :
+            ?>
+            <div class="REVISTA-COL">
+            <?php
+                        else :
+            ?>
+            <div class="REVISTA-COL THIRD">
+            <?php
+                        endIf;
+
+                        for ($col=0; $col < count($this->posts[$row]); $col++) :
+
+                            $post = $this->posts[$row][$col];
+                            $post_url = $post->getUrl();
+                            
+                            $photo = $post->getPhoto();
+                            //$photos = $post->getPhotos();
+                            $rubric = $post->getRubric();
+                            ?>
+
+                            <div id="post" rel="<?= $i; ?>">
+                                <div class="Qblock">
+                                    <div>
+                                        <a class="Qprev" href="<?= $post_url ?>">
+                                            <img src="/files/post/thumbs/326_217_<?= $photo ?>" alt="<?= $post->name ?>">
+                                            <div>
+                                                <span class="w100 f14"><?= $post->name ?></span>
+                                            </div>
+                                        </a>
+                                        <p class="mb0"><?= $post->description ?></p>
+                                        <div class="w100 clear f11">
+                                            <div class="f10 w100">
+                                                <div class="Qexpo w100">
+                                                    <div><a href="<?= $this->url(array('theme_url' => mb_strtolower($rubric, 'UTF-8')), 'theme_seo') ?>" class="f11 lhov"><?= $rubric ?></a></div>
+                                                    <div class="Ilooks-cont"><a href="<?= $post_url ?>"><img src="/zeta/0.png" class="IVISITAS" alt=""></a></div><div><a class="grey lnone" href="<?= $post_url ?>"><?= $post->viewed ?></a></div>
+                                                    <div class="IcommB-cont"><a href="<?= $post_url ?>#commentsList"><img src="/zeta/0.png" class="IKOMMENTS" alt=""></a></div><div><a class="grey lnone" href="<?= $post_url ?>#commentsList"><?= (int) $post->commentCount() ?></a></div>
+                                                    <div class="IcommB-cont"><img src="/zeta/0.png" class="IREPOST" alt="" /></div><div><span class="grey f11">2</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+            <?php
+                            $i++;
+
+                        endfor;
+            ?>
+            </div>
+            <?php
+                    endfor;
+
+                else :
+            ?>
+            <div class="Qblock Qblock5">No hay publicaciónes</div>
+            <?php        
+                endif;    
+            ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div> 

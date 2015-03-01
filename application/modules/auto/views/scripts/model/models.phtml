@@ -1,0 +1,44 @@
+
+<div class="Q1">
+    <div class="w74-1">
+		
+	<div>
+		<img width="164" height="94" src="/files/marks/<?= $this->mark->getLogo() ?>" alt="" />
+	</div>
+	<div class="BRAND-3 mar-bot3">
+		<h2 class="lh-150 mar-bot0">Versiónes de <?= $this->mark->name ?> <?= $this->serie->name ?></h2>
+	</div>
+	<div class="lst-a">
+	
+	<?php 
+            if (count($this->modifications) > 0):
+
+                $model_name = '';
+		foreach ($this->modifications as $mod) :
+                
+                    if ($model_name <> $mod->model_name) :
+        ?>
+             <h2><?= $mod->model_name ?></h2>
+        <?php               
+                        $model_name = $mod->model_name;
+                    endif;                
+	?>
+
+	<?php
+            print $mod->name . '<br />';
+        ?>
+
+	<?php 
+                endForeach;
+            endif; 
+        ?>
+	
+	</div>
+		
+    </div>
+    
+    <div class="w25">
+
+        
+    </div>
+</div>

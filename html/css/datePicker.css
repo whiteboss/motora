@@ -1,0 +1,176 @@
+
+
+table.jCalendar {
+    background: #FFFAF9;
+    border-collapse: separate;
+    border-spacing: 0px;
+    margin-bottom: 0;
+    
+}
+table.jCalendar th {
+	background: #333;
+	color: #fff;
+	font-weight: bold;
+	padding: 6px 5px;
+}
+
+table.jCalendar th {background-color: #563756;
+        background-repeat: repeat-x;
+        background-position: left bottom;
+        text-align: center;
+        text-shadow: 1px 1px 1px #333333; -moz-text-shadow: 1px 1px 1px #333333;
+}
+table.jCalendar td {
+	background: #FFFAF9;
+	color: #000;
+	padding: 10px 12px;
+	text-align: center;
+        font-size: 110%;
+
+}
+table.jCalendar td.other-month {
+	background: #FFFAF9;
+	color: #AAA;
+}
+table.jCalendar td.today {
+	background: #666;
+	color: #fff;
+}
+table.jCalendar td.selected {
+	background: #563756;
+	color: #FFF;
+}
+table.jCalendar td.selected.dp-hover {
+	background: #563756;
+	color: #FFF;
+        cursor: default;
+}
+table.jCalendar td.dp-hover,
+table.jCalendar tr.activeWeekHover td {
+	background: #EFEFEF !important;
+	color: #000;
+}
+table.jCalendar tr.selectedWeek td {
+	background: #f66;
+	color: #fff;
+}
+table.jCalendar td.disabled, table.jCalendar td.disabled.dp-hover {
+	background: #FFFAF9;
+	color: #AAA;
+}
+table.jCalendar td.unselectable,
+table.jCalendar td.unselectable:hover,
+table.jCalendar td.unselectable.dp-hover {
+	background: #bbb;
+	color: #888;
+}
+
+/* For the popup */
+
+/* NOTE - you will probably want to style a.dp-choose-date - see how I did it in demo.css */
+
+div.dp-popup {
+	position: relative;
+	background-color: #563756;
+        background-repeat: repeat-x;
+        background-position: left top;
+	font-size: 10px;
+	font-family: arial, sans-serif;
+	padding: 3px 0 0 0;
+	width: 252px;
+	line-height: 1.2em;
+        -moz-box-shadow: 0 0 15px #BCBCBC;
+    -webkit-box-shadow: 0 0 15px #BCBCBC;
+    box-shadow: 0 0 25px #BCBCBC;
+    	border: 3px solid #FFF;
+}
+div#dp-popup {
+	position: absolute;
+	z-index: 300;
+}
+div.dp-popup h2 {
+	font-size: 18px;
+	text-align: center;
+	margin: 2px 0;
+	padding: 0 0 5px 0;
+        color: #FFF;
+        font-weight: normal;
+        font-family: Calibri, Arial;
+        text-shadow: 1px 1px 1px #333333; -moz-text-shadow: 1px 1px 1px #333333;
+}
+a#dp-close {
+	font-size: 11px;
+	padding: 4px 0;
+	text-align: center;
+	display: block;
+}
+a#dp-close:hover {
+	text-decoration: underline;
+}
+div.dp-popup a {
+	color: #FFF;
+	text-decoration: none;
+	padding: 6px 2px 0;
+        text-shadow: 1px 1px 1px #333333; -moz-text-shadow: 1px 1px 1px #333333;
+}
+div.dp-popup div.dp-nav-prev {
+	position: absolute;
+	top: 2px;
+	left: 4px;
+	width: 100px;
+}
+div.dp-popup div.dp-nav-prev a {
+	float: left;
+}
+/* Opera needs the rules to be this specific otherwise it doesn't change the cursor back to pointer after you have disabled and re-enabled a link */
+div.dp-popup div.dp-nav-prev a, div.dp-popup div.dp-nav-next a {
+	cursor: pointer;
+}
+div.dp-popup div.dp-nav-prev a.disabled, div.dp-popup div.dp-nav-next a.disabled {
+	cursor: default;
+}
+div.dp-popup div.dp-nav-next {
+	position: absolute;
+	top: 2px;
+	right: 4px;
+	width: 100px;
+}
+div.dp-popup div.dp-nav-next a {
+	float: right;
+}
+div.dp-popup a.disabled {
+	cursor: default;
+	color: #FFF;
+        display: none;
+}
+div.dp-popup td {
+	cursor: pointer;
+}
+div.dp-popup td.disabled {
+	cursor: default;
+}
+/* located in demo.css and creates a little calendar icon
+ * instead of a text link for "Choose date"
+ */
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 15px;
+	padding: 0;
+	margin: 7px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background-image: url('/zeta/!.png'); background-position: -335px -278px;
+	margin-right: 20px;
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+	float: left; width: 80px; padding: 5px 2px;
+}

@@ -1,0 +1,96 @@
+<div class="container">
+
+    <div class="Q74">
+        
+        <?php 
+            print $this->PopularPeoples();        
+        ?>
+
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Lugares</span></div>
+	
+        <div class="US1">            
+
+            <div class="Qblock Qblock5">
+
+                <?php
+                if (count($this->userCompanies) == 0) :
+                    $owner = $this->user;
+                    $identity = $this->getUserByIdentity();
+                    if (!is_null($owner) || $this->isGodOfProject()) :
+                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject()) :
+                            ?>                        
+                            <p class="f18 lh24">Todavìa no tienes ninguna empresa publicada, <a href="<?= $this->url(array(''), 'createcompany') ?>">publica aqui</a>.</p>                                                
+                            <?php
+                        endif;
+                    endif;
+                else:
+                    ?>
+
+                    <div id="company_list" class="BREAK">
+                        <?php
+                        $k = 0;
+                        foreach ($this->userCompanies as $company):
+                        ?>
+                        
+                        <div class="US10">
+                                <div class="US3">
+                                        <div class="Qlugares">
+                                                <a class="black lnone" href="<?= $company->getUrl() ?>">
+                                                    <span class="Qlugares1">
+                                                        <?= $company->getAvatar('', false, 'mid_'); ?>
+                                                    </span>
+                                                </a>
+                                        </div>
+                                </div>
+
+                                <div class="US4">
+                                        <br />
+                                        <p class="f18"><a class="black lnone" href="<?= $company->getUrl() ?>"><?= $company->name ?></a></p>
+                                        <p class="f12 lh17"><?= $company->getAddress() ?></p>
+                                        <p class="f11 grey2 lh17">
+                                                <?= $company->description ?>
+                                        </p>
+                                        <p class="f11 lh17">
+                                        <div>Categoría: <a class="purple" href="<?= $this->url(array('company_type' => $company->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$company->type] ?></a></div>
+                                        </p>
+                                        <div class="US9 f10">
+                                                <img src="/zeta/0.png" class="Iqr" width="15" height="16" alt=""><a href="#companyQR" role="button" data-toggle="modal">QR</a>
+
+                                                <!-- Modal -->
+                                                <div id="companyQR" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <div class="modal-body">
+                                                        <p><?= $this->qrCode()->google(array('text' => $company->getvCard(), 'size' => '500x500')); ?></p>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+                        </div>
+
+                        <div class="w100 clear mb30"></div>                        
+                        
+                            
+                        <?php    
+                        endforeach;
+                    ?>
+                    </div>    
+
+            <?php endif ?>
+            </div>
+
+        </div>
+
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>

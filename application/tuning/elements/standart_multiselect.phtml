@@ -1,0 +1,43 @@
+<div class="standard_element_container">    
+    <?php
+        // label
+        if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+    ?>
+    <label class="standard_label"><?=$this->element->getLabel()?><?php if($this->element->isRequired()) print "*"; ?></label>
+    <?php
+        }
+    ?>
+    <select name="<?=$this->element->getName()?>[]" id="<?=$this->element->getName()?>" size="<?=$this->element->size?>" class="standard_select" multiple="multiple">
+    <?php
+        foreach ($this->element->getmultiOptions() as $key=>$name) {
+            if (is_array($name)) {
+                print "<optgroup label='" . $key . "'>";
+                foreach ($name as $subkey=>$subname) {
+    ?>
+        <option <?php if (is_array($this->element->getValue()) && in_array($subkey, $this->element->getValue())) echo "selected";  ?> value="<?=$subkey?>"><?=$subname?></option>
+    <?php                
+                }
+                print "</optgroup>";
+            } else {
+    ?>
+        <option <?php if (is_array($this->element->getValue()) && in_array($key, $this->element->getValue())) echo "selected";  ?> value="<?=$key?>"><?=$name?></option>
+    <?php
+            }
+        }
+    ?>
+    </select>
+    <div class="standard_element_help"><?php echo $this->element->getDescription() ?></div>
+</div>
+
+
+
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        //print $this->formErrors($this->element->getMessages())
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+<?php
+        }
+    }
+?>

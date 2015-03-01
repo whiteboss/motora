@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="Q74">
+	
+	<?php 
+            //include('popular_companies.phtml') 
+            print $this->PopularPosts();
+        ?>
+	
+	<div class="BRC">
+	    <a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->company->getUrl() ?>">Volver a la pagina de lugar</a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Edición de información</span>
+	</div>
+
+        <div class="w100 mb10 grey">
+            Espacio con el signo * son obligatorios para relleno
+        </div>
+    
+        <div class="Qblock">
+            <?=$this->editform?>
+        </div>
+        
+    </div>
+    <?php include('right_block.phtml') ?>
+</div>

@@ -1,0 +1,113 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#name").charCount({ allowed: 45 });
+                $("#name_eng").charCount({ allowed: 40 });
+                $("#description").charCount({ allowed: 450, css: "countertextarea" });
+		$("#address").charCount({ allowed: 150 });
+                $("#path").charCount({ allowed: 300 });
+		$("#phone").charCount({ allowed: 16 });
+                $("#facebook").charCount({ allowed: 250 });
+                $("#tweeter").charCount({ allowed: 250 });
+                $("#site").charCount({ allowed: 250 });
+ 		$("#position").charCount({ allowed: 50 });
+                $("#contact").charCount({ allowed: 16 });
+                initAvatarUploader('/companies/uploadavatar', 'photo', 600, 270, 270, 'company/avatars', 0);
+                initUploader('/companies/upload', true, 'photos', 'company', <?= Companies_Model_Company::$limit_photos ?>);
+	});
+
+        function setCoords(c)
+        {
+            $('#crop_x').val(c.x);
+            $('#crop_y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+        };
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->name?>
+    <?=$this->element->name_eng?>
+    <?=$this->element->url?>
+    <?=$this->element->type?>
+    
+    <div class="break line"></div>
+    
+    <?=$this->element->description?>    
+    <?=$this->element->address?>
+    <?=$this->element->path?>
+    <?=$this->element->regime?>
+  
+    <div class="break mar-bot"></div>
+    <div class="break line"></div>
+    
+    <?=$this->element->phone?>
+    <div class="BREAK mar-bot"></div>
+    <div class="standard_element_container">
+        <?=$this->element->phone_add?>
+        <label class="standard_label">Teléfono adicionales</label>
+        <?=$this->element->newphone_nubmer?>&nbsp;
+	<?=$this->element->newphone_name?>
+	<div class="standard_element_help">Por ejemplo: +56 2 0000000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Por ejemplo: recepcionista</div>
+        
+        <div class="break">
+            <button name="newphone_add" id="newphone_add" type="button">Guardar el número</button>
+        </div>
+	<div id="additional_phones"></div>
+    </div>
+    <div class="BREAK mar-bot"></div>
+	<?=$this->element->email?>
+	<?=$this->element->newemail_email?>
+	
+	<div class="standard_element_container">
+		<div class="BREAK mar-bot2"><label>&nbsp;</label></div>
+	    <button name="newemail_add" id="newemail_add" type="button">Guardar el correo electrónico</button>
+	</div>
+	<div id="additional_emails"></div>    
+
+	<div class="break mar-bot"></div>
+	<div class="break line"></div>
+	<style>
+	#avatar-uploader_button {display: block;}
+	</style>
+	<div class="standard_element_container">
+        <label class="standard_label">Avatar</label>
+        <?=$this->element->photo?>
+    </div>    
+    <?=$this->element->crop_x?>
+    <?=$this->element->crop_y?>
+    <?=$this->element->w ?>
+    <?=$this->element->h ?>
+    <div class="BREAK mar-bot3"></div>
+    <div class="BREAK">
+        <label class="standard_label">Fotos (no más que quince y no menos que 900 pix. por la ancho)</label>    
+        <?=$this->element->photos?>
+    </div>
+
+    <div class="break mar-bot"></div>
+	
+    <?=$this->element->have?>
+    <?=$this->element->facebook?>
+    <?=$this->element->tweeter?>
+    <?=$this->element->site?>
+    <?=$this->element->payment_types?>
+    
+    <div class="break mar-bot"></div>
+        
+    <?php if (!empty($this->element->la_cuenta)) :?>
+    <div class="standard_element_container">
+        <label class="standard_label">&nbsp;</label>
+        <?=$this->element->la_cuenta?>
+    </div>
+    <?php endIf; ?>    
+
+    <?=$this->element->checkout?>
+    
+    <div class="standard_departer"></div>
+
+    <?=$this->element->add_item?>
+
+</div>
+    
+</form>

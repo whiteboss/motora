@@ -1,0 +1,118 @@
+<?php
+    $auth = Zend_Auth::getInstance();
+    $table = new Users_Model_Table_Friends();
+    $qn = new Qlick_Num();
+?>
+
+<div class="container">
+
+    <div class="Q74">
+        
+        <?php 
+            print $this->PopularPeoples();        
+        ?>
+	
+	<div class="BRC BRC50"><a class="grey" href="<?= $this->url(array('sex' => 'all'), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="grey f24"><?php 
+        
+            switch ($this->sex) :
+                case '1' : print 'Hombres'; break;
+                case '2' : print 'Mujeres'; break;
+                default : print 'Todos';                
+            endswitch;
+        
+        ?></span></div>
+	<form class="form-horizontal pull-right" id="search_form" name="search_form" enctype="application/x-www-form-urlencoded" method="get" action="<?=$this->url(array(), 'search');?>">
+	    <input type="hidden" name="search_type" value="user">
+            <input id="search_str" name="q" class="Qsearch-eventos bor4 no-margin-right" type="text" x-webkit-speech="1" placeholder="Búsqueda..."><input type="image" class="Isearch1 in-eventos" src="/zeta/0.png" width="16" height="16" alt="">
+	</form>
+        
+        <div id="users_list" class="Qblock Qblock6">
+            
+            <ul class="US-options f10">
+		<li><a href="<?= $this->url(array('sex' => 'all'), 'peoples') ?>">Todos</a></li>
+		<li><a href="<?= $this->url(array('sex' => 'hombres'), 'peoples') ?>">Hombres</a></li>
+		<li><a href="<?= $this->url(array('sex' => 'mujeres'), 'peoples') ?>">Mujeres</a></li>
+	    </ul>
+            
+            <div class="w100 mb30"></div>
+            
+            <?php
+                $i = 1;
+                $j = 1;
+                foreach($this->users as $user) :
+                    $age = $user->getAge();
+            ?>
+            
+            <div id="user" class="Q40<?php if ($i == 2) print ' pull-right'; ?>" rel="<?= $j; ?>">
+                <div class="Qusers1">
+                    <?= $user->getAvatar('119', '119', true, '', '119_') ?>
+                </div>
+                <div class="Qusers2">
+                    <p class="mb10">
+                    <strong><?= $user->getUserName('class="f14"') ?></strong>
+                    <br />
+                    <span><?= $user->getFullName() ?></span>
+                    </p>
+                    <p class="grey lh14">Ranking <?= $user->rate ?><br />
+                    <span class="grey f10">Con nosotros desde <?= $this->dateFormatPostList($user->signup_date) ?></span>
+                    <br />
+                    <span class="grey f10"><?= $user->getSex() ?><?php if (!is_null($age)) print ', ' . $age;  ?></span>
+                    </p>
+                </div>
+            </div>            
+            
+            <?php
+            
+                    if ($i == 2) :
+            ?>
+            <div class="w100 mb30"></div>
+            <?php
+                        $i = 0;
+                    endif;
+            
+                    $i++;
+                    $j++;
+                endForeach;
+            ?>
+            
+            <div id="loader"></div>
+               
+        </div>
+	
+    </div>
+	
+    <?php include('right_block.phtml') ?>
+
+</div>
+<?php
+if (count($this->users) >= Application_Model_User::$user_per_lazypage) :
+    ?>
+    <script type="text/javascript">
+
+        var lazy = false;
+        
+        $(function(){
+            $(window).scroll(function(){ 
+                var zone = $(document).height() - $(window).height() - 400;
+                if  ( $(window).scrollTop() >= zone && !lazy ) {                
+                    lazy = true;
+                    lazyPeople();
+                }
+            });  
+        }); 
+
+        function lazyPeople() 
+        { 
+            $('#loader').html('<img src="/sprites/pepload.gif">');
+            $.post("/peoples?from=" + $("#users_list > #user:last").attr("rel"),
+            function(data){
+                if (data != "") $("#loader").before(data);			
+                $('#loader').empty();
+                lazy = false;
+            });
+        };
+
+    </script>
+    <?php
+endIf;
+?>

@@ -1,0 +1,19 @@
+<select id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>[]" data-placeholder="<?= $this->element->getLabel() ?>" class="chzn-select" tabindex="4" multiple="multiple">
+<?php
+    foreach ($this->element->getmultiOptions() as $key=>$name) {
+        if (is_array($name)) {
+            print "<optgroup label='" . $key . "'>";
+            foreach ($name as $subkey=>$subname) {
+?>
+    <option <?php if (is_array($this->element->getValue()) && in_array($subkey, $this->element->getValue())) echo "selected";  ?> value="<?=$subkey?>"><?=$subname?></option>
+<?php                
+            }
+            print "</optgroup>";
+        } else {
+?>
+    <option <?php if (is_array($this->element->getValue()) && in_array($key, $this->element->getValue())) echo "selected";  ?> value="<?=$key?>"><?=$name?></option>
+<?php
+        }
+    }
+?>
+</select>

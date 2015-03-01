@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="Q74">
+        
+        <?php 
+            //include('popular_companies.phtml') 
+            print $this->PopularPosts();
+        ?>
+	
+	<div class="BRC">
+	    <a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Adición de un nuevo lugar</span>
+	</div>
+
+        <div class="w100 mb10 grey">
+            Espacio con el signo * son obligatorios para relleno
+        </div>
+    
+        <div class="Qblock">
+            <?=$this->addform?>
+            
+            <div class="w100 clear mb30"></div>
+            <div class="w100 clear">
+            Por favor, no se sorprenda si le llamamos para confirmar los datos.<br />
+            Trataremos de mantener el catálogo actualizado, lo principal es evitar las compañías &laquo;falsas&raquo;.<br />
+            No le vamos a molestar el fin de semana: podemos hacer llamadas solo en los dias de trabajo desde las 9:00 hasta las 17:00.<br />
+            Si han surgido complicaciones &mdash; <a class="blue" href="mailto:mailbox@qlick.cl">escribanos</a>. Le yudaremos sin falta.
+            </div>
+            
+        </div>
+    </div>
+    <?php include('right_block.phtml') ?>
+</div>

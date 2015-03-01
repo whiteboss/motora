@@ -1,0 +1,548 @@
+<div class="container">
+
+	<div class="Q74" itemscope itemtype="http://schema.org/Organization">
+		
+		<?php 
+                    //include('popular_companies.phtml') 
+                    print $this->PopularPosts();
+                ?>
+        
+		<div class="BRC">
+			<a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('company_type' => $this->company->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$this->company->type] ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey" itemprop="name"><?= $this->company->name ?></span>
+		<?php
+                        $identity = Zend_Auth::getInstance()->getIdentity();
+                        $owner = $this->company->getOwner();
+                        if (!is_null($identity) || $this->isGodOfProject()) :
+                            if (($owner && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                    ?>
+                        &nbsp;&nbsp;
+                        <a href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'edit'), 'company') ?>" title="Editar"><img class="Ieditar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                 <?php
+                                if ($this->company->is_confirmed == 0 || $this->isGodOfProject()) :
+                 ?>
+                        <a id="event-delete" href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'delete'), 'company') ?>" title="Eliminar"><img class="Ieliminar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                 <?php
+                                endif;
+                 
+                                if ($this->company->is_confirmed == 0 && $this->isGodOfProject()) :
+                 ?>                                    
+                   
+                        <a id="event-delete" href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'confirm'), 'company') ?>" title="Утвердить">Утвердить</a>                 
+                        
+                    <?php
+                                endIf;
+                    
+                            endIf;
+                        endIf;
+                    ?>
+		</div>
+	    
+		<div class="Q31">
+                    <?= $this->profileHead() ?>
+		    
+		    <?= $this->LugaresNoticias() ?>		    
+		</div>
+		<div class="Q64 lugar-perfil">
+		    
+		    <div class="Q48 f13 lh24">
+		    <p>
+                    <?php
+                        $location = $this->company->getLocationOnMap();
+                        if (!is_null($location)) :
+                    ?>
+		    <a class="black" itemprop="address" href="<?= $this->url(array(), 'map') ?>?location=(<?= $location->lat ?>,<?= $location->lng ?>)"><?= $this->escape($this->company->getAddress()) ?></a>
+                    <?php
+                        else :
+                    ?>
+                    <span itemprop="address"><?= $this->escape($this->company->getAddress()) ?></span>
+                    <?php        
+                        endif;
+                    ?>
+		    <br />
+                    <?php if (!is_null($this->company->path)) : ?>    
+                    <span class="grey"><?= $this->company->path ?></span><br />
+                    <?php endif; ?>
+                    
+                    <?php
+                        $main_phone = $this->company->getPhone();
+                        if ( !is_null($main_phone) ):
+                    ?>
+                    <span itemprop="telephone"><?= $main_phone ?><br /></span>
+                    <?php
+                        endif;
+                    ?>
+                    
+                    <?php
+                        $phones = $this->company->getPhoneAdds();
+                        if ( !is_null($phones)) :
+                            foreach ($phones as $phone) :
+                    ?>
+                    <?= $phone->number ?> <?php if (!empty($phone->name)) : ?> &mdash; <?= $phone->name ?><?php endIf; ?><br />
+                    <?php
+                            endForeach;
+                        endif;
+                    ?>
+                    
+                    <?php
+                        $emails = $this->company->getEmails();
+                        if ( !empty($emails) ):
+                            foreach( $emails as $email ):
+                    ?>
+                    <a itemprop="email" href="mailto:<?=$email?>"><?=$email?></a><br />
+                    <?php
+                            endforeach;
+                        endif;
+                    ?>
+                    <?php if ( !is_null($this->company->site) && !empty($this->company->site) ): ?>
+                    <?=$this->company->getSite()?><br />
+                    <?php endif; ?>
+                    
+                    <?php
+                        if ( !is_null($this->company->facebook) && !empty($this->company->facebook) ):
+                            print $this->company->getFacebook();
+                        endif;
+                    ?>
+                    
+                    <?php
+                        if ( !is_null($this->company->tweeter) && !empty($this->company->tweeter) ):
+                            print $this->company->getTweeter();
+                        endif;
+                    ?>
+                    
+		    </p>
+		    <p class="lh24">
+                        <?php if ( !is_null($this->company->regime) ): ?>
+                        Horario: <span class="grey"><?= $this->company->getRegime() ?></span>
+                        <br />
+                        <?php endif; ?>
+                        <?php if ( !is_null($this->company->la_cuenta) ): ?>
+			Cheque promedio: <span class="grey"><?= $this->company->la_cuenta ?></span>
+			<br />
+                        <?php endif; ?>
+                        <?php if ( !is_null($this->have) ): ?>
+                        Comodidades y servicios: <span class="grey"><?= $this->company->getHave() ?></span>
+                        <?php endif; ?>
+		    </p>
+			<div class="w100 mb15"></div>
+			<div class="w100 clear lugar-perf-qr">
+				<div class="QR3">
+				    <span class="Qprev QR1 point">
+					<a href="#contactQR" role="button" data-toggle="modal">
+					    <img class="" src="/zeta/zeta5.png" width="60" height="60" alt="" />
+					    <div><img class="Izoom1" src="/zeta/0.png" width="28" height="28" alt="" /></div>
+					</a>    
+				    </span>
+				</div>
+				<div class="f11 grey align-left lh14 QR2 mb50">
+				    <a href="#contactQR" role="button" data-toggle="modal">Código de QR</a> &ndash; utilizar el programa para escanear el código de barras en su teléfono para agregar el evento a su calendario.
+				</div>
+			</div>
+		    </div>
+		    <div class="Q48 pull-right center overhidden">
+                        <?= $this->company->getAvatar('',false); ?>
+			<!-- Modal -->
+                        <div id="contactQR" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                            <div class="modal-body">
+                                <p><?= $this->qrCode()->google(array('text' => $this->vcard, 'size' => '500x500')); ?></p>
+                            </div>
+                        </div>
+		    
+		    </div>
+		    
+                    <?php
+                        $photos = array();
+                        $i = 1;
+                        if ( !empty($this->company->photos) && !is_null($this->company->photos)) :
+                    ?>
+                    <div class="w100 mb30 lugar-perf">
+			<h2>Fotos de lugar</h2>                    
+                    <?php
+                            //$images = $this->company->getPhotos();
+                            $photos = $this->company->getPhotos();
+                            
+                            $flag_photos = false;
+                            if (count($photos) > 0) :
+                                foreach ( $photos as $key => $img ) :
+                                    if (!empty($img)) :
+                                        
+                                        if ($i == 4) :
+                    ?>                    
+                        <div id="photos" style="display: none;">
+                    <?php                
+                                        endIf;
+                    ?>
+                        <a href="#photo<?= $key ?>" role="button" data-toggle="modal"><img class="QperfI mb20" src="/files/company/163_108_<?=$img?>" width="163" height="108" alt="" /></a>
+                        <!-- Modal -->
+                        <div id="photo<?= $key ?>" class="modal hide fade lugar-perf-foto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                            <div class="modal-body">
+                                <img class="QperfI mb20" src="/files/company/<?=$img?>" alt="" />
+                            </div>
+                        </div>
+                    <?php
+                                    endIf;
+                                    
+                                    $i++;
+                                    
+                                endForeach;
+                                
+                                if ($i > 3) :
+                    ?>    
+                        </div>        
+                        <p>    
+                            <span id="show_photos" class="Qmore grey f11 bor4 lnone">Todos los fotos</span>
+                            <img src="zeta/0.png" width="10" height="10" alt="NOBG" />  
+                            <a href="<?= $this->company->getUrl('photos') ?>" class="Qmore grey f11 bor4 lnone">Fotoreportajes de eventos</a>
+                        </p>                                        
+                    <?php                    
+                                endif;
+                            endIf;
+                    ?>                        
+                    </div>
+                    <?php                        
+                        endIf;
+                        
+                        if ($i <= 3) :
+                    ?>
+                    
+                    <div class="w100 mb30 lugar-perf">
+                        <a href="<?= $this->company->getUrl('photos') ?>" class="Qmore grey f11 bor4 lnone">Fotoreportajes de eventos</a>
+                    </div>
+                    
+                    <?php
+                        endIf;
+                    
+                        if (!is_null($this->company->description)) :
+                    ?>		    
+		    <div class="Qblock f14"><?= $this->company->description ?></div>
+                    <?php
+                        endIf;
+                        
+                        if (!is_null($location)) :
+                            
+                    ?>
+                    
+                    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&language=es"></script> 
+                    <script type="text/javascript">
+                        var myLatlng = new google.maps.LatLng('<?php print $location->lat; ?>', '<?php print $location->lng; ?>');
+
+                        function initialize() {
+                            var myOptions = {
+                                scrollwheel: false,
+                                zoom: 16,
+                                center: myLatlng,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                name: "Santiago"
+                            };
+                            map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+
+                            new google.maps.Marker({
+                                position: myLatlng,
+                                map: map,
+                                clickable: false,
+                                id: "marker",
+                                icon: "/sprites/map/large/<?=$this->company->type?>.png"
+                            });        
+
+                        }
+
+                        $(function(){
+                            initialize();
+                        })
+                    </script>
+                    
+                    <div class="w100 mb30 lugar-perf">
+                        <div id="map_canvas" class="Qevent-map" style="width:90%; height:300px;"></div>
+                    </div>    
+                            
+                    <?php        
+                        endif;
+                        
+                        if (count($this->items) > 0) :
+                    ?>
+                    
+                    <div class="w100 mb30 lugar-perf">
+                        <p class="f18 mb20">Actividad</p>
+                    </div>
+                    
+                    <div class="Qblock Qblock5">
+                        
+                    <?php        
+                            
+                            $eventManager = new Events_Model_Table_Events();
+                            $photoreportManager = new Events_Model_Table_PhotoReports();
+                            $postManager = new Post_Model_Table_Post();
+                            
+                            foreach ($this->items as $item) :
+                            
+                                switch ($item->tbl) {
+
+                                case 'event' : {
+
+                                        $row = $eventManager->find($item->id)->current();
+
+                                        $photo = $row->getPhoto();
+                                        $place = $row->getPlaceName();
+                                        $last = $row->isLastEvent();
+                                        $num_attending = (int) count($row->getWalkedUsers());
+
+                                        ?>
+                                        <div class="US5">
+                                            <div class="Qprev-d">
+                                                <div class="Qprev-date"><?= $row->getDayStart() ?></div>
+                                                <div class="w100">de <?= $row->getFormatMonthStart() ?></div>
+                                                <div class="w100 grey"><?= $row->getDayOfWeekStart() ?></div>
+                                                <?php
+                                                    if ($row->start_date != $row->end_date) :
+                                                ?>
+                                                <div class="w100 f9 mb5 grey">hasta</div>
+                                                <div class="Qprev-date"><?= $row->getDayEnd() ?></div>
+                                                <div class="w100">de <?= $row->getFormatMonthEnd() ?></div>
+                                                <div class="w100 grey"><?= $row->getDayOfWeekEnd(0, true) ?></div>
+                                                <?php
+                                                    endIf;
+                                                ?>
+                                                <?php
+                                                if (!$last) :
+                                                    if (!is_null($identity) && !$row->isWalked($identity->id)) :
+                                                        ?>                                                                                        
+                                                        <div id="attend" class="B-ire" href="#" rel="<?= $row->id ?>">Voy</div>
+                                                        <?php
+                                                    elseif (!is_null($identity) && $row->isWalked($identity->id)) :
+                                                        ?>
+                                                        <div id="dismiss" class="B-ire" href="#" rel="<?= $row->id ?>">Voy</div>
+                                                        <?php
+                                                    else :
+                                                        ?>                        
+                                                        <a data-toggle="modal" role="button" href="#auth"><div class="B-ire">Voy</div></a>
+                                                    <?php
+                                                    endIf;
+                                                endIf;
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="US6">
+                                            <div class="Qavatar1">
+                                                <a href="<?= $row->getUrl() ?>"><img src="/files/events/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="US7">
+                                            <p class="f18"><a class="lhov" href="<?= $row->getUrl() ?>"><?= $row->name ?></a></p>
+                                            <p class="f11 grey2 lh17"><?= $row->description ?></p>
+                                            <p class="f11 lh17">
+                                            <div>Donde: 
+                                                <?php
+                                                if (!is_null($row->id_company) && $row->id_company > 0) :
+                                                    ?>
+                                                    <a class="purple" href="<?= $this->company->getUrl() ?>"><?= $place->name ?></a>
+                                                    <?php
+                                                else :
+                                                    print $place;
+                                                endif;
+                                                ?>
+                                            </div>
+                                            <div class="US9 f10">
+                                                <div class="Iire-cont"><img src="/zeta/0.png" class="Iire" width="6" height="16" alt=""></div><div><span id="attending-<?= $row->id ?>"><?= $num_attending ?></span></div>
+                                                <div class="Ilooks-cont"><img src="/zeta/0.png" class="Ilooks" width="14" height="16" alt=""></div><div><?= $row->counter ?></div>
+                                                <div class="Iqr-cont"><img src="/zeta/0.png" class="Iqr" width="15" height="16" alt="" /></div><div><a data-target="#eventQR<?= $row->id ?>" href="<?= $this->url(array('eventId' => $row->id, 'action' => 'qr'), 'event') ?>" role="button" data-toggle="modal">QR</a></div>
+                                                <!-- Modal -->
+                                                <div id="eventQR<?= $row->id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <div class="modal-body" data-remote="<?= $this->url(array('eventId' => $row->id, 'action' => 'qr'), 'event') ?>">                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </p>
+                                        </div>
+
+                                        <div class="w100 clear mb30"></div>
+
+                                        <!-- EVENTO  -->                        
+
+                                        <?php
+                                    } break;
+
+                                case 'post' : {
+
+                                        $row = $postManager->find($item->id)->current();                                
+
+                                        $photo = $row->getPhoto();
+                                        $category = $row->getRubric();
+                                        $commentCount = (int) $row->commentCount();
+                                        $post_url = $row->getUrl();
+                                        ?>
+
+                                        <div class="US10">
+
+                                            <div class="US6">
+                                                <div class="Qavatar1">
+                                                    <a href="<?= $post_url ?>"><img src="/files/post/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                                                </div>
+                                            </div>
+
+                                            <div class="US8">
+                                                <p class="f18"><a class="lhov" href="<?= $post_url ?>"><?= $row->name ?></a></p>
+                                                <p class="f11 grey2 lh17">
+                                                    <?= $row->description ?>
+                                                </p>
+                                                <p class="f11 lh17">
+                                                <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => mb_strtolower($category, 'UTF-8')), 'theme_seo') ?>"><?= $category->name ?></a></div>
+
+                                                <div class="US9 f10 grey">
+                                                    <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                                    <a class="grey lnone" href="<?= $post_url ?>" title="<?= $row->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->viewed ?></a>
+                                                </div>
+                                                </p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="w100 clear mb30"></div>        
+
+                                        <?php
+                                    } break;
+
+                                case 'video' : {
+
+                                        $row = $postManager->find($item->id)->current();
+
+                                        $commentCount = (int) $row->commentCount();
+                                        $post_url = $row->getUrl();
+                                        ?>
+
+                                        <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $post_url ?>"><?= $row->name ?></a></div>
+                                        
+                                        <video id="video" width="100%" height="400" controls="controls" preload="none" poster="<?=$row->getVideoPoster() ?>">
+                                            <source src="/files/post/video/<?= $row->video ?>" type="video/mp4" />
+                                            <?php
+                                                if (!is_null($row->video_webm)) :
+                                            ?>
+                                            <source src="/files/post/video/<?= $row->video_webm ?>" type="video/webm" />
+                                            <?php
+                                                endIf;
+                                            ?>
+                                            <object width="100%" height="400" type="application/x-shockwave-flash" data="/js/flashmediaelement.swf">
+                                                    <param name="movie" value="/js/flashmediaelement.swf" />
+                                                    <param name="flashvars" value="controls=true&amp;file=/files/post/video/<?= $row->video ?>" />
+                                                    <img src="<?= $row->getVideoPoster() ?>" width="100%" height="400" alt="No video playback capabilities" />
+                                            </object>
+                                        </video>
+
+                                        <p class="f11 lh17">
+                                        <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => 'video'), 'theme_seo') ?>">Vídeo</a></div>
+                                        <div class="US9 f10 grey">
+                                            <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                            <a class="grey lnone" href="<?= $post_url ?>" title="<?= $row->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->viewed ?></a>
+                                        </div>
+                                        </p>
+
+                                        <script>
+                                            $('video').mediaelementplayer({
+                                                enableAutosize: true
+                                            });
+                                        </script>
+
+                                        <div class="w100 clear mb30"></div>         
+
+
+                                        <?php
+                                    } break;
+
+                                case 'photoreport' : {
+
+                                        $row = $photoreportManager->find($item->id)->current();
+
+                                        $event = $row->getEvent();
+                                        $place = $event->getPlaceName();
+                                        $c_photos = count($row->getPhotos());
+                                        $c_comments = (int) $row->commentCount();
+
+                                        $day = $event->getDayStart();
+                                        $month = $event->getMonthStart();
+                                        $year = $event->getFormatYearStart();
+                                        ?>
+
+                                        <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $row->getUrl() ?>"><?= $event->getName() ?>, <?= $c_photos ?> fotos</a></div>
+
+                                        <div class="Qfotolist mb10">
+                                            <?php
+                                            $photos = $row->getPhotos(8);
+                                            foreach ($photos as $photo) :
+                                                ?>
+                                                <a href="<?= $row->getUrl() ?>"><img src="/files/events/photoreport/thumbs/111_<?= $photo ?>" width="111" height="111" alt="" /></a>
+                                                <?
+                                            endForeach;
+                                            ?>
+                                        </div>
+
+                                        <p class="f11 lh17">
+                                        <div>Donde:
+                                            <?php
+                                            if (!is_null($event->id_company) && $event->id_company > 0) :
+                                                ?>
+                                                <a class="lhov purple" href="<?= $this->company->getUrl() ?>"><?= $place->name ?></a>
+                                                <?php
+                                            else :
+                                                print $place;
+                                            endif;
+                                            ?>
+                                            &nbsp;&nbsp; Cuanto: <a class="lhov purple" href="<?= $this->url(array('year' => $year, 'month' => $month, 'day' => $day), 'photoreportsbydate') ?>"><?= $this->dateFormatPostList($event->start_date, false, false) ?></a>
+                                        </div>
+                                        <div class="US9 f10 grey">
+                                            <a class="grey lnone" href="<?= $row->getUrl() ?>#commentsList" title="<?= $c_comments ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $c_comments ?></a>
+                                            <a class="grey lnone" href="<?= $row->getUrl() ?>" title="<?= $row->counter ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->counter ?></a>
+                                        </div>
+                                        </p>
+
+                                        <div class="w100 clear mb30"></div>                                
+
+                                        <?php
+                                    } break;
+
+                                default : continue;
+                                }
+                            
+                            endforeach;
+                        ?>
+                                        
+                         </div>   
+                            
+                    <?php        
+                        endif;
+                        
+                    ?>
+		    
+		</div>
+		
+	</div>
+	
+        <?php include('right_block.phtml') ?>
+
+</div>
+<?php
+    if (count($photos) > 0) :
+?>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        
+        $('#show_photos').click(function(){
+            var el = $(this);    
+            $('#photos').toggle(0,function () {
+                if ($(this).css('display') == 'none') {
+                    el.html('Todos los fotos');
+                } else {
+                    el.html('Cerrar');                
+                }
+            });             
+        });
+        
+    });
+    
+</script>
+<?php
+    endIf;
+?>

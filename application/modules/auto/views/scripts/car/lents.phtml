@@ -1,0 +1,97 @@
+<div class="Q1">
+    
+    <div class="w74-1">
+        
+        <?php
+            $i = 1;
+            foreach ($this->lents as $lent):    
+                switch ($lent['content_type']) {
+                    case 'event' : $id = ' id = "unt-event"'; break;
+                    case 'gallery' : $id = ' id = "unt-gall"'; break;
+                    default : $id = '';
+                }
+                
+        ?>
+           <div class="NEWS-U">
+        <?php
+                switch ($lent['content_type']) {
+                    case 'post' : {
+                        // ПОСТ
+                        $photo = json_decode($lent['photo']);
+                        if (!is_null($photo)) :
+        ?>
+                <a href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>" class="news-l">
+                    <img class="news-i" src="/files/post/thumbs/triple_column_<?= $photo[0] ?>" width="220" height="160" alt="<?= $lent['name'] ?>">
+                
+        <?php
+                        endIf;
+        ?>
+                <h1><?= $lent['name'] ?></h1>
+                <p><?= $lent['description'] ?></p>
+                </a>
+                <p class="f90">
+                    <div><em><?= $this->DateFormatPostList($lent['date'], true) ?> &nbsp;&nbsp;</em></div>
+                    <a title="Обсуждение" class="news-cmns nl" href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>#commentsList"><div class="news-com"><img class="coll" src="/sprites/null.png" width="12" height="13" alt="" /></div><em>&nbsp;<?= $lent['commentCount'] ?></em></a>
+                    
+                        <!--<span class="sml"><img class="COLLECTION i-user" src="sprites/null.png" alt="" width="14" height="12"><?= $lent['author'] ?></span>
+                        <span class="sml"><a href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>"><img class="COLLECTION i-rtg" src="/sprites/null.png" width="8" height="6" alt=""></a><a class="grey" href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>"><?= $lent['rating'] ?></a></span>
+                        <span class="sml"><a href=""><img class="COLLECTION i-cmnt" src="/sprites/null.png" width="9" height="9" alt=""></a><a class="grey" href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>#commentsList"></a></span>
+                        <span class="sml"><a href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>"><img class="COLLECTION i-eye" src="/sprites/null.png" width="13" height="11" alt=""></a><a class="grey" href="<?= $this->url(array('postId' => $lent['id']), 'post') ?>"><?= $lent['viewed'] ?></a></span>
+                        -->
+                </p>  
+            </div>    
+        <?php        
+                    } break;
+                    case 'event' : {
+                        // СОБЫТИЕ
+                        $photo = json_decode($lent['photo']);
+        ?>
+                <a href="<?= $this->url(array('eventId' => $lent['id']), 'event') ?>">
+                    <img src="/files/events/thumbs/min_<?= $photo[0] ?>" width="174" alt="<?= $lent['name'] ?>">
+                </a>    
+                <p><?= $this->dateFormatPostList($lent['date']) ?></p>
+                <h3><a class="straight" href="<?= $this->url(array('eventId' => $lent['id']), 'event') ?>"><?= $lent['name'] ?></a></h3>   
+            </div>    
+        <?php                
+                    } break;
+                    case 'gallery' : {
+                        // ГАЛЛЕРЕЯ
+                        $photo = json_decode($lent['photo']);
+        ?>
+                <a href="<?= $this->url(array('photoreportId' => $lent['id']), 'photoreport') ?>"><div style="background-image: url(/files/events/photoreport/bages/min_<?= $photo[0] ?>);">
+                    <img src="/zeta/x-x-x.png" width="190" height="136" alt="<?= $lent['name'] ?>" />
+                </div></a>
+                <span>Галерея</span>
+                <h3><a class="white nl" href="<?= $this->url(array('photoreportId' => $lent['id']), 'photoreport') ?>"><?= $lent['name'] ?></a></h3>
+                <p>Автор <?= $lent['author'] ?></p>     
+            </div>    
+        <?php                
+                    } break;   
+                    
+                }                        
+                
+                if ($i == 3) :
+        ?>
+            <div class="break"></div>        
+        <?php
+                    $i = 0;
+                endif;
+                $i++;
+            endForeach
+        ?>    
+        
+        
+        
+    </div>
+    
+    <div class="w25">
+        <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+            <?= $this->left_banner ?>
+        </div>
+        
+        <div id="vk_groups"></div>
+        <script type="text/javascript">
+        VK.Widgets.Group("vk_groups", {mode: 0, width: "256", height: "300"}, 26971787);
+        </script>
+    </div>
+</div>

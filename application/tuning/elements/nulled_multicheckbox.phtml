@@ -1,0 +1,10 @@
+<?php
+    $checked = $this->element->getValue();
+    foreach ($this->element->getmultiOptions() as $key=>$name) {
+?>
+<li>
+    <input id="<?=$this->element->getName()?>-<?=$key?>" name="<?=$this->element->getName()?>[]" <?php if (count($checked) > 0) { foreach ($checked as $check) if ($check == $key) print "checked"; } else { print "checked"; } ?> type="checkbox" value="<?=$key?>" /> <label for="<?=$this->element->getName()?>-<?=$key?>"><?=$name?></label>
+</li>
+<?php
+    }
+?>

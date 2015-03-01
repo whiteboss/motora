@@ -1,0 +1,89 @@
+<?php
+
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    if (stripos($user_agent, 'MSIE 6.0') !== false && stripos($user_agent, 'MSIE 8.0') === false && stripos($user_agent, 'MSIE 7.0') === false) {
+        if (!isset($HTTP_COOKIE_VARS["ie"])) {
+            setcookie("ie", "yes", time()+60*60*24*360);
+            header ("Location: /ie6/ie6.html");
+        }
+    }
+    
+    echo $this->doctype();
+    
+?>
+<html>
+<head>    
+    <meta name="robots" content="noindex">
+    <meta name="geo.region" content="CL" />
+    <meta name="geo.placename" content="Santiago" />
+    <meta name="geo.position" content="-33.46912;-70.641997" />
+    <meta name="ICBM" content="-33.46912, -70.641997" />
+    <meta property="fb:app_id" content="352276618247213" />
+    <meta property="og:site_name" content="Motora.cl" />    
+    <?=$this->headMeta()?>
+    <meta property="og:type" content="website" />
+    <?php 
+        echo $this->headTitle();
+        echo $this->jQuery();
+        echo $this->magicHeadLink();         
+    ?>
+    <base href="/" />
+    <!--[if IE 7]> <link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen, projection"> <![endif]-->
+    <!--[if IE 8]> <link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen, projection"> <![endif]-->
+    <link rel="shortcut icon" href="/zeta/favicon.png" />
+    <link rel="apple-touch-icon" href="/zeta/icontouch.png" />
+   
+</head>
+
+<body lang="es">
+    <noscript>
+        <div>
+        <p>Lo sentimos, pero su navegador no tiene JavaScript y es necesario para todas las funciones de nuestra sítio. Eso podria ser por los casos siguientes:</p>
+	<ul class="mar-bot3 lh-130">
+	<li>Esta usando el navegador muy viejo. Le recomendamos instaliar la última versión de navegador <a class="nl" href="http://www.google.com/chrome">Сhrome</a>.</li>
+	<li>Su JavaScript esta desactivado. Como se puede activar <a class="nl" href="http://www.google.com/support/bin/answer.py?answer=23852">conocer aquí</a>.</li></ul>
+    </noscript>
+    <style>.Qmenu {margin-bottom: 15px;}</style>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/es_ES/all.js#xfbml=1&appId=155458191304330";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    <?php include('toppanel.phtml'); ?>
+
+    <?php
+        print $this->flashMessages();
+    ?>
+    <?= $this->layout()->content ?>
+
+    <?php include('footer.phtml'); ?>
+    
+    <?php 
+        echo $this->magicHeadScript();        
+    ?>
+    
+    <a href="#" class="scrollup"><nobr><img src="/zeta/0.png" alt="" />Volver</nobr></a>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){ 
+	$(window).scroll(function(){
+            if ($(this).scrollTop() > 100) {
+                $('.scrollup').fadeIn();
+            } else {
+                $('.scrollup').fadeOut();
+            }
+        }); 
+        $('.scrollup').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });
+    });
+    </script>
+
+</body>
+</html>
+<!-- © 2013 REVISTA INTERNET QLICK.CL (ISKAKOV & BERDNIK CREACIONES LLC.) -->

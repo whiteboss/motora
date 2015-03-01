@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#email").charCount({ allowed: 50 });
+                $("#username").charCount({ allowed: 15 });
+	});
+</script>
+
+                <div class="w100 clear">
+                No tienes perfil? <a class="straight lineon" href="#signup" role="button" data-toggle="modal">Regístrate</a>
+                <h2>Recuperación de la contraseña</h2>
+		</div>
+
+	    
+<form id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">    
+    
+    <?=$this->element->email?>
+    <?=$this->element->token?>
+    <?=$this->element->referrer?>
+	
+    <div class="break mar-bot"></div>
+
+    <?=$this->element->signin?>
+    
+</div>
+
+</form>

@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#name").charCount({ allowed: 60 });
+                $("#description").charCount({ allowed: 120, css: "countertextarea" });
+                $("#price").charCount({ allowed: 5 });
+                $("#volume").charCount({ allowed: 4 });
+                initUploader('/menus/upload', false, 'photo', 'menu');
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->name?>
+    <?=$this->element->price?>
+    <div class="break"></div>
+    <?=$this->element->description?>
+    <?=$this->element->volume?>
+    <div class="standard_element_container">
+        <label class="standard_label">&nbsp;</label>
+        <?=$this->element->delivery?>
+    </div>
+    
+    <?=$this->element->id_catalog?>
+    
+    <div class="break"></div>
+    
+    <div class="standard_element_container">
+        <label class="standard_label">Фотография</label>
+        <?=$this->element->photo?>
+    </div>    
+    
+    <div class="standard_departer"></div>
+
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

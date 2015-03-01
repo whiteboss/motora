@@ -1,0 +1,61 @@
+<div class="container">
+
+	<div class="w100 mb10"></div>
+	
+	<div class="Q74">
+		
+		<?php 
+                    //include('popular_companies.phtml') 
+                    print $this->PopularPosts();
+                ?>
+        
+		<div class="BRC">
+			<a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('company_type' => $this->company->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$this->company->type] ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey"><?= $this->company->name ?></span>
+		<?php
+                        $identity = Zend_Auth::getInstance()->getIdentity();
+                        $owner = $this->company->getOwner();
+                        if (!is_null($identity) || $this->isGodOfProject()) :
+                            if (($owner && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                    ?>
+                        &nbsp;&nbsp;
+                        <a href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'edit'), 'company') ?>" title="Editar"><img class="Ieditar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                        <a id="event-delete" href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'delete'), 'company') ?>" title="Eliminar"><img class="Ieliminar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                    <?php
+                            endIf;
+                        endIf;
+                    ?>
+		</div>
+	    
+		<div class="Q31">
+                    <?= $this->profileHead() ?>
+		    
+		    <?= $this->LugaresNoticias() ?>		    
+		</div>
+		<div class="Q64">
+		    
+                    <div class="Qblock Qvan">
+                    <?php
+                        if (count($this->items) > 0) :
+                            foreach ($this->items as $user):
+                    ?>
+                        <div>
+                            <?= $user->getAvatar(96,96); ?>
+                            <p><?=$user->getUserName()?></p>
+                        </div>            
+                    <?php
+                            endforeach;
+                        else :
+                    ?>
+                    No hay visitantes
+                    <?php        
+                        endIf;
+                    ?>
+                    </div>
+        
+		</div>
+		
+	</div>
+	
+        <?php include('right_block.phtml') ?>
+
+</div>

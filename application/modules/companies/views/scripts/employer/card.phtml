@@ -1,0 +1,16 @@
+<div id="content">
+	<div id="profile">	
+		<?=$this->profileHead()?> 
+		<div id="tabsmain">
+			<div id="tabscontents">
+				<div class="messages"><?=$this->message?></div>
+				<div>
+					<a href="/company<?=$this->item->id_company?>/employers">Volver</a>
+				</div>
+				<h4><?=$this->item?></h4>
+				<div>Destino: <?=$this->item->getPosition()?></div>
+				<div><?=$this->item->is_representative ? 'Representante de la empresa' : ''?></div>
+			</div>
+		</div>
+	</div>
+</div>

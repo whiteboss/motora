@@ -1,0 +1,32 @@
+<?php
+    $i = $this->from;
+    $c = 1;
+    $k = 0;
+    foreach( $this->items as $item ) :
+        $k++;
+?>            
+    <div id="car" class="unt-a CAR-FL" rel="<?= $i ?>">  
+        <a class="nl black" href="<?= $this->url(array('carId' => $item->id), 'car') ?>"><?php if (is_null($item->getMinPhoto())) : ?><img src="/zeta/no_obyav_pic.jpg" width="200" height="144" alt="Для этого предложения нет фотографий" /><?php else : ?><img src="/files/cars/thumbs/<?= $item->getMinPhoto() ?>" width="200" height="144" alt="Продается <?= $item->getName() ?>" /><?php endif; ?>
+        <h3><?= $item->getName() ?> '<?= substr($item->getYear(), 2, 2) ?></h3>
+        <p class="mar-bot2">
+                <span><?= $item->getEngineType() ?> двигатель, <?= $item->getEngineVolume() ?> куб. cм., <?= $item->getTransmission() ?> привод, <?= $item->getGearbox() ?>, <?php if ($item->mileage > 0) : ?>пробег: <?= $item->getMileage() ?> км.<?php else : ?>без пробега<?php endIf ?></span>
+            </p>
+                <span class="f0"><strong><?= $item->getPrice() ?> руб.</strong></span>
+        
+        </a>
+    </div>            
+<?php  
+
+        if ($k == 4 && $c != count($this->items)) :
+?>
+    <div class="BREAK"></div>        
+<?        
+            $k = 0;
+        endif;
+        
+        $c++;
+        $i++;
+        
+    endforeach;                
+?>
+<div class="BREAK"></div>

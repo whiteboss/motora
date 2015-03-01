@@ -1,0 +1,115 @@
+<?php
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+
+    $module = $request->getModuleName(); 
+    $controller = $request->getControllerName();
+    $action = $request->getActionName();
+    
+    if ($module == "default" && $controller == "index" && $action == "index") :
+?>
+<div class="QRIGHT-COL pull-right">
+<?php    
+    else :    
+?>
+<div class="QRIGHT-COL pull-right">
+<?php        
+    endif;
+?>
+        
+    <div class="Qbanner240 pull-right">
+        <p>Publicidad</p>
+        <a href="http://qlick.cl/evento1222/view"><img src="/zeta/secretstage.jpg" width="240" height="400" alt=""></a>
+    </div>
+    
+    <?php
+        if ($module == "events" && $controller == "index" && $action == "view") :
+    ?>
+
+    <div class="mb30">
+        <p class="f16 grey2 mb10">
+            <b>Valores</b>
+        </p>
+        <p class="grey2"><?= $this->event->getPrice() ?></p>
+        <?php
+            if (!empty($this->event->ticket1) || !empty($this->event->ticket2) || !empty($this->event->ticket3)) :
+        ?>
+        <p class="grey2 mb10">
+            <b>Comprar tickets:</b>
+        </p>
+        <?php
+            endIf;
+
+            if (!empty($this->event->ticket1)) :
+        ?>
+        <a href="<?= $this->event->ticket1 ?>" class="Qbut1"><img class="Iticketek" src="/zeta/0.png" width="89" height="36" alt="" /></a>
+        <?php
+            endIf;
+
+            if (!empty($this->event->ticket2)) :
+        ?>
+        <a href="<?= $this->event->ticket2 ?>" class="Qbut1"><img class="Ipuntoticket" src="/zeta/0.png" width="103" height="26" alt="" /></a>
+        <?php
+            endIf;
+
+            if (!empty($this->event->ticket3)) :
+        ?>
+        <a href="<?= $this->event->ticket3 ?>" class="Qbut1"><img class="Iferiaticket" src="/zeta/0.png" width="90" height="25" alt="" /></a>
+        <?php
+            endIf;
+            
+            if (!empty($this->event->ticket4)) :
+        ?>
+        <a href="<?= $this->event->ticket4 ?>" class="Qbut1"><img class="Idaleticket" src="/zeta/0.png" width="67" height="40" alt="" /></a>
+        <?php
+            endIf;            
+        ?>
+    </div>    
+    
+    <?php        
+        endif;    
+    ?>  
+    
+    <?php include('concerts.phtml') ?>
+    
+    <?php 
+    
+        if ($module != "default") {
+            include('events.phtml');
+            if ($controller != "photoreport" && $action != "index")
+                include('musics.phtml');
+        }
+        
+        if (($module != "users" || $action == "peoples") && $module != "music" && $module != "companies" && ($module != "default" && $action != "index")) :
+        
+    ?>
+                 
+    <?= $this->LugaresNoticias() ?>
+    
+    <?php
+        endIf;
+    ?>
+    <div class="w100 mb15"></div>
+    <div class="Qblock240 pull-right mb10">
+	
+	<div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="250" show_faces="true" stream="false" header="false"></fb:like-box>
+    </div> 
+    
+    <?php
+        if ($controller == "photoreport" && $action == "index")
+            include('musics.phtml');
+    ?>
+    
+    <div class="Qbanner240 pull-right mb30">
+        <p>Publicidad</p>
+        <a href="http://qlick.cl/evento1216/view"><img src="/zeta/anonuevo.jpg" width="240" height="400" alt=""></a>
+    </div>
+
+</div> 

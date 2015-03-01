@@ -1,0 +1,20 @@
+<select name="<?=$this->element->getName()?>" id="<?=$this->element->getName()?>" class="reg_form_select">
+<?php
+    foreach ($this->element->getmultiOptions() as $key=>$name) {
+?>
+    <option <?php if($this->element->getValue()==$key) echo 'selected="selected"';  ?> value="<?=$key?>"><?=$name?></option>
+<?php
+    }
+?>
+</select>
+
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        //print $this->formErrors($this->element->getMessages())
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<span class="regpage_error"><img class="coll" src="/sprites/null.png" alt="" /><?=$name;?></span>
+<?php
+        }
+    }
+?>

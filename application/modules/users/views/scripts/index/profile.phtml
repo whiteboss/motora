@@ -1,0 +1,436 @@
+<div class="container">
+
+    <div class="Q74">
+	
+	<?php 
+            print $this->PopularPeoples();        
+        ?>
+
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Perfil</span></div>
+
+        <div class="US1">
+            <?= $this->ProfileHead() ?>
+
+            <p class="f18 mb20">Actividad</p>
+
+            <div class="Qblock Qblock5">
+
+                <?php
+                $identity = $this->getUserByIdentity();
+                
+                if (count($this->items) > 0) :
+                
+                    $eventManager = new Events_Model_Table_Events();
+                    $photoreportManager = new Events_Model_Table_PhotoReports();
+                    $companyManager = new Companies_Model_Table_Companies();
+                    $musicManager = new Music_Model_Table_Musics();
+                    $postManager = new Post_Model_Table_Post();                    
+                    $userManager = new Application_Model_Table_Users();
+
+                    $i = 0;
+                    foreach ($this->items as $item) :
+                    
+                        $i++;
+
+                        switch ($item->tbl) {
+                    
+                            case 'event' : {
+                                
+                                    $row = $eventManager->find($item->id)->current();
+                                
+                                    $photo = $row->getPhoto();
+                                    $place = $row->getPlaceName();
+                                    $last = $row->isLastEvent();
+                                    $num_attending = (int) count($row->getWalkedUsers());
+                                    
+                                    if ($row->isWalked($this->user->id)) :
+                                        ?>
+                                        <div class="w100 clear grey mb10">Va a participar en el evento:</div>
+                                        <?php
+                                    else :
+                                        ?>
+                                        <div class="w100 clear grey mb10">Publicó un anuncio del evento:</div>
+                                    <?php
+                                    endif;
+
+                                    ?>
+                                    <div class="US5">
+                                        <div class="Qprev-d">
+                                            <div class="Qprev-date"><?= $row->getDayStart() ?></div>
+                                            <div class="w100">de <?= $row->getFormatMonthStart() ?></div>
+                                            <div class="w100 grey"><?= $row->getDayOfWeekStart() ?></div>
+                                            <?php
+                                                if ($row->start_date != $row->end_date) :
+                                            ?>
+                                            <div class="w100 f9 mb5 grey">hasta</div>
+                                            <div class="Qprev-date"><?= $row->getDayEnd() ?></div>
+                                            <div class="w100">de <?= $row->getFormatMonthEnd() ?></div>
+                                            <div class="w100 grey"><?= $row->getDayOfWeekEnd(0, true) ?></div>
+                                            <?php
+                                                endIf;
+                                            ?>
+                                            <?php
+                                            if (!$last) :
+                                                if (!is_null($identity) && !$row->isWalked($identity->id)) :
+                                                    ?>                                                                                        
+                                                    <div id="attend" class="B-ire" href="#" rel="<?= $row->id ?>">Voy</div>
+                                                    <?php
+                                                elseif (!is_null($identity) && $row->isWalked($identity->id)) :
+                                                    ?>
+                                                    <div id="dismiss" class="B-ire" href="#" rel="<?= $row->id ?>">Voy</div>
+                                                    <?php
+                                                else :
+                                                    ?>                        
+                                                    <a data-toggle="modal" role="button" href="#auth"><div class="B-ire">Voy</div></a>
+                                                <?php
+                                                endIf;
+                                            endIf;
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="US6">
+                                        <div class="Qavatar1">
+                                            <a href="<?= $row->getUrl() ?>"><img src="/files/events/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="US7">
+                                        <p class="f18"><a class="lhov" href="<?= $row->getUrl() ?>"><?= $row->name ?></a></p>
+                                        <p class="f11 grey2 lh17"><?= $row->description ?></p>
+                                        <p class="f11 lh17">
+                                        <div>Donde: 
+                                            <?php
+                                            if (!is_null($row->id_company) && $row->id_company > 0) :
+                                                ?>
+                                                <a class="purple" href="<?= $place->getUrl() ?>"><?= $place->name ?></a>
+                                                <?php
+                                            else :
+                                                print $place;
+                                            endif;
+                                            ?>
+                                        </div>
+                                        <div class="US9 f10">
+                                            <div class="Iire-cont"><img src="/zeta/0.png" class="Iire" width="6" height="16" alt=""></div><div><span id="attending-<?= $row->id ?>"><?= $num_attending ?></span></div>
+                                            <div class="Ilooks-cont"><img src="/zeta/0.png" class="Ilooks" width="14" height="16" alt=""></div><div><?= $row->counter ?></div>
+                                            <div class="Iqr-cont"><img src="/zeta/0.png" class="Iqr" width="15" height="16" alt="" /></div><div><a data-target="#eventQR<?= $row->id ?>" href="<?= $this->url(array('eventId' => $row->id, 'action' => 'qr'), 'event') ?>" role="button" data-toggle="modal">QR</a></div>
+                                            <!-- Modal -->
+                                            <div id="eventQR<?= $row->id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <div class="modal-body" data-remote="<?= $this->url(array('eventId' => $row->id, 'action' => 'qr'), 'event') ?>">                                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </p>
+                                    </div>
+
+                                    <div class="w100 clear mb30"></div>
+
+                                    <!-- EVENTO  -->                        
+
+                                    <?php
+                                } break;
+
+                            case 'music' : {
+                                
+                                    $row = $musicManager->find($item->id)->current();
+                                
+                                    $photo = $row->getPhoto();
+                                    $style = $row->getStyle();
+                                    $user = $row->getUser();
+                                    $commentCount = (int) $row->commentCount();
+                                    $musicCounter = $row->getMusicCounter(0);
+                                    if (!is_null($musicCounter)) {
+                                        $musicCounter = $musicCounter->counter;    
+                                    } else {
+                                        $musicCounter = 0;
+                                    }
+                                    ?>
+                                    <!-- MUSICA -->
+                                    <div class="w100 clear grey mb10">Ha publicado una pista de música:</div>                                    
+
+                                    <div class="US6">
+                                        <div class="Qavatar1">
+                                            <a href="<?= $this->url(array('musicId' => $row->id), 'music') ?>"><img src="/files/music/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="QmusicD US8 pull-right">
+                                        <span><a class="f14" href="<?= $this->url(array('musicId' => $row->id), 'music') ?>"><strong><?= $row->getName() ?></strong></a>&nbsp; <span class="f9 grey"><?= $row->getDate() ?></span><a class="Qtag lnone" href="<?= $this->url(array('categoryId' => $row->id_category), 'musicstyle') ?>"><?= $style ?></a></span>
+                                        <br>
+                                        <span class="grey f11 lh17">2 de junio, 2013 <strong><a class="purple lhov" href=""></a><?= $user->getUserName() ?></strong> publicado</span>
+                                        <audio id="player2" src="/files/music/<?= $row->getMusicFile() ?>" type="audio/mp3" controls="controls" preload="none"></audio>
+                                        <div class="w100 clear f10 grey">
+                                            <a class="grey lnone" href="<?= $this->url(array('musicId' => $row->id), 'music') ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                            <a class="grey lnone" href="<?= $this->url(array('musicId' => $row->id), 'music') ?>" title="<?= $row->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->viewed ?></a>
+                                        <?php
+                                            if (!$row->isAlbum()) :
+                                                if ($row->is_download == 1) :
+                                        ?>    
+                                            <a class="grey lnone" href="<?= $this->url(array('musicId' => $row->id, 'songId' => 0), 'downloadmusic') ?>" title="<?= $musicCounter ?> descargas"><img class="Idown" src="/zeta/0.png" width="10" height="16" alt=""><?= $musicCounter ?></a>
+                                        <?php
+                                                endIf;
+                                            else :
+                                                $s_count = count($row->getMusics());
+                                        ?>
+                                        <a class="grey lnone" href="<?= $this->url(array('musicId' => $row->id), 'music') ?>" title="<?= $s_count ?> tracks"><img class="Imusix" src="/zeta/0.png" width="10" height="16" alt=""><?= $s_count ?></a>    
+                                        <?php    
+                                            endif;
+                                        ?>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        $('audio').mediaelementplayer();
+                                    </script>
+
+                                    <div class="w100 clear mb30"></div>
+                                    <!-- MUSICA -->
+
+
+                                    <?php
+                                } break;
+
+                            case 'post' : {
+                                
+                                    $row = $postManager->find($item->id)->current();                                
+                                
+                                    $photo = $row->getPhoto();
+                                    $category = $row->getRubric();
+                                    $commentCount = (int) $row->commentCount();
+                                    $post_url = $row->getUrl();
+                                    ?>
+
+                                    <div class="US10">
+                                        
+                                        <div class="w100 clear grey mb10">Publicó una entrada de blog:</div>
+
+                                        <div class="US6">
+                                            <div class="Qavatar1">
+                                                <a href="<?= $post_url ?>"><img src="/files/post/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                                            </div>
+                                        </div>
+
+                                        <div class="US8">
+                                            <p class="f18"><a class="lhov" href="<?= $post_url ?>"><?= $row->name ?></a></p>
+                                            <p class="f11 grey2 lh17">
+                                                <?= $row->description ?>
+                                            </p>
+                                            <p class="f11 lh17">
+                                            <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => mb_strtolower($category, 'UTF-8')), 'theme_seo') ?>"><?= $category->name ?></a></div>
+
+                                            <div class="US9 f10 grey">
+                                                <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                                <a class="grey lnone" href="<?= $post_url ?>" title="<?= $row->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->viewed ?></a>
+                                            </div>
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="w100 clear mb30"></div>        
+
+                                    <?php
+                                } break;
+
+                            case 'video' : {
+                                
+                                    $row = $postManager->find($item->id)->current();
+                                
+                                    $commentCount = (int) $row->commentCount();
+                                    $post_url = $row->getUrl();
+                                    ?>
+                                    
+                                    <div class="w100 clear grey mb10">Publicó uno vídeo:</div>
+
+                                    <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $post_url ?>"><?= $row->name ?></a></div>
+                                    
+                                    <video id="video" width="100%" height="400" controls="controls" preload="none" poster="<?=$row->getVideoPoster() ?>">
+                                        <source src="/files/post/video/<?= $row->video ?>" type="video/mp4" />
+                                        <?php
+                                            if (!is_null($row->video_webm)) :
+                                        ?>
+                                        <source src="/files/post/video/<?= $row->video_webm ?>" type="video/webm" />
+                                        <?php
+                                            endIf;
+                                        ?>
+                                        <object width="100%" height="400" type="application/x-shockwave-flash" data="/js/flashmediaelement.swf">
+                                                <param name="movie" value="/js/flashmediaelement.swf" />
+                                                <param name="flashvars" value="controls=true&amp;file=/files/post/video/<?= $row->video ?>" />
+                                                <img src="<?= $row->getVideoPoster() ?>" width="100%" height="400" alt="No video playback capabilities" />
+                                        </object>
+                                    </video>
+
+                                    <p class="f11 lh17">
+                                    <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => 'video'), 'theme_seo') ?>">Vídeo</a></div>
+                                    <div class="US9 f10 grey">
+                                        <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                        <a class="grey lnone" href="<?= $post_url ?>" title="<?= $row->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->viewed ?></a>
+                                    </div>
+                                    </p>
+
+                                    <script>
+                                        $('video').mediaelementplayer({
+                                            enableAutosize: true
+                                        });
+                                    </script>
+
+                                    <div class="w100 clear mb30"></div>         
+
+
+                                    <?php
+                                } break;
+
+                            case 'company' : {
+                                
+                                    $row = $companyManager->find($item->id)->current();
+                                    ?>
+
+                                    <div class="US10">
+                                        
+                                        <div class="w100 clear grey mb10">Publicado un nuevo lugar:</div>
+
+                                        <div class="US3">
+                                            <div class="Qlugares">
+                                                <a class="black lnone" href="<?= $row->getUrl() ?>">
+                                                    <span class="Qlugares1">
+                                                        <?= $row->getAvatar('', false, 'mid_'); ?>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="US4">
+                                            <br />
+                                            <p class="f18"><a class="black lnone" href="<?= $row->getUrl() ?>"><?= $row->name ?></a></p>
+                                            <p class="f12 lh17"><?= $row->getAddress() ?></p>
+                                            <p class="f11 grey2 lh17">
+                                                <?= $row->description ?>
+                                            </p>
+                                            <p class="f11 lh17">
+                                            <div>Categoría: <a class="purple" href="<?= $this->url(array('company_type' => $row->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$row->type] ?></a></div>
+                                            </p>
+                                            <div class="US9 f10">
+                                                <div class="Iqr-cont"><img src="/zeta/0.png" class="Iqr" width="15" height="16" alt=""></div><div><a href="#companyQR" role="button" data-toggle="modal">QR</a></div>
+
+                                                <!-- Modal -->
+                                                <div id="companyQR" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                                    <div class="modal-body">
+                                                        <p><?= $this->qrCode()->google(array('text' => $row->getvCard(), 'size' => '500x500')); ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="w100 clear mb30"></div>                                
+
+                                    <?php
+                                } break;
+                            
+                            case 'photoreport' : {
+                                
+                                    $row = $photoreportManager->find($item->id)->current();
+                                
+                                    $event = $row->getEvent();
+                                    $place = $event->getPlaceName();
+                                    $c_photos = count($row->getPhotos());
+                                    $c_comments = (int) $row->commentCount();
+
+                                    $day = $event->getDayStart();
+                                    $month = $event->getMonthStart();
+                                    $year = $event->getFormatYearStart();
+                                    ?>
+                                    
+                                    <div class="w100 clear grey mb10">Publicó un fotoreportaje:</div>
+
+                                    <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $row->getUrl() ?>"><?= $event->getName() ?>, <?= $c_photos ?> fotos</a></div>
+
+                                    <div class="Qfotolist mb10">
+                                        <?php
+                                        $photos = $row->getPhotos(8);
+                                        foreach ($photos as $photo) :
+                                            ?>
+                                            <a href="<?= $row->getUrl() ?>"><img src="/files/events/photoreport/thumbs/111_<?= $photo ?>" width="111" height="111" alt="" /></a>
+                                            <?
+                                        endForeach;
+                                        ?>
+                                    </div>
+
+                                    <p class="f11 lh17">
+                                    <div>Donde:
+                                        <?php
+                                        if (!is_null($event->id_company) && $event->id_company > 0) :
+                                            ?>
+                                            <a class="lhov purple" href="<?= $place->getUrl() ?>"><?= $place->name ?></a>
+                                            <?php
+                                        else :
+                                            print $place;
+                                        endif;
+                                        ?>
+                                        &nbsp;&nbsp; Cuanto: <a class="lhov purple" href="<?= $this->url(array('year' => $year, 'month' => $month, 'day' => $day), 'photoreportsbydate') ?>"><?= $this->dateFormatPostList($event->start_date, false, false) ?></a>
+                                    </div>
+                                    <div class="US9 f10 grey">
+                                        <a class="grey lnone" href="<?= $row->getUrl() ?>#commentsList" title="<?= $c_comments ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $c_comments ?></a>
+                                        <a class="grey lnone" href="<?= $row->getUrl() ?>" title="<?= $row->counter ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $row->counter ?></a>
+                                    </div>
+                                    </p>
+
+                                    <div class="w100 clear mb30"></div>                                
+
+                                    <?php
+                                } break;
+
+                            default : continue;
+                        }
+
+                    endforeach;
+                    
+                else :
+                ?>
+                No hay actividad                    
+                <?php    
+                endIf;
+                ?>
+
+            </div>
+
+        </div>
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>
+
+<!--<script type="text/javascript">
+    $(document).ready(function(){        
+        function lazyload() 
+	{ 
+            $('div#loader').html('<img src="/sprites/pepload.gif">');
+            $.post("/peoples?from=" + $(".UZ-1:last").attr("rel"),
+
+            function(data){
+                if (data != "") $(".UZ-1:last").after(data);			
+                $('div#loader').empty();
+            });
+	};  
+	
+	$(window).scroll(function(){              
+            if  ( $(window).scrollTop() >= ($(document).height() - $(window).height() - 1)) {
+                setTimeout(function(){
+                    lazyload();
+                }, 500);                
+            }
+	});         
+    });    
+</script>  -->

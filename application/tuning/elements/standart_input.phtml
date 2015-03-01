@@ -1,0 +1,21 @@
+<div class="standard_element_container">    
+    <?php
+        // label
+        if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+    ?>
+    <label class="standard_label"><?=$this->element->getLabel()?><?php if($this->element->isRequired()) print "*"; ?></label>
+    <?php
+        }
+    ?>
+    <input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="text" placeholder="<?php echo $this->element->getDescription() ?>" <?php if ($this->readonly) print "readonly"; ?> <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> value="<?=$this->escape($this->element->getValue())?>" class="standard_input" />
+    <?php if (!is_null($this->element->getDescription())) : ?><div style="display: none;" class="standard_element_help"><?php echo $this->element->getDescription() ?></div><?php endIf; ?>
+    <?php    
+        if (count($this->element->getMessages()) > 0) {
+            foreach ($this->element->getMessages() as $key=>$name) {
+    ?>
+    <div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+    <?php
+            }
+        }
+    ?>
+</div>

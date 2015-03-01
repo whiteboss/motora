@@ -1,0 +1,32 @@
+<div class="standard_element_container">    
+    <?php
+        // label
+        if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+    ?>
+    <label class="standard_label"><?=$this->element->getLabel()?><?php if($this->element->isRequired()) print "*"; ?></label>
+    <?php
+        }
+    ?>
+    <select id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" data-placeholder="<?= $this->element->getLabel() ?>" class="chzn-select">
+    <?php
+        foreach ($this->element->getmultiOptions() as $key=>$name) {
+    ?>
+        <option <?php if($this->element->getValue()==$key) echo 'selected="selected"';  ?> value="<?=$key?>"><?=$name?></option>
+    <?php
+        }
+    ?>
+    </select>
+</div>
+
+<div class="standard_element_help"><?php echo $this->element->getDescription() ?></div>
+
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        //print $this->formErrors($this->element->getMessages())
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+<?php
+        }
+    }
+?>

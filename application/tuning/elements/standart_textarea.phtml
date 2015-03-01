@@ -1,0 +1,22 @@
+<div class="standard_element_container">    
+    <?php
+        // label
+        if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+    ?>
+    <label class="standard_label"><?=$this->element->getLabel()?><?php if($this->element->isRequired()) print "*"; ?></label>
+    <?php
+        }
+    ?>
+    <textarea id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" placeholder="<?php echo $this->element->getDescription() ?>" <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> class="standard_textarea"><?=$this->element->getValue()?></textarea>
+
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+<?php
+        }
+    }
+?>
+
+</div>

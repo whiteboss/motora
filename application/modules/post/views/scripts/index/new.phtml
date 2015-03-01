@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="Q74">
+        
+        <?php 
+            print $this->PopularPosts();
+        ?>
+	
+	<div class="BRC">
+	    <a class="grey" href="<?=$this->url(array(''), 'lents');?>">Revista</a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Nuevo publicación</span>
+	</div>
+
+        <div class="w100 mb10 grey">
+            Espacio con el signo * son obligatorios para relleno
+        </div>
+    
+        <div class="Qblock">
+            <?=$this->addPostForm; ?>
+        </div>
+    </div>
+    <?php include('right_block.phtml') ?>
+</div>

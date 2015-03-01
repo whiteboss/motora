@@ -1,0 +1,306 @@
+<?php 
+
+    $owner = $this->post->getUser();
+    $identity = $this->getUserByIdentity();
+    $rubric = $this->post->getRubric();
+    $images = json_decode($this->post->photos, true);
+    
+    $post_url = $this->post->getUrl();
+    
+?>
+
+<?= $this->LentsHeader() ?>
+
+<div class="container mb30">
+
+    <div class="QLEFTCOL70" itemscope itemtype="http://schema.org/Article">
+    
+        <div class="QPUBL">
+
+            <div class="QPUBTOP">
+
+                <h1 class="post-tit" itemprop="name"><?= $this->post->name ?>
+                <br />
+                <?php            
+                    if (!is_null($owner) || $this->isGodOfProject()) :                            
+                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                        
+                ?>
+                    <a href="<?=$this->url(array('postId' => $this->post->id, 'action' => 'edit'), 'post');?>" title="Editar"><img class="Ieditar" src="/zeta/0.png" width="17" height="17" alt="" /></a>
+                    <a id="remove" href="<?=$this->url(array('postId' => $this->post->id, 'action' => 'delete'), 'post');?>" title="Eliminar"><img class="Ieliminar" src="/zeta/0.png" width="17" height="17" alt="" /></a>        
+                    <?php
+                        if (!is_null($this->post->company_id) && $this->post->company_id > 0) :
+                            if ($this->post->inNoticias()) :
+                    ?>        
+                        <a id="noticia" href="<?= $this->url(array('postId' => $this->post->id, 'action' => 'togglenoticia'), 'post') ?>" title="Ya no importa"><img class="Inoticias1" src="/zeta/0.png" width="17" height="17" alt="" /></a>
+                    <?php    
+                            else :    
+                    ?>
+                        <a id="noticia" href="<?= $this->url(array('postId' => $this->post->id, 'action' => 'togglenoticia'), 'post') ?>" title="Es importante!"><img class="Inoticias2" src="/zeta/0.png" width="17" height="17" alt="" /></a>    
+                    <?php        
+                            endif;
+                        endIf;
+
+                        endIf;
+                    endIf;
+                ?>
+
+                </h1>
+
+                <div class="Qpub-autor-type mb40">
+
+                        <div class="Qpub-autor-ava"><?= $owner->getAvatar(48,48) ?></div>
+                        <div class="Qpub-autor-name">
+                            <span><?= $this->post->post_type ?></span>
+                            <p class="mb0" itemprop="author"><?= $owner->getUserName('class="lhov"') ?></p>
+                            <?php
+                                if (!is_null($this->post->author) && $this->post->author != '') :
+                            ?>
+                            <p class="mb0 grey lh17"><?= $this->post->author ?></p>
+                            <?php
+                                endIf;
+                            ?>
+                            <meta itemprop="inLanguage" content="es"/>
+                            <meta itemprop="copyrightHolder" content="name:Qlick.cl"/>
+                        </div>
+
+                </div>
+
+
+                <div class="Qpub-deskr mb40" itemprop="headline"><?= $this->post->description ?></div>
+                
+                <div class="post-likes-autor w100 mb20">
+                    <div class="Q40">
+                        <?php
+                            $commentCount = (int) $this->post->commentCount();
+                            $shareCount = $this->post->shareCount();
+                        ?>
+                        <img src="/zeta/0.png" class="IVISITAS" alt="" /> <span class="grey f11"><?= $this->post->viewed ?></span>
+                        <img src="/zeta/0.png" class="IKOMMENTS" alt="" /> <span class="grey f11"><?= $commentCount ?></span>
+                        <img src="/zeta/0.png" class="IREPOST" alt="" /> <span class="grey f11"><?= $shareCount ?></span>
+                        <span class="f11 article-date" itemprop="datePublished"><?= $this->dateFormatPostList($this->post->date, false, false) ?></span>
+                        <meta itemprop="interactionCount" content="UserLikes:<?= $shareCount ?>"/>
+                        <meta itemprop="interactionCount" content="UserComments:<?= $commentCount ?>"/>
+                    </div>
+                    <div class="Q60 pull-right">
+                        <div class="pull-right">
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="QlickChile" data-lang="es">Twittear</a>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>                    
+                        </div>
+                        <div class="fb-like pull-right" data-href="http://<?= $_SERVER['HTTP_HOST'] ?><?= $post_url ?>" data-send="false" data-width="280" data-show-faces="false"></div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div class="w100 center QPI mb30">
+
+            <?php                
+                if (!is_null($this->post->video)) :
+            ?>
+            <div id="Post-Video" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+                <meta itemprop="name" content="<?= $this->post->name ?>" />
+                <video itemprop="video" id="video" width="100%" height="520" controls="controls" preload="none" poster="<?= $this->post->getVideoPoster() ?>">
+                        <source src="/files/post/video/<?= $this->post->video ?>" type="video/mp4" />
+                        <?php
+                            if (!is_null($this->post->video_webm)) :
+                        ?>
+                        <source src="/files/post/video/<?= $this->post->video_webm ?>" type="video/webm" />
+                        <?php
+                            endIf;
+                        ?>
+                        <object width="100%" height="520" type="application/x-shockwave-flash" data="/js/flashmediaelement.swf">
+                                <param name="movie" value="/js/flashmediaelement.swf" />
+                                <param name="flashvars" value="controls=true&amp;file=/files/post/video/<?= $this->post->video ?>" />
+                                <img itemprop="thumbnail" src="<?= $this->post->getVideoPoster() ?>" width="100%" height="520" alt="No video playback capabilities" />
+                        </object>
+                </video>                
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $('video').mediaelementplayer({
+                        enableAutosize: true
+                    });
+                });
+            </script>
+            <?php
+                endIf;
+            ?>
+            
+            <?php    
+                $photo = $this->post->getMainPhoto();
+                if (!is_null($photo) && $this->post->rubric_id != 1) :
+                    $path = Zend_Registry::get('upload_path') . '/post/' . $photo;
+                    $size = getimagesize($path);
+            ?>
+                <img itemprop="image" width="<?= $size[0] ?>" src="/files/post/<?= $photo ?>" alt="<?= $this->post->name ?>" />
+            <?php
+                endIf;
+            ?>
+
+
+            </div>
+
+            
+            <div class="W100 post-txt" itemprop="articleBody">
+
+
+                <?php echo $this->post->post; ?>
+            
+            </div>
+
+                <div class="post-likes-autor w100 mb20">
+                    <div class="Q60 pull-right">
+                        <div class="pull-right">
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="QlickChile" data-lang="es">Twittear</a>
+                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>                    
+                        </div>
+                        <div class="fb-like pull-right" data-href="http://<?= $_SERVER['HTTP_HOST'] ?><?= $post_url ?>" data-send="false" data-width="280" data-show-faces="false"></div>
+                    </div>
+                    
+                </div>
+
+         </div>
+        
+        <?php
+                if ( count($images) > 0 ) :
+            ?>
+            <div class="mb15 BREAK"></div>
+            <a name="photosList">
+            <div id="photosList" class="PUB-GL">
+            <?php        
+                    if (count($images) > 1) {
+            ?>        
+                <ul class="photo_switcher BREAK">
+                    <!--<li class="PUB-gal f12 bold">Fotos <?=count($images)?></li>-->
+                    <li class="prev active" id="slide_prev"><img title="Anterior" src="/zeta/0.png" alt="" /></li>
+                    <li class="next active" id="slide_next"><img title="Siguiente" src="/zeta/0.png" alt="" /></li>
+                </ul>
+                <?php
+                    }
+                ?>
+
+                <div class="auto_gallery mb30">
+                        <ul id="gallery">
+
+                <?php
+                            if (count($images) > 0) {
+                                foreach ( $images as $img ) {
+                ?>
+                        <li><img src="/files/post/<?=$img?>" alt="<?= $this->post->name ?>" /></li>
+                <?php
+                                }
+                            }
+                ?>
+                        </ul>
+                </div>
+
+            </div>
+            </a>
+            <?php
+                endIf;
+            ?>
+            
+            
+            
+        <?php
+            // ПОХОЖИЕ ПОСТЫ
+            if (count($this->similar_posts) > 0) :                
+        ?>
+        <div class="w100 mb10 f16"><b>Publicaciones similares</b></div>
+        <div class="BREAK mb30 publ-similares bor4">
+        <?php
+                $col = 0;
+                foreach ($this->similar_posts as $post) :                
+                    
+                    if ($col < 2) :
+        ?>
+            <div class="REVISTA-COL">
+        <?php
+                    else :
+        ?>
+            <div class="REVISTA-COL THIRD">
+        <?php
+                    endIf;   
+                    
+                    $s_post_url = $post->getUrl();
+                    $photo = $post->getPhoto();
+        ?>
+
+                <div class="Qblock">
+                    <div>
+                        <a class="Qprev" href="<?= $s_post_url ?>">
+                            <img src="/files/post/thumbs/326_217_<?= $photo ?>" alt="<?= $post->name ?>">
+                            <div>
+                                <span class="w100 f14"><?= $post->name ?></span>
+                            </div>
+                        </a>
+                        <p class="mb0"><?= $post->description ?></p>
+                    </div>
+                </div>
+                
+            </div>
+        <?php
+                    $col++;
+                endforeach;
+        ?>
+        </div>
+        <?php
+            endIf;
+            // КОНЕЦ ПОХОЖИХ ПОСТОВ
+        ?>        
+        
+        <div class="w100 mb10 f16"><b>Comentarios</b></div>
+        <div class="Qblock Qblock5 mb30">
+            <?php include('comments.phtml') ?>     
+        </div>         
+
+        <div class="w100 mb10 f16"><img class="Ifbcomm" src="/zeta/0.png" width="22" height="22" alt="" /><b><fb:comments-count href="http://<?= $_SERVER['HTTP_HOST'] ?><?= $post_url ?>"></fb:comments-count> facebook comentarios</b></div>
+        <div class="Qblock Qblock5">
+            <div class="fb-comments" itemprop="comment" data-href="http://<?= $_SERVER['HTTP_HOST'] ?><?= $post_url ?>" data-width="470" data-num-posts="10" data-order_by="time"></div>
+        </div>
+        
+    </div>
+    
+    <?php include('right_block.phtml') ?>
+
+</div>
+
+<?php            
+    if (!is_null($owner) || $this->isGodOfProject()) :                            
+        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                        
+?>
+<script type="text/javascript">    
+    $(document).ready(function() {
+        $("#remove").live('click', function(){
+            if(!confirm("¿Realmente quiere eliminar el publicación dado?")) return false;
+        });
+    });
+    
+<?php
+    if ($this->isGodOfProject()) :
+?>
+        
+    $('#noticia').click(function(){
+        var el = $(this);
+        el.html('<img src="/zeta/ajax-loader-1.gif" width="17" height="17" alt="" />');
+        $.ajax({
+            url: el.attr('href'),
+            type: 'post',
+            success: function( data ) {
+                if ( data )
+                    el.html(data);
+            }
+        });
+        return false;
+    });
+        
+<?php
+    endIf;        
+?>    
+    
+</script>
+<?php
+        endIf;
+    endif;        
+?>        

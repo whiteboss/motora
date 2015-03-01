@@ -1,0 +1,18 @@
+<?php
+    // label
+    if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+?>
+<span><?=$this->element->getLabel()?></span>
+<?php
+    }
+?>
+<input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="text" <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> value="<?=$this->escape($this->element->getValue())?>" class="reg_form_string" />
+<?php    
+    if (count($this->element->getMessages()) > 0) {
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<span class="regpage_error"><img class="coll" src="/sprites/null.png" alt="" /><?=$name;?></span>
+<?php
+        }
+    }
+?>

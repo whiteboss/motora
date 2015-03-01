@@ -1,0 +1,12 @@
+<input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="text" <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> value="<?=$this->element->getValue()?>" class="short_input" />
+
+<?php    
+    if (count($this->element->getMessages()) > 0) {
+        //print $this->formErrors($this->element->getMessages())
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+<?php
+        }
+    }
+?>

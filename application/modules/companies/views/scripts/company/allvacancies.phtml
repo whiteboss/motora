@@ -1,0 +1,115 @@
+<div id="m1">
+	<div id="m2">
+	    <div id="m3">
+		<div id="c1">
+
+                    <div class="ttl">
+                        <?= $this->companiesHead(); ?>
+                    </div>
+
+                    <div class="clss mar-bot2">
+                        <input id="company_search" name="company_search" class="clsf" type="text" value="" />
+                    </div>
+                    <p class="f90 mar-bot">
+                        <em>Например, <a href="" class="dashedgrey nl">бухгалтер</a></em>
+                    </p>
+
+                    <div class="line mar-bot"></div>
+
+                    <div id="company_list" class="lst4">
+                        <?php   
+                            $k = 0;
+                            $industry = 0;
+                            foreach ($this->items as $vacancy) :     
+                                $k++;
+                                if ($k == 4) { print '<div class="break"></div>'; $k = 1; }
+                                if ($industry != $vacancy->industry) {
+                        ?>
+                        <ul class="trl-ls">
+                            <h3><?= $vacancy->getIndustry() ?></h3>    
+                        <?php
+                                    $industry = $vacancy->industry;
+                                }
+                                //$rl = 1;
+                                //$toggle = false;                                
+                                    //if (($rl > Companies_Model_Sphere::$_rolllevel) && !$toggle) {
+                                    //    print '<div id="sub' . $id . '" style="display: none">';
+                                    //    $rl = $id;
+                                    //    $toggle = true;
+                                    //} elseif (!$toggle) $rl++;
+                        ?>
+                            <li><a class="blue lineon" href=""><?= $vacancy->position ?></a><span><?= $vacancy->vacancy_count ?></span></li>    
+                        <?php                            
+                                
+                                //if ($toggle) print '</div><li><a id="sub-toggle" href="sub' . $rl . '">Показать еще</a></li>';
+                                if ($industry != $vacancy->industry) {
+                        ?>
+                        </ul>
+                        <?php
+                                }
+                            endForeach;
+                        ?>
+                    </div>
+
+		</div>
+	    </div>
+	    
+	   <div id="c2">
+	    
+		<div class="sanctum">
+		    <a href=""><img src="zeta/banner1.jpg" alt="" widht="240" height="400" /></a>
+		</div>
+		
+		<div class="line"></div>
+		
+                <?php include('popular_companies.phtml') ?>
+                
+                <?php if (count($this->vacancies) > 0) : ?>
+		
+		<div id="c2-0">
+		    <div class="ttl">
+			<h1>Вакансии компаний</h1>
+		    </div>                    
+                    <?php
+                        foreach ($this->vacancies as $vacancy) :
+                            $company = $vacancy->getCompany();
+                    ?>
+		    <p class="mar-bot2">
+                    <a class="blue" href="<?= $this->url(array('companyId' => $company->id), 'companyvacancies') ?>"><?= $company->name ?></a>
+                    <br />
+		    <a class="blue" href="<?= $this->url(array('companyId' => $vacancy->id_company, 'vacancyId' => $vacancy->id), 'companyvacancy') ?>"><?= $vacancy->position ?></a>
+		    <br />
+                    <span class="" style="background: #BA9EA5; color: #FFF; padding: 0 3px;">
+                        <?php if ($vacancy->salary_from > 0) : ?>desde <?= $vacancy->getSalaryFrom() ?> <?php endIf; ?> <?php if ($vacancy->salary_to > 0) : ?>desde <?= $vacancy->getSalaryTo() ?> <?php endIf; ?>руб.
+                    </span>
+		    </p>
+                    <?php
+                        endForeach;
+                    ?>
+                    
+		    <a href="<?= $this->url(array(''), 'allvacancies') ?>"><div class="but2 right">
+                    <img src="sprites/null.png" width="26" height="27" alt="Todos vacantes" />
+                    <div>Todos vacantes</div>
+                    </div></a>
+		    
+                </div>
+		
+		<div class="line"></div>
+                
+                <?php endIf; ?>
+			    
+		<div class="sanctum">
+                    <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                    <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+		</div>
+	    
+	   </div>
+     </div>
+</div>

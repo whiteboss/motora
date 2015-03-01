@@ -1,0 +1,19 @@
+Название<br />
+<input id='markerName' type='text' value="<?= $this->marker->title; ?>" /><br />
+<div>Что добавляем?<br /> 
+    <input type="hidden" id="editMarkerId" value="<?= $this->marker->id ?>" />
+    <div id='subCategoryListDiv' style="display:block;">
+        <select id="subCategoryList">
+        <?php foreach ($this->subCategoryList as $subCategoryList) : ?>
+            <option <?php if ($subCategoryList->id == $this->marker->category_id)
+            echo "selected='selected'" ?> value="<?= $subCategoryList->id; ?>"><?= $subCategoryList->name; ?></option>
+        <?php endforeach; ?>
+        </select>
+    </div>
+
+    <div id='markerAddressDiv'>Dirección:<br /><input type="text" id="markerAddress" value="<?= $this->marker->address; ?>" placeholder="Por ejemplo: Irarrázaval 0001, Ñuñoa, Santiago de Chile" /></div>
+    Descripción<br /><textarea rows="2" id='markerDescription' value="<?= $this->marker->description; ?>" /></textarea><br />
+    ID компании<br /><input id='companyId' type='text' value="<?= $this->marker->company_id; ?>" />
+</div>
+<input type='button' value='Listo' onclick='editMarkerOnMap()' />
+

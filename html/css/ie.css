@@ -1,0 +1,8 @@
+.Qprev div {
+background: transparent;
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#D8323232,endColorstr=#D8323232)"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#D8323232,endColorstr=#D8323232);   /* IE6 & 7 */
+      zoom: 1;
+}
+#drop-user img {margin-top: -1px;}
+.Qso-long-cont .Qprev span {font-size: 11px;}

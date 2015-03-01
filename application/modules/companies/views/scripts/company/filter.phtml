@@ -1,0 +1,9 @@
+<?php
+    if (!empty($this->companies)) :
+        $i = 1;
+        foreach( $this->companies as $company ):
+            include('company_list.phtml');
+            $i++;
+        endForeach;    
+    endIf;
+?>

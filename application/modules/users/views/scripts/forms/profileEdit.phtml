@@ -1,0 +1,104 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+            initAvatarUploader('/users/uploadavatar', 'avatar', 600, 200, 200, 'user', 1);            
+            $('.date-pick').datePicker({startDate:'01.01.1930'}).trigger('change');
+	});
+
+        function setCoords(c)
+        {
+            $('#crop_x').val(c.x);
+            $('#crop_y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+        };      
+</script>
+
+<form id="profileEdit" name="<?= $this->element->getName() ?>" enctype="application/x-www-form-urlencoded" method="<?= $this->element->getMethod() ?>" action="<?= $this->element->getAction() ?>">
+
+    <div class="profile_form">
+        <div class="profile_form_cont mb50">
+
+            <div class="prifile_inputs_cont mar-bot3">
+                <?= $this->element->username ?>
+                <?= $this->element->firstname ?>
+                <?= $this->element->lastname ?>
+                
+                <div class="prof_departer"></div>
+
+                <div class="prof_inp_header">Fecha de nacimiento</div>
+                <?= $this->element->date_of_birth ?>
+                <?= $this->element->sex ?>
+                <?= $this->element->city_id ?>
+                <div id="other_city_profile" class="mb20">
+                <?= $this->element->city_other ?>
+                </div>
+
+                <div class="f18 mb20 w100 clear">Contactos</div>
+
+                <?= $this->element->www ?>
+                <?= $this->element->facebook ?>
+                <?= $this->element->twitter ?>
+                <?= $this->element->skype ?>
+                <?= $this->element->icq ?>
+            </div>
+		
+		<style>
+		.avatar_edit_area_cont #avatar-uploader {height: 50px !important;}
+		.avatar_edit_area_cont #avatar-uploader_button {display: block;}
+		</style>
+		
+            <div class="avatar_edit_area_cont">
+                <div class="jcrop-holder_1">
+                    <?= $this->element->avatar ?>
+                    <?= $this->element->crop_x ?>
+                    <?= $this->element->crop_y ?>
+                    <?= $this->element->w ?>
+                    <?= $this->element->h ?>
+                </div>
+                <p class="grey">Tamaño mìnimo de la imagen 200x200 px</p>
+                <p>Carga la imagen y selecciona un área para tu foto del perfil.</p>
+            </div>
+
+            <?= $this->element->add_item ?>
+
+            </div>
+
+            <div class="account_form_cont">
+                <p class="f18 mb20">Ajustes de la cuenta</p>
+                <div class="w100 clear">
+                <?= $this->element->email ?>
+                <div class="prof_inp_comment">
+                     E-mail se usa para el envío automático de los avisos y recuperación de la contraseña
+                </div>
+            </div>
+
+            <div class="w100 clear">
+                <div class="prof_inp_header">Contraseña</div>
+		<input disabled value="********" type="password" class="acc_string" />
+		
+		<div class="w100 clear">
+                    <?= $this->element->password_old ?>
+		</div>
+                <div class="w100 clear">
+		    <?= $this->element->password_new ?>
+		</div>
+		<div class="w100 clear">
+                    <?= $this->element->password_new_repeat ?>
+		</div>
+		    <div class="prof_inp_comment">
+                        <ul>
+                            <li>Le recomendamos usar combinaciones de letras,  números y símbolos.</li>
+                            <li>Rivisa si Caps Lock esta apagado.</li>
+                        </ul>
+                    </div>
+
+
+            </div>
+
+            <?= $this->element->add_item ?>
+
+        </div>
+
+    </div>
+
+</form>

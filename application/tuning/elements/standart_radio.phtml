@@ -1,0 +1,13 @@
+<div class="standard_element_container">
+    <label class="standard_label"><?=$this->element->getLabel()?></label>
+    <div id="<?=$this->element->getName()?>-element" class="radio_section">
+    <?php
+        foreach ($this->element->getmultiOptions() as $key=>$name) {
+    ?>
+        <div><input id="<?=$this->element->getName()?><?=$key?>" name="<?=$this->element->getName()?>" type="radio" value="<?=$key?>" <?php if($this->element->getValue()==$key) echo "checked";  ?> class="standard_radio" /> <label class="label_radio" for="<?=$this->element->getName()?><?=$key?>"><?=$name?></label></div>
+    <?php
+        }
+    ?>
+    </div>
+</div>
+

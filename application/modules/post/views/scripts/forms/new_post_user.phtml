@@ -1,0 +1,44 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+            $("#name").charCount({ allowed: 150 });
+            $("#tags").charCount({ allowed: 100 });
+            $("#description").charCount({ allowed: 300, css: "countertextarea" });
+            initSingleUploader('/posts/mainbageupload', 'photo', 'tmp');
+            
+            $("#name").bind('keyup', function(){
+                var url = $(this).val().replace(/\s/g, '-');
+                url = url.replace(/[.,:!'´@]/g, '').toLowerCase();
+                $("#url").val(url);
+            });
+            
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="multipart/form-data" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->name?>	
+    <?=$this->element->url?>
+    <?=$this->element->rubric_id?>
+    <?=$this->element->description?>
+    
+    <?=$this->element->company_id?>
+    
+    <div class="break mar-bot"></div>
+    <div class="break line"></div>
+    <div class="standard_element_container">        
+        <label class="standard_label">Imagen para mayor badge (no menos que 884 pix. por la ancho)*</label>    
+        <?=$this->element->photo?>         
+    </div>
+    <div class="break mar-bot"></div>
+    <?=$this->element->post?>
+    <div class="break"></div>
+    <?=$this->element->tags?>
+    <div class="break"></div>
+    <div class="standard_departer"></div>
+    
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

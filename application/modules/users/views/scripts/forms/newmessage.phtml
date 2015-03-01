@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#message").charCount({ allowed: 1000, css: "countertextarea" });
+	});
+</script>
+
+<form id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+        <?=$this->element->userTo?>
+        <?=$this->element->id_user_to?>
+        <?=$this->element->referrer?>
+    
+        <?php
+            $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+            if (isset($viewRenderer->view->message)) :
+        ?>
+        <div class="standard_element_container">
+        <?= $viewRenderer->view->message ?>        
+        </div>
+        <?php
+            endif;
+        ?>
+    
+        <?=$this->element->message?>
+	<div class="w100 clear">
+        <?=$this->element->sendMessage?>
+        <span class="f11 grey ctrlenter">Ctrl+Enter</span>
+	</div>
+</form>

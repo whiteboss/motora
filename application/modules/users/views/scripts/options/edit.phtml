@@ -1,0 +1,32 @@
+<div class="container">
+
+    <div class="Q74">
+	
+	<?php 
+            print $this->PopularPeoples();        
+        ?>
+
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Ajustes</span></div>
+
+        <div class="US1">
+
+            <div class="Qblock Qblock5">
+
+                <?= $this->addProfileForm; ?>
+
+            </div>
+
+        </div>
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>      

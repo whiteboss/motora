@@ -1,0 +1,97 @@
+<div class="container">
+
+    <div class="Q74">
+
+        <?php 
+            print $this->PopularPeoples();        
+        ?>
+    
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Fotogreportajes</span></div>
+
+        <div class="US1">
+
+            <div class="Qblock Qblock5">
+
+                <?php
+                if (count($this->userGalleries) == 0) :
+                    $owner = $this->user;
+                    $identity = $this->getUserByIdentity();
+                    if (!is_null($owner) || $this->isGodOfProject()) :
+                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject()) :
+                            ?>                        
+                            <p class="f18 lh24">Todavìa no tienes galerias de fotos, <a href="<?= $this->url(array(''), 'createphotoreport') ?>">sube tus fotos aqui</a>.</p>                                                
+                            <?php
+                        endif;
+                    endif;
+                else:
+                    ?>                        
+
+                    <?php
+                    foreach ($this->userGalleries as $photoreport) :
+                        $event = $photoreport->getEvent();
+                        $place = $event->getPlaceName();
+                        $c_photos = count($photoreport->getPhotos());
+                        $c_comments = (int) $photoreport->commentCount();
+
+                        $day = $event->getDayStart();
+                        $month = $event->getMonthStart();
+                        $year = $event->getFormatYearStart();
+                        ?>
+
+                        <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $photoreport->getUrl() ?>"><?= $event->getName() ?>, <?= $c_photos ?> fotos</a></div>
+
+                        <div class="Qfotolist mb10">
+                            <?php
+                            $photos = $photoreport->getPhotos(8);
+                            foreach ($photos as $photo) :
+                                ?>
+                                <a href="<?= $photoreport->getUrl() ?>"><img src="/files/events/photoreport/thumbs/111_<?= $photo ?>" width="111" height="111" alt="" /></a>
+                                <?
+                            endForeach;
+                            ?>
+                        </div>
+
+                        <p class="f11 lh17">
+                        <div>Donde:
+                            <?php
+                            if (!is_null($event->id_company) && $event->id_company > 0) :
+                                ?>
+                                <a class="lhov purple" href="<?= $place->getUrl() ?>"><?= $place->name ?></a>
+                                <?php
+                            else :
+                                print $place;
+                            endif;
+                            ?>
+                            &nbsp;&nbsp; Cuanto: <a class="lhov purple" href="<?= $this->url(array('year' => $year, 'month' => $month, 'day' => $day), 'photoreportsbydate') ?>"><?= $this->dateFormatPostList($event->start_date, false, false) ?></a>
+                        </div>
+                        <div class="US9 f10 grey">
+                            <a class="grey lnone" href="<?= $photoreport->getUrl() ?>#commentsList" title="<?= $c_comments ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $c_comments ?></a>
+                            <a class="grey lnone" href="<?= $photoreport->getUrl() ?>" title="<?= $photoreport->counter ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $photoreport->counter ?></a>
+                        </div>
+                        </p>
+
+                        <div class="w100 clear mb30"></div>
+
+                        <?php
+                    endForeach;
+                    ?>
+
+                <?php endif ?>
+
+            </div>
+
+        </div>
+
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>

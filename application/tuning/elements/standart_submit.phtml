@@ -1,0 +1,8 @@
+<input <?php if ($this->disabled) print "disabled "; ?>type="submit" value="<?=$this->element->getLabel()?>" src="/sprites/null.png" id="<?=$this->element->getName()?>" class="standard_save_button" />
+<script type="text/javascript">
+$('input[type=submit]').click(function() {
+    $(this).attr('disabled', 'disabled');
+    $(this).attr('value', 'Cargando...');
+    $(this).parents('form').submit()
+})        
+</script>

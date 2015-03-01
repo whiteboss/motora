@@ -1,0 +1,85 @@
+<div class="container">
+
+    <div class="Q74">
+	
+	<?php 
+            print $this->PopularPeoples();        
+        ?>
+
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Vídeo</span></div>
+
+        <div class="US1">
+
+            <div class="Qblock Qblock5">
+                <?php if (!$this->videos): ?>
+                    <p class="f18 lh24">Todavìa no tienes ningun video, <a class="blue" href="<?= $this->url(array(), 'createpost') ?>">subelo aqui</a>.</p>
+                <?php else: ?>
+
+                    <?php
+                    $identity = $this->getUserByIdentity();
+
+                    foreach ($this->videos as $post) :
+                        $category = $post->getRubric();
+                        $commentCount = (int) $post->commentCount();
+                        $post_url = $post->getUrl();
+                        ?>
+
+                        <div class="w100 clear grey mb10">Publicó uno vídeo:</div>
+
+                        <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $post_url ?>"><?= $post->name ?></a></div>
+                        
+                        <video id="video" width="100%" height="400" controls="controls" preload="none" poster="<?=$post->getVideoPoster() ?>">
+                            <source src="/files/post/video/<?= $posts->video ?>" type="video/mp4" />
+                            <?php
+                                if (!is_null($post->video_webm)) :
+                            ?>
+                            <source src="/files/post/video/<?= $post->video_webm ?>" type="video/webm" />
+                            <?php
+                                endIf;
+                            ?>
+                            <object width="100%" height="400" type="application/x-shockwave-flash" data="/js/flashmediaelement.swf">
+                                    <param name="movie" value="/js/flashmediaelement.swf" />
+                                    <param name="flashvars" value="controls=true&amp;file=/files/post/video/<?= $post->video ?>" />
+                                    <img src="<?= $post->getVideoPoster() ?>" width="100%" height="400" alt="No video playback capabilities" />
+                            </object>
+                        </video>
+
+                        <p class="f11 lh17">
+                        <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => 'video'), 'theme_seo') ?>">Vídeo</a></div>
+                        <div class="US9 f10 grey">
+                            <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                            <a class="grey lnone" href="<?= $post_url ?>" title="<?= $post->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $post->viewed ?></a>
+                        </div>
+                        </p>
+
+                        <script>
+                            $('video').mediaelementplayer({
+                                enableAutosize: true
+                            });
+                        </script>
+
+                        <div class="w100 clear mb30"></div>                        
+
+
+                        <?php
+                    endforeach;
+                    ?>                    
+
+                <?php endif ?>                            
+            </div>
+
+        </div>
+
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>

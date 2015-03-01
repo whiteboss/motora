@@ -1,0 +1,99 @@
+<div class="container">
+
+	<div class="w100 mb10"></div>
+	
+	<div class="Q74">
+		
+		<?php 
+                    //include('popular_companies.phtml') 
+                    print $this->PopularPosts();
+                ?>
+        
+		<div class="BRC">
+			<a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('company_type' => $this->company->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$this->company->type] ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey"><?= $this->company->name ?></span>
+		<?php
+                        $identity = Zend_Auth::getInstance()->getIdentity();
+                        $owner = $this->company->getOwner();
+                        if (!is_null($identity) || $this->isGodOfProject()) :
+                            if (($owner && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                    ?>
+                        &nbsp;&nbsp;
+                        <a href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'edit'), 'company') ?>" title="Editar"><img class="Ieditar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                        <a id="event-delete" href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'delete'), 'company') ?>" title="Eliminar"><img class="Ieliminar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                    <?php
+                            endIf;
+                        endIf;
+                    ?>
+		</div>
+	    
+		<div class="Q31">
+                    <?= $this->profileHead() ?>
+		    
+		    <?= $this->LugaresNoticias() ?>		    
+		</div>
+		<div class="Q64">
+                    <div class="Qblock Qblock5">
+                    <?php
+                        if (count($this->items) > 0) :
+                            foreach ($this->items as $item) :
+                                $event = $item->getEvent();
+                                $place = $event->getPlaceName();
+                                $c_photos = count($item->getPhotos());
+                                $c_comments = (int) $item->commentCount();
+
+                                $day = $event->getDayStart();
+                                $month = $event->getMonthStart();
+                                $year = $event->getFormatYearStart();
+                            
+                    ?>        
+
+                    <div class="w100 clear grey f18 mb10"><a class="black lhov" href="<?= $item->getUrl() ?>"><?= $event->getName() ?>, <?= $c_photos ?> fotos</a></div>
+
+                    <div class="Qfotolist mb10">
+                        <?php
+                        $photos = $item->getPhotos(8);
+                        foreach ($photos as $photo) :
+                            ?>
+                            <a href="<?= $item->getUrl() ?>"><img src="/files/events/photoreport/thumbs/111_<?= $photo ?>" width="111" height="111" alt="" /></a>
+                            <?
+                        endForeach;
+                        ?>
+                    </div>
+
+                    <p class="f11 lh17">
+                    <div>Donde:
+                        <?php
+                        if (!is_null($event->id_company) && $event->id_company > 0) :
+                            ?>
+                            <a class="lhov purple" href="<?= $this->company->getUrl() ?>"><?= $place->name ?></a>
+                            <?php
+                        else :
+                            print $place;
+                        endif;
+                        ?>
+                        &nbsp;&nbsp; Cuanto: <a class="lhov purple" href="<?= $this->url(array('year' => $year, 'month' => $month, 'day' => $day), 'photoreportsbydate') ?>"><?= $this->dateFormatPostList($event->start_date, false, false) ?></a>
+                    </div>
+                    <div class="US9 f10 grey">
+                        <a class="grey lnone" href="<?= $item->getUrl() ?>#commentsList" title="<?= $c_comments ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $c_comments ?></a>
+                        <a class="grey lnone" href="<?= $item->getUrl() ?>" title="<?= $item->counter ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $item->counter ?></a>
+                    </div>
+                    </p>
+
+                    <div class="w100 clear mb30"></div>
+                    
+                    <?php
+                            endForeach;
+                        else :
+                    ?>
+                    No hay fotoreportajes
+                    <?php        
+                        endIf;
+                    ?>
+                    </div>
+		</div>
+		
+	</div>
+	
+        <?php include('right_block.phtml') ?>
+
+</div>

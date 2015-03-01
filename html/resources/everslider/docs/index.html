@@ -1,0 +1,400 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title>Everslider - Responsive jQuery Carousel Plugin | Documentation</title>
+	<link rel="stylesheet" href="css/style.css" />
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/SyntaxHighlighter.css"></link>
+	<script language="javascript" src="js/shCore.js"></script>
+	<script language="javascript" src="js/shBrushCSharp.js"></script>
+	<script language="javascript" src="js/shBrushJScript.js"></script>
+	<script language="javascript" src="js/shBrushCss.js"></script>
+	<script language="javascript" src="js/shBrushXml.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			dp.SyntaxHighlighter.ClipboardSwf = 'js/clipboard.swf';
+			dp.SyntaxHighlighter.HighlightAll('code');
+		});
+	</script>
+</head>
+<body>
+<div class="center-wrapper">
+
+
+<!-------------- HEADER -------------->
+
+<div class="header">
+	<h1>Everslider - Responsive jQuery Carousel Plugin</h1>
+	<p>You just purchased <strong>Everslider - Responsive jQuery Carousel Plugin</strong>! If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/flGravity">here</a></p> 
+	<p class="right"><em>Thank you. flGravity</em></p>
+    <br class="clear">
+</div>
+
+<div class="clear"></div>
+
+<!---------------- TABLE OF CONTENTS ---------------->
+
+<div class="contents">
+	<h3 class="contents-header">Documentation</h3>
+	<ul class="menu">
+		<li><a href="#about">1. About</a></li>
+		<li><a href="#install">2. Quick Installation</a></li>
+		<li><a href="#config">3. Configuration Options</a></li>
+		<li><a href="#api">4. Plugin API</a></li>
+		<li><a href="#animations">5. Animated Carousel Items</a></li>
+		<li><a href="#howto">6. Common Questions</a></li>
+	</ul>
+	<p>
+		<a href="../index.html">Back to preview</a>
+	</p>
+</div>
+
+
+
+<!-------------- SECTION --------------->
+
+
+
+<h2 id="about">1. About</h2>
+
+<p><strong>Everslider - Responsive jQuery Carousel Plugin</strong> will help you create multi functional, eye-catching carousel slider for your site with any content going inside - be it just a photo or some animated content! Plugin works on mobiles, tables and in all desktop browsers starting with IE7. It's responsive and retina-ready! It uses hardware-accelerated CSS3 transitions and switches to jQuery animate if necessary. Everslider supports all kinds of navigation, like mousewheel, touchswipe, drag and keyboard. It has timer mode, two animation effects - slide and fade, and much more!</p><p>Hope you will enjoy using Everslider!</p>
+
+
+<!-------------- SECTION --------------->
+
+
+
+<h2 id="install">2. Quick Installation</h2>
+
+<p>Unzip package that you have downloaded from <a href="http://codecanyon.net">Codecanyon</a> and copy <strong>js/jquery.everslider.min.js</strong> and <strong>css/everslider.css</strong> files into js/ and css/ folders of your site. Also copy <strong>all images</strong> from images/ folder to the corresponding folder under your site. After that open your index.html and add plugin CSS and JS files into the head section <em>(if necessary include jquery and jquery-easing before the plugin, see example below)</em></p>
+
+<pre name="code" class="html">
+&lt;!-- jQuery library and easing --&gt;
+&lt;script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Everslider CSS and JS files --&gt;
+&lt;link type="text/css" href="css/everslider.css" media="screen"/&gt;
+&lt;script type="text/javascript" src="js/jquery.everslider.min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>If you are going to use mousewheel navigation <em>(can be enabled with "mousewheel" option)</em> you also have to include <a href="https://github.com/brandonaaron/jquery-mousewheel">https://github.com/brandonaaron/jquery-mousewheel</a> before Everslider JS file.</p>
+
+<p>Next step is the markup. First create DIV container with "everslider" class and some unique ID. Inside this DIV add UL list with "es-slides" class, like so</p>
+
+<pre name="code" class="html">
+&lt;div id="mycarousel" class="everslider"&gt;
+	&lt;ul class="es-slides"&gt;
+		&lt;li&gt;&lt;img src="images/image1.jpg" alt=""&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;img src="images/image2.jpg" alt=""&gt;&lt;/li&gt;
+		...
+		&lt;li&gt;&lt;img src="images/image3.jpg" alt=""&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+
+<p>In this example I use images as content of slides, but in fact it can be anything. <strong>Every slide <em>(LI item)</em> in carousel should have some initial width, height and right margin defined in pixels!</strong> You can do this in css or use "itemWidth", "itemHeight" and "itemMargin" plugin options</em>. Also its important to remember that slides <strong>should't have borders or paddings</strong>! If you want to introduce paddings or borders to the slides do this by adding inner DIVs</p>
+
+<pre name="code" class="html">
+&lt;li&gt;
+	&lt;div class="inner-slide"&gt;
+		&lt;img src="images/image1.jpg" alt=""/&gt;
+	&lt;/div&gt;
+&lt;/li&gt;
+</pre>
+
+<p>In example above slide content is wrapped into ".inner-slide" DIV that can be styled to add some paddings.</p>
+
+<p>After you have finished with the markup it's time to initialize plugin when DOM is ready</p>
+
+<pre name="code" class="js">
+&lt;script type="text/javascript"&gt;
+	$(document).ready(function(){
+		$('#mycarousel').everslider({
+			mode: 'carousel',
+			moveSlides: 2
+		});
+	});
+&lt;/script&gt;
+</pre>
+
+<p>For information about available options please refer to the "Configuration Options" section below.</p>
+
+
+
+<!-------------- SECTION --------------->
+
+
+
+<h2 id="config">3. Configuration Options</h2>
+
+<p>In list below you can find plugin configuration options as well as three callback functions</p>
+
+<pre name="code" class="js">
+	// default settings
+	var s = $.extend({
+		mode: 'normal',						// carousel mode - 'normal', 'circular' or 'carousel'
+		effect: 'slide',					// animation effect - 'slide' or 'fade'
+		useCSS: true,						// set false to disable CSS3 transitions
+		itemWidth: false,					// slide width, px (or false for css value)
+		itemHeight: false,					// slide height, px (or false for css value)
+		itemMargin: false,					// slide margin, px (or false for css value)
+		itemKeepRatio: true,				// during resize always retain side ratio of a slide
+		maxWidth: '100%',					// max container width, px or %
+		maxVisible: 0,						// show only N slides (overrides maxWidth, 0 to ignore)
+		moveSlides: 1,						// number of slides to move or 'auto' to move all visible
+		slideDelay: 0,						// slide effect initial delay, ms
+		slideDuration: 500,					// slide effect duration, ms
+		slideEasing: 'swing',				// slide effect easing
+		fadeDelay: 200,						// fade effect delay, ms
+		fadeDuration: 500,					// fade effect duration, ms
+		fadeEasing: 'swing',				// fade effect easing
+		fadeDirection: 1,					// 1 is default, set -1 to start fade from opposite side
+		fitDelay: 300,						// slides fit (carousel resize) delay, ms
+		fitDuration: 200,					// slides fit (carousel resize) duration, ms
+		fitEasing: 'swing',					// slides fit (carousel resize) easing
+		syncHeight: false,					// sync carousel height with largest visible slide
+		syncHeightDuration: 200,			// carousel height sync duration, ms
+		syncHeightEasing: 'swing',			// carousel height sync easing
+		navigation: true,					// enable prev/next navigation
+		nextNav: '<span>Next</span>',		// next navigation control, text/html
+		prevNav: '<span>Previous</span>',	// previous navigation control, text/html
+		pagination: true,					// enable pagination (only 'normal' or 'circular' mode)
+		touchSwipe: true,					// enable touchSwipe
+		swipeThreshold: 50,					// pixels to exceed to start slide transition
+		swipePage: false,					// allow touchswipe to scroll page also
+		mouseWheel: false,					// enable mousewheel (requires jquery-mousewheel plugin)
+		keyboard: false,					// enable keyboard left/right key navigation
+		ticker: false,						// enable ticker ('circular' or 'carousel' mode)
+		tickerTimeout: 2000,				// ticker timeout, ms
+		tickerAutoStart: true,				// start ticker when plugin loads
+		tickerPlay: '<span>Play</span>',	// ticker play control, text/html
+		tickerPause: '<span>Pause</span>',	// ticker pause control, text/html
+		tickerHover: false,					// pause ticker on mousehover
+		tickerHoverDelay: 300,				// delay before ticker will pause on mousehover
+		slidesReady: function(){},			// slider ready callback
+		beforeSlide: function(){},			// before slide callback
+		afterSlide: function(){}			// after slide callback
+	}, c);
+</pre>
+        
+<p>"slidesReady" callback runs only once on plugin init just after slides have been adjusted. "this" keyword inside the function refers to the container DOM element. Function accepts one argument which is an Object containing plugin API methods. "slidesReady" callback is a good place to add your custom init code.</p>
+
+<p>Next two callbacks - "beforeSlide" and "afterSlide" are executed before and after every slide animation. "this" keyword inside these functions refers to the container DOM element. Both functions accept one argument which is array of slides <em>(LI items)</em>. For "beforeSlide" callback this array contains slides that were visible before animation started and for "afterSlide" this array contains slides that became visible when animation completed. These functions can be used to add various animations to carousel slides that run in sync with carousel itself. Read "Animated Carousel Items" section to find out more in this matter.</p>
+
+
+<!-------------- SECTION --------------->
+
+
+<h2 id="api">4. Plugin API</h2>
+
+
+<p>Everslider provides following basic API methods, which you can use to control carousel</p>
+
+<code>slideNext()        - slide carousel next
+slidePrevious()    - slide carousel previous
+slideTo()          - rewind carousel to specific position (requires one argument)
+isSliding()        - check if any slide animation is running
+getVisibleSlides() - get array of currently visible slides
+tickerPlay()       - resume autoplay if "ticker" is enabled
+tickerPause()      - pause autoplay if "ticker" is enabled
+</code>
+
+<p>Any of these API methods can be invoke in two ways. You can use jQuery $.trigger() or $.triggerHandler() functions to send "everslider" custom event with API method name to the container element, like so</p>
+
+<pre name="code" class="js">$('#mycarousel').trigger("everslider", "slideNext");</pre>
+
+<p>Or <em>(second approach)</em> you can receive object containing API methods using jQuery $.data() and then call API methods directly</p>
+
+<pre name="code" class="js">
+var carousel = $('#mycarousel').data('everslider');
+carousel.slideNext();
+</pre>
+
+<p>All these API methods do not require arguments except one - <em>slideTo()</em>. When you call this method you should specify zero-based position of a slide in carousel that you want to scroll to. Here is how to call <em>slideTo()</em> using $.trigger()</p>
+
+<pre name="code" class="js">$('#mycarousel').trigger("everslider", ["slideTo",1]);</pre>
+
+<p>If you call <em>slideTo()</em> using API object then simply pass position as argument to the function.</p>
+
+<p>Also note that <em>tickerPause()</em> and <em>tickerPlay()</em> methods work only when "ticker" option is set to true and if carousel mode is either "circular" or "carousel".</p>
+
+
+<!-------------- SECTION --------------->
+
+
+<h2 id="animations">5. Animated Carousel Items</h2>
+
+<p>In this section I will explain how you can add animated elements to carousel items (like animated captions) and make them work <strong>in sync</strong> with carousel. To get better idea what I mean take a look once again on "Image Slider" in Everslider preview. Every image has a caption that shows up at the end of carousel motion.</p>
+
+<p>Let's say you want to show caption using "fade-in" animation when carousel item(s) comes into view. So, how to do this? Well, it's easy when you understand what means Everslider provides for this. In general you can create animations using pure CSS3 or using jQuery or both.</p>
+
+<p>Let's start with CSS3! To trigger CSS3 transitions for carousel items you have to rely on two classes that are assigned to carousel items at the beginning and at the end of carousel movement. At the moment before carousel will start moving, items that will show up, will get class "es-before-slide". When carousel will finish moving, items with "es-before-slide" class will get another class - "es-after-slide". So using "es-before-slide" and "es-after-slide" classes you can change any css properties and trigger animations in sync with carousel movement. BTW. All carousel items that are out of view area will have no class assigned.</p>
+
+<p>Example. Let's assume that inside of every carousel item we have a caption - DIV with class "caption"</p>
+
+<pre name="code" class="html">
+<div id="mycarousel" class="everslider">
+	<ul class="es-slides">
+		<li>
+			<div class="caption">This is a caption that I want to animate</div>
+			<img src="images/image1.jpg" alt="">
+		</li>
+		...
+	</ul>
+</div>
+</pre>
+
+<pre name="code" class="css">
+#mycarousel .caption {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background: #fff;
+	padding: 10px;
+}	
+</pre>
+
+<p>With this style captions will be always visible. Now let's add opacity transitions for captions. To do this we add following CSS styles</p>
+
+<pre name="code" class="css">
+#mycarousel .caption {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background: #fff;
+	padding: 10px;
+	-webkit-transition: opacity .5s;
+	-moz-transition: opacity .5s;
+	-o-transition: opacity .5s;
+	transition: opacity .5s;
+}
+
+#mycarousel .es-before-slide .caption {
+	opacity: 0;
+}
+
+#mycarousel .es-after-slide .caption {
+	opacity: 1;
+}
+</pre>
+
+<p>Hope it's clear!</p>
+
+<p>Now, if want to use jQuery to animate captions we will have to do next. Basically there is 2 ways - use "beforeSlide" and "afterSlide" callbacks, or use custom "es-before-slide" and "es-after-slide" events that are triggered by appropriate carousel items. I'm going to explain second approach with events.</p>
+
+<p>We start with basic css for captions</p>
+
+<pre name="code" class="html">
+	#mycarousel .caption {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background: #fff;
+	padding: 10px;
+	display: none;
+}
+</pre>
+
+<p>Now to make captions "fade-in" at the end of carousel move, we add following JS code</p>
+
+<pre name="code" class="js">
+<script type="text/javascript">
+	$('#mycarousel .es-slides > li').bind('es-after-slide', function(){
+		$(this).find('.caption').fadeIn(500);
+	}).bind('es-before-slide', function(){
+		$(this).find('.caption').hide();
+	});
+</script>
+</pre>
+
+
+<!-------------- SECTION --------------->
+
+
+<h2 id="howto">6. Common Questions</h2>
+
+<p>This section covers some common questions that can raise when you will be using Everslider plugin. If you cannot find answer, please feel free to contact me!</p>
+
+<h3>Where do I set size of carousel slides?</h3>
+<p>Setting size of carousel slides <em>(LI elements in "es-slides" UL list)</em> is essential and is required by Everslider to work properly! Default slide size is defined in everslider.css and is 500x300px with 10px right margin. Also you can use plugin options <em>"itemWidth", "itemHeight" and "itemMargin"</em> to set slide size when plugin init and override any css value. Make sure however that you don't set paddings or borders on slides! For this use inner DIVs as explained above.</p>
+
+<h3>What can I do if slide content appears partly hidden?</h3>
+<p>When plugin starts it saves initial slide size and when you resize browser window Everslider resizes slides preserving their original ratio. This may result in content being partially hidden due to the oveflow property on container, especially when slide content is a mixture of text and images. To fix this you should set <em>itemKeepRatio</em> plugin option to false. This will allow slides to extend to reveal all available content.</p>
+
+<h3>What easing can I use for transitions?</h3>
+<p>Everslider maps jQuery easing functions to cubic-bezier equations for CSS3 transitions. So you can use following easing functions: <em>linear swing easeInQuad easeOutQuad easeInOutQuad easeInCubic easeOutCubic easeInOutCubic easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInExpo easeOutExpo easeInOutExpo easeInCirc easeOutCirc easeInOutCirc easeInBack easeOutBack easeInOutBack</em></p>
+
+<h3>Why I don't see pagination in "carousel" mode?</h3>
+<p>Pagination is available only in <em>"normal"</em> or <em>"circular"</em> plugin mode. In <em>"carousel"</em> mode it's not available.</p>
+
+<h3>Is it possible to make carousel fixed-width?</h3>
+<p>By default Everslider carousel will extend to 100% width of containing block. If you want to make its width fixed, you can set <em>maxWidth</em> plugin option to fixed pixel value.</p>
+
+<h3>What are fitDelay, fitDuration and fitEasing options for?</h3>
+<p>These plugin options control animation that adjusts carousel to fit new layout after browser window has been resized.</p>
+
+<h3>How can I limit number of visible slides?</h3>
+<p>You can limit number of visible slides with <em>maxVisible</em> plugin option. When this option is set it will prevent Everslider to extend more than is necessary to display this number of slides (it takes initial slide width into account).</p>
+
+<h3>How can I configure carousel to scroll visible amount of slides?</h3>
+<p>By default Everslider plugin scrolls one slide at once. To scroll the number of visible slides you should set <em>moveSlides</em> option to 'auto'.</p>
+
+
+<!-------------- DON'T EDIT AFTER THIS LINE -------------->
+
+<br>
+<p>
+	<em>Thanks for reading!</em><br>
+</p>
+
+<div class="footer">
+	<ul>
+		<li><a href="../index.html">Back to prevew</a></li>
+		<li><a class="top" href="#">Top</a></li>
+		<li>flGravity &copy; 2013</li>
+	</ul>
+</div>
+<script type="text/javascript">
+        $(function(){
+                var hash = '';
+                
+             	function scroll(name){
+                	var anchor = document.getElementById(name);
+                	if(anchor !== null){
+                		$('html,body').animate({scrollTop: $(anchor).offset().top}, 'slow');
+						anchor.id="tmp_"+name;
+						hash='#'+name; 
+						window.location.hash=name; 
+						anchor.id=name;
+					}
+                }
+                
+                function hashchange(){
+                	if(hash != window.location.hash){
+						scroll(window.location.hash.substr(1));
+                	}
+                	
+                }
+                
+               	$('a[href^="#"]').each(function(){
+                        $(this).click(function(e){
+							scroll($(this).attr('href').substr(1));
+							e.preventDefault();
+                        });
+                });
+                                
+                setInterval(hashchange,500);
+                
+                $('.top').click(function(){
+                	$('html, body').animate({scrollTop: 0}, 'slow')
+            	});
+        });
+</script>
+
+</body>
+</html>

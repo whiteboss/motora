@@ -1,0 +1,142 @@
+<div id="m1">
+    <div id="m2">
+	<div id="m3">
+            
+            <?php include('jobheader.phtml') ?>
+	    
+	    <div id="c1">		
+
+                <?= $this->vacancysearchform ?>
+		<p class="f90 mar-bot">
+		    <em>Например, <a href="" class="dashedgrey nl">менеджер по продажам</a></em>
+		</p>
+
+                <div class="bold-line mar-bot"></div>
+                <h3>Вакансии компаний:</h3>
+		    
+            </div>
+	    
+	    <?php
+                if (count($this->vacancies) > 0) :
+            ?>
+	    <div id="c1-1" class="job-1 mar-bot3">
+            <?php
+                    $i = 1;
+                    foreach ($this->vacancies as $vacancy) :
+                        
+                        $company = $vacancy->getCompany();
+                        
+                        if ($i < 3) :
+            ?>		
+		<div class="unt">
+            <?php
+                        else :
+            ?>
+                <div class="unt right">    
+            <?php
+                        endIf;
+            ?>
+                    
+		    <div class="break">
+			<?= $company->getAvatar(25,25) ?>
+			<div style="width: 159px; padding: 0 0 12px 5px;"><a class="straight lineon" href="<?= $this->url(array('companyId' => $company->id), 'company') ?>"><?= $company->name ?></a></div>
+		    </div>
+		    <h3><a class="grey" href="<?= $this->url(array('companyId' => $company->id, 'vacancyId' => $vacancy->id, 'action' => 'view'), 'companyvacancy') ?>"><?= $vacancy->position ?></a></h3>
+		    <p><?= $vacancy->description ?></p>
+		    <strong>з/п: <?= $vacancy->getSalary() ?> руб.</strong>
+		</div>
+            <?php
+                        if ($i == 3) :
+            ?>                    
+            <div class="break"></div>        
+            <?php
+                            $i = 0;
+                        endif;
+                        
+                        $i++;
+                        
+                    endForeach;
+            ?>    
+	    </div>
+            <?php
+                else :
+            ?>
+            Подходящих вакансий не обнаружено    
+            <?php
+                endIf;
+            ?>
+	    
+	    <style>
+		ul.job-0 li {width: 306px; float: left; font-size: 140%; color: #999; margin-bottom: 5px;}
+		ul.job-0 li a {font-weight: bold;}
+		.job-1 .unt {width: 189px; padding: 15px; border-right: 1px #DFDFDF solid; color: #333;}
+		.job-1 .right {padding-right: 0 !important;  padding-left: 0 !important; border-right: none !important;}
+		.job-1 p {font-family: georgia; margin-bottom: 3px;}
+		.job-1 a.grey {color: #333;}
+	    </style>
+            
+        </div>
+        
+	<div id="c2">
+            
+            <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+                <?= $this->left_banner ?>
+            </div>
+	    
+	    <div class="line"></div>            
+	    
+	    <div class="sanctum">
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+                <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+	    </div>
+	    
+	    <div id="c2-0">  
+                
+                <?php
+                    if (count($this->best_vacancies) > 0) :
+                ?>
+                
+                <div class="ttl">
+                <h1>Лучшие вакансии</h1>
+                </div>
+
+                <div class="lst-r">
+                    
+                    <?php
+                        foreach ($this->best_vacancies as $vacancy) :
+                            $company = $vacancy->getCompany();
+                            $feed = $company->getFeeds();
+                    ?>
+		    <div class="unt">
+                        <?= $company->getAvatar(41, 41) ?>
+                        <div>
+                            <h5><a class="straight" href="<?= $this->url(array('companyId' => $company->id), 'companyvacancies') ?>"><?= $company->name ?></a></h5>    
+                            <a class="blue" href="<?= $this->url(array('companyId' => $vacancy->id_company, 'vacancyId' => $vacancy->id), 'companyvacancy') ?>"><?= $vacancy->position ?></a>
+                            <br />
+                            <span class="" style="background: #BA9EA5; color: #FFF; padding: 0 3px;">
+                                <?php if ($vacancy->salary_from > 0) : ?>desde <?= $vacancy->getSalaryFrom() ?> <?php endIf; ?> <?php if ($vacancy->salary_to > 0) : ?>hasta <?= $vacancy->getSalaryTo() ?> <?php endIf; ?>руб.
+                            </span>
+                        </div>                        
+                        <?php include('companysubscribe.phtml'); ?>
+                    </div>
+                    <?php
+                        endForeach;
+                    endIf;    
+                    ?>                    
+
+                </div>
+            </div>
+            
+	</div>
+            
+    </div>
+</div>
+
+

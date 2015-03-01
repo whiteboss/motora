@@ -1,0 +1,25 @@
+<div id="m1">
+    <div id="m2" class="m-form">
+<style>
+            .Q0 {background: transparent !important;
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            }
+            .horde, .Q-TOP {display: none;}
+            .MM-1 {margin-top: 30px;}
+            .PRF-11 {padding-top: 0 !important;}
+            #results_branches_bar {width: 830px; padding: 20px 0 0 40px;}
+            #results_branches_bar li {float: left; margin-right: 20px;font-size: 160%; font-weight: bold;}
+        </style>
+        <div id="fr-h">
+            <div>
+                <a href="<?= $this->url(array('companyId' => $this->company->id), 'companyresumes') ?>"><img class="COLLECTION i-back" width="28" height="29" src="/sprites/null.png" alt="" /></a>
+                <a class="straight lineon" href="<?= $this->url(array('companyId' => $this->company->id), 'companyresumes') ?>">Все соискатели от нашей компании</a><span class="COLLECTION"></span>
+                <a class="straight lineon" href="<?= $this->url(array('companyId' => $this->company->id, 'resumeId' => $this->item->id, 'action' => 'view'), 'companyresume') ?>">Просмотр этого резюме<span class="COLLECTION"></span></a>
+                <h2>Редактирование резюме</h2>
+            </div>
+        </div>
+       <?=$this->editform?>
+    </div>
+</div>

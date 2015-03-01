@@ -1,0 +1,62 @@
+
+<div class="Q1">
+    <div class="w74-1">
+		
+	<div>
+		<img width="164" height="94" src="/files/marks/<?= $this->mark->getLogo() ?>" alt="" />
+	</div>
+	<div class="BRAND-3 mar-bot3">
+		<h2 class="lh-150 mar-bot0">Modelos de <?= $this->mark->name ?></h2>
+	</div>
+	<div class="lst-a">
+	
+	<?php if (!empty($this->series)): ?>
+	
+	    <?php
+		$i=0;
+		foreach ($this->series as $series) {
+		    
+		    if ($i == 3) { print '<div class="BREAK"></div>'; $i=0; }
+		    $i++;
+	    ?>
+		   <div class="unt">
+			<a class="black nl" href="<?= $series->getModelLink() ?>">
+			<?php if (!empty($series->main_photo)) { ?>                    
+				<img src="/files/model/main_photo/<?= $series->main_photo ?>" width="216" height="110" alt="<?= $this->item->name ?> <?= $series->name ?>" border="0" />                    
+			<?php } else { ?>
+			    <img src="/zeta/NO_model_pic.jpg" width="216" height="110" alt="<?= $this->mark->name ?> <?= $series->name ?>" border="0" />
+			<?php } ?>
+			<h1 class="mar-bot0"><?= $series->name ?></h1>
+			</a>
+			
+			<?php
+			    $qn = new Qlick_Num();
+			?>
+			<p>
+			    <span><?php if ($series->count_car_ads > 0) : ?><a class="blue lineon" href="<?=$this->url(array(), 'carfilter');?>/<?=$series->id_series?>"><?php print $series->count_car_ads . " vehículos"; else : ?>No hay ads<?php endIf; ?></a></span> <span><a class="grey lineon" href="<?= $series->getModelLink() ?>?>#commentsList"></a></span>
+			    <br />
+			    <?php if ($series->min_price > 0): ?>
+<!--				<em>Precio</em>-->
+				<?php if ($series->min_price == $series->max_price): ?>
+				    $ <?= $series->max_price ?>
+				<?php else: ?>
+				    hasta $ <?= $series->min_price ?> desde $ <?= $series->max_price ?>
+				<?php endif; ?>
+			    <?php else: ?>
+				&nbsp;
+			    <?php endif; ?>
+			</p>
+		    </div>
+	<?php } ?>
+	
+	<?php endif; ?>
+	
+	</div>
+		
+    </div>
+    
+    <div class="w25">
+
+        
+    </div>
+</div>

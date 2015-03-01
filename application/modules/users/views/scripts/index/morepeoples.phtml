@@ -1,0 +1,38 @@
+<?php
+    $i = 1;
+    $j = $this->from;
+    foreach($this->users as $user) :
+        $age = $user->getAge();
+?>
+
+<div id="user" class="Q40<?php if ($i == 2) print ' pull-right'; ?>" rel="<?= $j; ?>">
+    <div class="Qusers1">
+        <?= $user->getAvatar('119', '119', true, '', '119_') ?>
+    </div>
+    <div class="Qusers2">
+        <p class="mb10">
+        <strong><?= $user->getUserName('class="f14"') ?></strong>
+        <br />
+        <span><?= $user->getFullName() ?></span>
+        </p>
+        <p class="grey lh14">Ranking <?= $user->rate ?><br />
+        <span class="grey f10">Con nosotros desde <?= $this->dateFormatPostList($user->signup_date) ?></span>
+        <br />
+        <span class="grey f10"><?= $user->getSex() ?><?php if (!is_null($age)) print ', ' . $age;  ?></span>
+        </p>
+    </div>
+</div>            
+
+<?php
+
+        if ($i == 2) :
+?>
+<div class="w100 mb30"></div>
+<?php
+            $i = 0;
+        endif;
+
+        $i++;
+        $j++;
+    endForeach;
+?>

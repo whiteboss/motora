@@ -1,0 +1,101 @@
+<?php
+    $user = $this->GetUserByIdentity();
+?>
+<div class="container">
+
+    <div class="Q74">
+
+        <?php
+            // тест
+            //include('popular_companies.phtml')
+            print $this->PopularPosts();
+        ?>
+
+        <h1 class="QheaderB mb40">Lugares & empresas</h1>
+
+        <?= $this->companyTypes() ?>
+
+	<div class="Q71">
+		<form class="form-horizontal" id="search_form" name="search_form" enctype="application/x-www-form-urlencoded" method="get" action="<?=$this->url(array(), 'search');?>">
+                    <input type="hidden" name="search_type" value="company" />
+		    <input id="company_search" name="q" class="Qsearch1 bor4" type="text" x-webkit-speech="1" placeholder="Escriba el nombre del lugar..."><input type="image" class="Isearch1" src="/zeta/0.png" width="16" height="16" alt="" />
+		</form>
+	</div>
+
+        <?php
+            if (!is_null($user)) :
+        ?>
+	<a href="<?= $this->url(array(), 'createcompany') ?>" class="QanadirL f14 center lnone bor4">
+		Publicar un lugar
+	</a>
+        <?php
+            else :
+        ?>
+        <a data-toggle="modal" role="button" href="#auth" class="QanadirL f14 center lnone bor4">
+		Publicar un lugar
+	</a>
+        <?php
+            endif;
+        ?>
+
+	<div class="w100 mb40"></div>
+
+        <div id="company_list">
+        <?php
+            $i = 1;
+            foreach($this->companies as $company) :
+                include('company_list.phtml');
+                $i++;
+            endForeach;
+        ?><div id="loader"></div>
+	</div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>
+
+<?php
+    if (count($this->companies) >= Companies_Model_Company::$company_per_lazypage) :
+?>
+<script type="text/javascript">
+
+var lazy = false;
+
+$(function(){
+    $(window).scroll(function(){
+        var zone = $(document).height() - $(window).height() - 700;
+        if  ( $(window).scrollTop() >= zone && !lazy ) {
+            lazy = true;
+            lazyCompanies();
+        }
+    });
+});
+
+function lazyCompanies()
+{
+        $('#loader').html('<img src="/sprites/pepload.gif">');
+<?php
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+    if (!empty($this->company_type)) :
+?>
+        $.post("/lugares/<?= $this->company_type ?>?from=" + $("#company_list > #company:last").attr("rel"),
+<?php
+    else :
+?>
+        $.post("/lugares?from=" + $("#company_list > #company:last").attr("rel"),
+<?php
+    endIf;
+?>
+        function(data){
+            if (data != "") $("#loader").before(data);
+            $('#loader').empty();
+            lazy = false;
+        });
+};
+
+</script>
+<?php
+    endIf
+?>

@@ -1,0 +1,22 @@
+<div class="standard_element_container">
+    
+    <?php
+        // label
+        if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+    ?>
+    <label class="standard_label"><?=$this->element->getLabel()?></label>
+    <?php
+        }
+    ?>
+    <?php echo $this->content; ?>
+
+</div>
+
+
+<?php if ($this->element->hasErrors()): ?>
+
+    <span class="error">
+        <?php echo $this->formErrors($this->element->getMessages()); ?>
+    </span>
+
+<?php endif; ?>

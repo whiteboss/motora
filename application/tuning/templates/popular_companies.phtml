@@ -1,0 +1,38 @@
+<?php
+    if (count($this->popular_companies) > 0) :
+?>
+<script type="text/javascript">
+    $(window).load(function()
+    {
+        $('.scroll-pane').jScrollPane();
+    });
+</script>
+<div class="w100 QempD mb40">
+            
+    <h2>Lugares populares</h2>
+    
+    <div id="Qtop-scroller" class="scroll-pane horizontal-only">
+        
+        <div class="Qso-long-cont Qlong-eventos">
+
+    <?php
+        foreach ($this->popular_companies as $company) :
+    ?>  
+        <a class="Qprev" href="<?= $this->url(array('companyId' => $company->id, 'action' => 'events'), 'company') ?>">
+            <?= $company->getAvatar('', false, 'b_kv_') ?>    
+            <div>
+                <span class="w100 f11"><?= $company->name ?></span>
+            </div>
+        </a> 
+    <?php
+        endForeach
+    ?>
+    </div>
+        
+    </div>
+    <div class="jsc-right-grad"></div>
+    
+</div>
+<?php
+    endIf;
+?>

@@ -1,0 +1,14 @@
+<?php
+    // перед инклудом определяем ленту компании в $feed
+    //
+    if ($this->getLogged() && !is_null($feed)) :
+        
+        if (!is_null($feed->isSubscribed( $this->GetUserByIdentity()->id )))
+            echo '<img id="unsubscribe" src="sprites/null.png" class="sb1 COLLECTION right" width="74" height="21" alt="Отписаться от ленты" href="#" rel="'. $feed->id. '" />';
+        else
+            echo '<img id="subscribe" src="sprites/null.png" class="sb COLLECTION" width="74" height="21" alt="Подписаться на ленту" href="#" rel="'. $feed->id. '" />';
+
+    elseif (!is_null($feed)) :
+        echo '<a href="' . $this->url(array(), 'signin') . '"><img src="sprites/null.png" class="sb COLLECTION" width="74" height="21" alt="Подписаться на ленту" /></a>';
+    endif;
+?>

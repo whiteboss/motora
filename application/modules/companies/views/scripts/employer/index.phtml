@@ -1,0 +1,106 @@
+<div class="Q1 Q1-COM">
+	<?=$this->profileHead()?>
+
+<div class="Q1">    
+
+    <div class="w74-1">
+
+            <div class="BREAK mar-bot"></div>
+
+            <?php
+
+                if (count($this->list) == 0) :
+            ?>
+            <p class="f150 bold"><em>У этой компании пока нет представителей на Qlick.cl</em></p>
+            <?php	
+                endIf;
+                
+                $owner = $this->company->getOwner();
+                $identity = $this->getUserByIdentity();
+                if (!is_null($owner) || $this->isGodOfProject()) :
+                    if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+            ?>  
+            <a href="<?=$this->url(array('companyId' => $this->company->id, 'action' => 'new'), 'companyemployers');?>">Добавить сотрудника</a>
+            <?php 
+                    endif;
+                endif;
+            ?>
+            
+            <div class="BREAK mar-bot"></div>
+
+            <?php	
+                    
+                foreach ( $this->list as $employer ):
+                    $user = $employer->getUser()
+            ?>                
+
+            <div id="user_profile" class="UZ-1">
+                <div class="UZ-R"><?= $user->rate ?></div>
+                <?= $user->getAvatar(64, 64, false) ?>
+                <p class="f110 bold UZ-N"><?= $user->getUserName() ?></p>
+                <p class="f90"><em><?= $user->getFullName() ?></em></p>
+                <?php if ($employer->is_confirmed): ?>
+                <em class="f90"><?= $employer->getPosition() ?></em>
+                <?php else: ?>
+                <em class="f90">Пока без должности</em>
+                <?php endif; ?>
+                <?php 
+                    if (!is_null($owner) || $this->isGodOfProject()) :
+                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                ?>
+		<div class="UZ-EMP align-center">
+                <a href="<?=$this->url(array('companyId' => $this->company->id, 'employerId' => $employer->id, 'action' => 'edit'), 'companyemployer');?>">Редактировать</a>
+                <br />
+		<a id="employer-delete" href="<?=$this->url(array('companyId' => $this->company->id, 'employerId' => $employer->id, 'action' => 'delete'), 'companyemployer');?>">Удалить</a>
+                </div>
+		<?php 
+                        endif;
+                    endif;
+                ?> 
+            </div>
+            <?php 
+                endforeach;
+            ?>
+                
+        </div>
+	
+	<div class="w25">
+		
+                <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+                    <?= $this->left_banner ?>
+                </div>
+		
+                <div id="fb-root"></div>
+                <script>(function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+                  fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+                <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+		
+	</div>
+	
+</div>
+
+<?php
+    if (!is_null($owner) || $this->isGodOfProject()) :
+        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+?>
+<script type="text/javascript">
+$(function(){
+    $('#employer-delete').live('click',function() {
+        if ( !confirm('Вы действительно хотите уволить данного сотрудника?') ) {
+            return false;
+        }
+    });   
+}); 
+</script>
+<?php
+        endIf;
+    endif;
+?>
+
+
+

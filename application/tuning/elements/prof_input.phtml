@@ -1,0 +1,25 @@
+<?php
+    if (!is_null($this->element->getLabel())) {
+?>
+<div class="prof_inp_header<?=$this->header_class?>">
+    <?php
+        if (!is_null($this->header_class)) {
+    ?>
+    <img class="COLLECTION" src="/sprites/null.png" alt="<?=$this->element->getLabel()?>" />
+    <?php
+        }
+    }
+?>
+    <?=$this->element->getLabel()?>
+</div>
+<div class="prof_input"><input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="text" <?php if (!is_null($this->disabled)) print 'readonly'; ?> <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> value="<?=$this->escape($this->element->getValue())?>" class="prof_string<?=$this->input_class?>" /></div>
+<?php if (!is_null($this->element->getDescription())) : ?><div class="prof_element_help"><?php echo $this->element->getDescription() ?></div><?php endIf; ?>
+<?php    
+    if (count($this->element->getMessages()) > 0) {
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="prof_error"><img class="COLLECTION" src="/sprites/null.png" alt="" /><?=$name;?></div>
+<?php
+        }
+    }
+?>

@@ -1,0 +1,65 @@
+<script type="text/javascript" src="/js/auto/filter.js"></script>
+<div>
+<?=$this->filter();?> 
+</div>
+
+<div class="Q2">
+
+	<div class="w74-1">
+		
+		<div id="cars_list" class="lst-a">
+                <?php
+                    if (count($this->items) > 0) :            
+                        include('car_list.phtml');
+                    endIf;
+                ?>
+                    <div class="BREAK"></div>
+                    <div id="loader"></div>
+                </div>
+		
+	</div>
+	
+</div>
+<?php
+    if (count($this->items) >= Auto_Model_CarAd::$car_per_lazypage) :
+?>
+<script type="text/javascript">
+
+var lazy = false;
+    
+$(function(){
+    $(window).scroll(function(){ 
+        var zone = $(document).height() - $(window).height() - 400;
+        if  ( $(window).scrollTop() >= zone && !lazy ) {                
+            lazy = true;
+            lazyCars();
+        }
+    });  
+}); 
+
+function lazyCars() 
+{ 
+        $('#loader').html('<img src="/sprites/pepload.gif">');    
+<?php
+    $getparams = $_SERVER['QUERY_STRING'];
+    if (!empty($getparams)) :
+?>
+        $.post("/cars/filter?<?= $getparams ?>&from=" + $("#cars_list > #car:last").attr("rel"),
+<?php
+    else :
+?>
+        $.post("/cars/filter?from=" + $("#cars_list > #car:last").attr("rel"),
+<?php
+    endIf;
+?>
+        function(data){
+            if (data != "") $("#loader").before(data);			
+            $('#loader').empty();
+            lazy = false;
+        });
+};
+
+</script>
+<?php
+    endIf
+?>

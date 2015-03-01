@@ -1,0 +1,112 @@
+<?php
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+
+    $module = $request->getModuleName(); 
+    $controller = $request->getControllerName();
+    $action = $request->getActionName();
+    
+    if ($module == "default" && $controller == "index" && $action == "index") :
+?>
+<div class="QRIGHT-COL pull-right">
+<?php    
+    else :    
+?>
+<div class="QRIGHT-COL pull-right">
+<?php        
+    endif;
+?>
+    
+    <div style="float: none; height: 800px;" data-sticky_parent>
+        <div id="slider1" class="Qbanner240 pull-right" data-sticky_column>
+            <p>Publicidad</p>
+            <a href="http://qlick.cl/evento1222/view"><img src="/zeta/secretstage.jpg" width="240" height="400" alt=""></a>
+        </div>    
+    </div>    
+
+    <div style="float: none; height: 800px;" data-sticky_parent>
+        <div id="slider2" class="Qbanner240 pull-right mb30" data-sticky_column>
+            <p>Publicidad 2</p>
+            <a href="http://qlick.cl/evento1216/view"><img src="/zeta/anonuevo.jpg" width="240" height="400" alt=""></a>
+        </div> 
+    </div>    
+    
+    <div style="float: none; height: 800px;" data-sticky_parent>
+        <div id="slider3" class="Qbanner240 pull-right mb30" data-sticky_column>
+            <p>Publicidad 3</p>
+            <a href="http://qlick.cl/evento1216/view"><img src="/zeta/anonuevo.jpg" width="240" height="400" alt=""></a>
+        </div>
+    </div>
+
+</div>
+    
+<script type="text/javascript" src="/js/jquery.sticky-kit.min.js"></script>
+    
+<script type="text/javascript">
+    
+    $(document).ready(function() {
+        
+        var reset_scroll,
+    _this = this;
+
+  $(function() {
+    return $("[data-sticky_column]").stick_in_parent({
+      parent: "[data-sticky_parent]"
+    });
+  });
+
+  reset_scroll = function() {
+    var scroller;
+    scroller = $("body,html");
+    scroller.stop(true);
+    if ($(window).scrollTop() !== 0) {
+      scroller.animate({
+        scrollTop: 0
+      }, "fast");
+    }
+    return scroller;
+  };
+
+  window.scroll_it = function() {
+    var max;
+    max = $(document).height() - $(window).height();
+    return reset_scroll().animate({
+      scrollTop: max
+    }, max * 3).delay(100).animate({
+      scrollTop: 0
+    }, max * 3);
+  };
+
+  window.scroll_it_wobble = function() {
+    var max, third;
+    max = $(document).height() - $(window).height();
+    third = Math.floor(max / 3);
+    return reset_scroll().animate({
+      scrollTop: third * 2
+    }, max * 3).delay(100).animate({
+      scrollTop: third
+    }, max * 3).delay(100).animate({
+      scrollTop: max
+    }, max * 3).delay(100).animate({
+      scrollTop: 0
+    }, max * 3);
+  };
+
+  $(window).on("resize", function(e) {
+    return $(document.body).trigger("sticky_kit:recalc");
+  });
+        
+//        $('#slider1').hcSticky({
+//            wrapperClassName: 'wrapper-sticky1'
+//        });
+//        
+//        $('#slider2').hcSticky({
+//            wrapperClassName: 'wrapper-sticky2'
+//        });
+//        
+//        $('#slider3').hcSticky({
+//            wrapperClassName: 'wrapper-sticky3'
+//        });
+
+    });
+    
+</script>    

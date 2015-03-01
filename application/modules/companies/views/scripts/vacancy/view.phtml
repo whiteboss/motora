@@ -1,0 +1,197 @@
+<script>
+	var my_id = <?=$this->item->id?>;
+</script>
+
+<div class="Q1 Q1-COM">
+
+    <?= $this->profileHead() ?>
+
+    <div class="Q2">
+
+	<div class="w74-1">
+		
+		<div class="VACN-0">
+			
+			<div class="VACN-3 BREAK">
+			
+			<div class="right"><br /><a href="<?= $this->url(array('companyId' => $this->item->id_company, 'vacancyId' => $this->item->id, 'action' => 'edit'), 'companyvacancy') ?>">Редактировать</a>&nbsp;&nbsp;&nbsp;<a href="<?= $this->url(array('companyId' => $this->item->id_company, 'vacancyId' => $this->item->id, 'action' => 'delete'), 'companyvacancy') ?>">Удалить</a>&nbsp;&nbsp;</div>
+			
+			<h1>Требуется <span><?= $this->item->getPosition() ?></span></h1>
+			
+			<div class="W-23-2">
+                                <?php
+                                    switch ($this->item->sex) {
+                                        case '0' : $class = 'V-ANYMALE'; break;
+                                        case '1' : $class = 'V-MALE'; break;
+                                        case '2' : $class = 'V-FEMALE'; break;
+                                        default : $class = 'V-ANYMALE';
+                                    }
+                                ?>
+				<div class="VACN-2 <?= $class ?>"> <!-- V-MALE V-FEMALE -->
+				</div>
+				<p class="f120 lh-130">
+					<?= $this->item->getSex() ?>
+					<?php if ($this->item->age_from . $this->item->age_to !== ''): ?>
+					<br /><strong><?php if ($this->item->age_from): ?>desde <?= $this->item->age_from ?><?php endif; ?> <?php if ($this->item->age_to): ?>hasta <?= $this->item->getAgeTo() ?><?php endif; ?></strong>
+					<?php endif; ?>
+				</p>
+				
+                                <?php
+                                    switch ($this->item->schedule) {
+                                        case '0' : $class = 'V-FULLTIME'; break;
+                                        case '1' : $class = 'V-FREEWORK'; break;
+                                        case '2' : $class = 'V-CHANGEWORK'; break;
+                                        case '3' : $class = 'V-PARTWORK'; break;
+                                        case '4' : $class = 'V-REMOTEWORK'; break;
+                                        case '5' : $class = 'V-VAHTAWORK'; break;
+                                        default : $class = 'V-FULLTIME';
+                                    }
+                                ?>
+				<div class="VACN-2 <?= $class ?>">
+				</div>
+				<p class="f120 lh-130">
+					<?= $this->item->getSchedule() ?>
+				</p>
+                                
+                                <?php
+                                    switch ($this->item->education) {
+                                        case '0' : $class = 'V-MIDDLEGRADE'; break;
+                                        case '1' : $class = 'V-PROFGRADE'; break;
+                                        case '2' : $class = 'V-UNFINISHEDGRADE'; break;
+                                        case '3' : $class = 'V-HIGHGRADE'; break;
+                                        case '4' : $class = 'V-STEPENGRADE'; break;
+                                        default : $class = 'V-MIDDLEGRADE';
+                                    }
+                                ?>				
+				<div class="VACN-2 <?= $class ?>">
+				</div>
+				<p class="f120 lh-130">
+					<?= $this->item->getEducation() ?>
+				</p>
+				
+			</div>
+			<div class="w75">
+				<div class="W-90">
+					
+					<div class="W-30">
+						<span>Требования&nbsp;</span>
+					</div>
+					<div class="W-70">
+						<?= $this->item->requirements ?>
+					</div>
+					
+					<div class="BREAK mar-bot"></div>
+					
+					<div class="W-30">
+						<span>Должностные&nbsp;</span><br />обязанности
+					</div>
+					<div class="W-70">
+						<?= $this->item->description ?>
+					</div>
+					
+					<div class="BREAK mar-bot"></div>
+					
+					<div class="W-30">
+						<span>Заработная&nbsp;</span><br />плата
+					</div>
+					<div class="W-70">
+						<!--по результатам собеседования-->
+						<?php if ($this->item->salary_from > 0 || $this->item->salary_to > 0): ?>
+                                                        <?php if ($this->item->salary_from > 0 && $this->item->salary_to > 0): ?>
+                                                        <?php if ($this->item->salary_from < $this->item->salary_to) : ?><span class="VACN-S1 lh-130">desde <?= $this->item->getSalaryFrom() ?> hasta <?= $this->item->getSalaryTo() ?></span><?php else: ?><span class="VACN-S2 lh-100"><?= $this->item->getSalaryFrom() ?></span><?php endIf; ?>
+                                                        <?php elseif ($this->item->salary_from > 0): ?>
+                                                        <span class="VACN-S2 lh-100"><?= $this->item->getSalaryFrom() ?></span>
+                                                        <?php elseif ($this->item->salary_to > 0): ?>
+                                                        <span class="VACN-S2 lh-100"><?= $this->item->getSalaryTo() ?></span>
+                                                        <?php endif; ?>
+                                                        <br /><strong class="f120 lh-100">рублей</strong>
+                                                <?php 
+                                                        else :
+                                                ?>
+                                                После собеседования        
+                                                <?php            
+                                                        endif;
+                                                ?> 
+					</div>
+					
+					<div class="BREAK mar-bot3"></div>
+					
+				</div>
+			</div>
+			</div>
+			<div class="VACN-3 BREAK">
+				
+				<div class="Q1">
+				<div class="BREAK mar-bot"></div>
+				
+				<div class="BREAK mar-bot f120"></div>
+				
+					<div class="W-30 f120 lh-150">
+						<strong>Teléfono</strong><br />
+						<?= $this->item->getPhone() ?>
+					</div>
+					<div class="W-30 f120 lh-150">
+						<strong>Эл. почта</strong><br />
+						<a href="mailto:<?= $this->item->getEmail() ?>" class="black line-hov"><?= $this->item->getEmail() ?></a>
+				
+					</div>
+					<div class="W-30 f120 lh-150">
+						<strong>Persona de contacto</strong><br />
+						<?= $this->item->getPerson() ?>
+					</div>
+					
+					<div class="BREAK mar-bot3 f120"></div>
+				
+					<div class="W-50">
+                                        <?php
+                                            $company = $this->item->getCompany();
+                                            $owner = $company->getOwner();
+                                        ?>
+                                                <?= $company->getAvatar(60, 60, 'class="VACN-AVA"') ?>						
+						<div class="VACN-4 lh-150">
+							<em>Вакансия компании</em>
+							<br />
+							<a class="f120 black line-hov" href="<?= $this->url(array('companyId' => $company->id), 'company') ?>"><?= $company->name ?></a>
+							<br />
+							<a class="f90" href="<?= $this->url(array('companyId' => $company->id), 'companyvacancies') ?>">Todos vacantes</a>
+						</div>
+					</div>
+					
+					<div class="W-50">
+                                                <?= $owner->getAvatar(60, 60, true, 'class="VACN-AVA"') ?>						
+						<div class="VACN-4 lh-150">
+							<em>Publicado <?= $this->dateFormatPostList($this->item->date) ?></em>
+							<br />
+							<a class="f120 black line-hov" href="<?= $this->url(array('userId' => $owner->id), 'profile') ?>"><?= $owner->username ?></a>
+                                                        <?php
+                                                            if ($this->getLogged()) :
+                                                                $user = $this->getUserByIdentity();
+                                                        ?>
+							<?php
+                                                            endIf;
+                                                        ?>
+						</div>
+					</div>
+				
+				</div>
+				
+				
+				
+				<div class="BREAK mar-bot3"></div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	<div class="w25">
+		
+            <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+                <?= $this->left_banner ?>
+            </div>
+		
+	</div>
+	
+    </div>
+	
+</div>

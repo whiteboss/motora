@@ -1,0 +1,25 @@
+<?= $company->getAvatar(); ?>
+<?php
+    $type = $company->getType();    
+    if (is_null($type)) :
+        $spheres = $company->getSpheres();
+        foreach ($spheres as $sphere) :
+?>
+<h2><a class="grey-blue nl" href="<?=$this->url(array('sphereId' => $sphere->id), 'companybysphere')?>"><?= $sphere ?></a></h2>
+<?php
+            break;
+        endForeach;
+    else :
+?>
+<h2><a class="grey-blue nl" href="<?=$this->url(array('company_type' => $company->getTypeUrl()), 'companybytype')?>"><?= $type ?></a></h2>
+<?php
+    endif;
+?>
+<h1><a class="black line-hov" href="<?=$this->url(array("companyId" => $company->id), "company")?>"><?= $company->name ?></a></h1>
+<?php
+    $events = $company->getEvents(true);
+?>
+
+<p class="f90">
+    <?php if (count($events) > 0) : ?><a class="blue line-hov" href="<?= $this->url(array('companyId' => $company->id, 'action' => 'lents'), 'company') ?>">Eventos</a> <?= count($events) ?><?php else: ?>Eventos 0<?php endIf; ?>&nbsp;
+</p>

@@ -1,0 +1,83 @@
+<script type="text/javascript" src=""></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+            $("#name").charCount({ allowed: 150 });
+            $("#tags").charCount({ allowed: 100 });
+            $("#description").charCount({ allowed: 300, css: "countertextarea" });
+            initSingleUploader('/posts/indexbageupload', 'photo_index', 'post/thumbs', 'index_');
+            initSingleUploader('/posts/bageupload', 'photo_list', 'post/thumbs', '326_217_');
+            initSingleUploader('/posts/mainbageupload', 'photo', 'post');
+            initUploader('/posts/upload', true, 'photos', 'post', <?= Post_Model_Post::$limit_photos ?>);    
+            
+            $("#name").bind('keyup', function(){
+                var url = $(this).val().replace(/\s/g, '-');
+                url = url.replace(/[.,:!'´@]/g, '').toLowerCase();
+                $("#url").val(url);
+            });
+            
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="multipart/form-data" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->status?>
+    <?=$this->element->name?>
+    <?=$this->element->url?>
+    <?=$this->element->rubric_id?>
+    <?=$this->element->description?>
+    
+    <?php
+        if ($this->isGodOfProject()) :
+    ?>
+    <?=$this->element->company_id?>
+    <?php
+        endIf;
+    ?>    
+    
+    <?=$this->element->type_photo_index?>
+    <div class="break mar-bot"></div>
+    <div class="break line"></div>
+    <div class="standard_element_container">
+        <label class="standard_label">Imagen para badge de index</label>
+        <?=$this->element->photo_index?>
+    </div>
+    <div class="break mar-bot"></div>
+    <div class="break line"></div>
+    <div class="standard_element_container">
+        <label class="standard_label">Imagen para badge (no menos que 269 pix. por la ancho)*</label>    
+        <?=$this->element->photo_list?>
+    </div>    
+    <div class="break mar-bot"></div>
+    <div class="break line"></div>
+    <div class="standard_element_container">        
+        <label class="standard_label">Imagen para mayor badge (no menos que 884 pix. por la ancho)*</label>    
+        <?=$this->element->photo?>         
+    </div>
+    <div class="break mar-bot"></div>
+    <div class="break line"></div>
+    <div class="standard_element_container">
+        <label class="standard_label">Usted puede crear galería de fotos (no más que veinte imágenes y no menos que 800 pix. por la ancho)</label>
+        <?=$this->element->photos?>
+    </div>
+    <div class="break mar-bot"></div>
+    <?=$this->element->post?>
+    <div id="video_select" class="standard_element_container">
+        <?=$this->element->video?>
+        <?=$this->element->video_webm?>
+    </div>
+    <div class="break"></div>
+    <?=$this->element->tags?> 
+    <?=$this->element->post_type?>
+    <?=$this->element->author?>
+    <div id="report" class="standard_element_container">
+        <?=$this->element->gallery_id?>
+    </div>
+    <div class="break"></div>
+    <div class="standard_departer"></div>
+    
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

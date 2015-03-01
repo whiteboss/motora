@@ -1,0 +1,82 @@
+.ui-slider {float: left; margin-bottom: 15px; width: 266px !important; padding-left: 0 !important; background-color: none !important; height: 40px; margin-left: 3px; border: none !important;}
+.ui-slider-range {background: url(../sprites/sliders/active.png) no-repeat right top !important; background-color: none !important; border: none !important; padding-left: 0px !important;}
+.ui-slider-handle {background: url(../sprites/collection.png) -209px -128px !important; display: block; width: 31px !important; height: 20px !important; border: none !important; margin-left: -14px !important;}
+.ui-slider-handle:hover {background: url(../sprites/collection.png) -244px -128px !important;}
+
+#price_slider {background: url(../sprites/sliders/price.png) no-repeat right top !important;}    
+#year_slider {background: url(../sprites/sliders/year.png) no-repeat right top !important;}
+#mileage_slider {background: url(../sprites/sliders/mileage.png) no-repeat right top !important;}    
+#engine_volume_slider {background: url(../sprites/sliders/engine.png) no-repeat right top !important;}
+                         
+#rooms_slider {background-position: -5px -299px !important;}
+#rooms_slider .ui-slider-range {background-position: -5px -257px !important;}
+
+.filter_string_range input#price_from {width: 77px !important; margin: 0 7px 0 3px; padding: 2px 1px;}
+
+
+
+.filter_select_type {float: left; clear: both; width: 97%; margin-left: 13px; border-left: 1px #D2D2D2 solid; margin: 10px 0 20px 13px;}
+	.filter_select_type div {float: left; width: 129px; border: 1px #D2D2D2 solid; border-left: none; color: #696969; text-align: center; font-weight: bold; font-size: 110%; padding: 10px 0 5px 0; }
+	.filter_select_type div:hover {background: #F1F1F1; cursor: pointer;}
+	.filter_select_type div.active_cartype {background: #F1F1F1; color: #333;}
+	.filter_select_type div.active_cartype:hover {background: #F8F8F8; cursor: pointer;}
+	
+.filter_section {float: left; width: 657px; padding: 0 10px 10px 10px;}
+	.filter_section_cont {float: left; width: 100%; border-bottom: 1px #D2D2D2 solid;}
+	.filter_section_cont_2 {float: left; width: 100%; border-top: 1px #D2D2D2 solid;}
+
+ul#filter_primary_models {list-style-type: none; padding: 8px 0 15px 0px; width: 550px; margin: 0; float: left;}
+ul#filter_primary_models label {line-height: 100%; font-size: 110%; font-weight: normal; padding-top: 5px;}
+	ul#filter_primary_models li {float: left; padding-left: 10px;}
+
+ul#filter_TTX {list-style-type: none; padding: 20px 50px 0 0; width: auto; margin: 0; float: left;}
+	ul#filter_TTX label {line-height: 100%; font-size: 110%; font-weight: normal; padding-top: 5px;}
+	ul#filter_TTX li {float: none; padding-left: 0; margin-bottom: 5px;}
+	ul#filter_TTX li.filter_ttx_header {font-weight: bold; color: #696969; margin-bottom: 10px; padding-left: 2px;}
+
+.filter_models_else {cursor: pointer; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; border: 1px #D2D2D2 solid; float: left; font-size: 110%; padding: 8px 5px; width: 91px;}
+	.filter_models_else span {background-position: -879px -210px; padding: 1px 0 1px 25px;}
+	.filter_models_else:hover span {background-position: -879px -246px; padding: 1px 0 1px 25px;}
+
+.else_models_cont {position: absolute; z-index: 7; width: 651px; background: #FFF; margin-top: 28px; border: 1px #D2D2D2 solid; -webkit-border-radius: 3px; -webkit-border-top-right-radius: 0; -moz-border-radius: 3px; -moz-border-radius-topright: 0; border-radius: 3px; border-top-right-radius: 0; border-bottom: 3px #D2D2D2 solid;}
+	.else_models_cont ul {width: 90px; padding: 15px 0 0 15px; float: left;}
+		.else_models_cont ul li {margin-bottom: 5px;}
+			.else_models_cont ul li label {font-weight: normal;}
+	div.magic_trick {width: 101px; border-top: 1px #FFF solid; float:right; margin-top: -1px;}
+
+#sliders_field {clear: left; float: left; width: 659px; padding: 0 10px 0 15px; margin-bottom: 10px;}
+
+#filter_element_cont {float: left; width: 280px; margin-bottom: 15px;}
+
+input.filter_string_range {width: 77px; margin: 0 7px 0 3px; padding: 2px 1px;}
+h2.filter_value_header {font-size: 100%; font-weight: bold; color: #333; margin: 3px 0 2px 5px;}
+h3.filter_subsection_header {float: left; clear: both; padding: 10px 0 0 13px; color: #A3A3A3; font-size: 110%; margin-bottom: 7px; width: 90%;}
+	h3.filter_subsection_header span {font-size: 10pt; color: #000; border-bottom: 1px #000 dashed; margin-left: 15px;}
+	h3.filter_subsection_header span:hover {color: #BE1E2D; border-bottom: 1px #BE1E2D dashed; cursor: pointer;}
+
+.slider_holder {width: 266px !important; background-position: -5px -214px !important; height: 40px; margin-left: 3px;}
+.slider_ranger {background-position: -5px -172px !important; height: 40px; position: absolute;}
+
+.slider_holder_rooms {width: 266px !important; background-position: -5px -299px !important; height: 40px; margin-left: 3px;}
+.slider_ranger_rooms {background-position: -5px -257px !important; height: 40px; position: absolute;}
+
+.slider_holder_etage {width: 266px !important; background-position: -5px -387px !important; height: 40px; margin-left: 3px;}
+.slider_ranger_etage {background-position: -5px -343px !important; height: 40px; position: absolute;}
+
+.slider_holder_price {width: 266px !important; background-position: -294px -214px !important; height: 40px; margin-left: 3px;}
+.slider_ranger_price {background-position: -294px -172px !important; height: 40px; position: absolute;}
+
+.slider_holder {width: 266px !important; background-position: -5px -214px !important; height: 40px; margin-left: 3px;}
+.slider_ranger {background-position: -5px -172px !important; height: 40px; position: absolute;}
+
+.slider_holder {width: 266px !important; background-position: -5px -214px !important; height: 40px; margin-left: 3px;}
+.slider_ranger {background-position: -5px -172px !important; height: 40px; position: absolute;}
+
+
+.slider_handle {background-position: -209px -128px !important; display: block; position: absolute; z-index: 2; width: 31px; height: 20px;}
+.slider_handle:hover {background-position: -244px -128px !important;}
+.handle_right {margin-left: -5px;}
+
+.filter_select {width: 257px; margin-left: 6px; margin-top: 2px;}
+
+

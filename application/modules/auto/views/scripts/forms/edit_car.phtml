@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#price").charCount({ allowed: 8 });
+                $("#mileage").charCount({ allowed: 6 });
+                $("#engine_volume").charCount({ allowed: 5 });
+                $("#description").charCount({ allowed: 1000, css: "countertextarea" });
+                $("#phone").charCount({ allowed: 18 });
+                $("#email").charCount({ allowed: 30 });
+                $("#skype").charCount({ allowed: 20 });
+                $("#icq").charCount({ allowed: 11 });
+                initUploader('/car/upload', true, 'photo', 'cars', <?= Auto_Model_CarAd::$max_photos ?>);
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->brand?>
+    <?=$this->element->id_model?>
+    <?=$this->element->price?>
+    <?=$this->element->year?>
+    <div class="break"></div>
+    <?=$this->element->mileage?>
+    <?=$this->element->engine_volume?>
+    <?=$this->element->engine_type?>
+    <?=$this->element->gearbox?>
+    <div class="break"></div>
+    <?=$this->element->description?>
+    <?=$this->element->transmission?>
+    <div class="break"></div>
+    <?=$this->element->is_new?>
+    <style>
+    #photo-list {width: 870px; padding-left: 20px;}
+    #photo-uploader {margin-left: 20px;}
+    #photo-list span {float: left; display: block;}
+	#photo-list span:hover .cancel-photo { visibility:visible; }
+    </style>
+    <div class="break"></div>
+	<div class="standard_element_container">    
+		<label class="standard_label">Загрузите фотографии вашей красотки</label>
+	</div>
+    <?=$this->element->photo?>
+    <div class="break mar-bot3"></div>
+    <div class="line"></div>
+    
+    <?=$this->element->phone?>
+    <?=$this->element->email?>
+    <div class="break"></div>
+    <?=$this->element->skype?>
+    <?php if (!$this->getLogged()) : ?>
+    <div class="standard_element_container">
+        <label class="standard_label">&nbsp;</label>
+        <?=$this->element->figli?>
+    </div>
+    <div class="standard_element_help">Если не хотите это каждый раз писать, <a href="<?= $this->url(array(), 'signin') ?>">войдите</a></div>
+    <?php endIf ?>
+
+    <div class="standard_departer"></div>
+
+    <?=$this->element->add_item?>    
+</div>
+
+</form>

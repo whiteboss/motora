@@ -1,0 +1,19 @@
+<select name="<?=$this->element->getName()?>" id="<?=$this->element->getName()?>" <?php if ($this->readonly) print "readonly"; ?> class="short_select">
+<?php
+    foreach ($this->element->getmultiOptions() as $key=>$name) {
+?>
+    <option <?php if($this->element->getValue()==$key) echo "selected";  ?> value="<?=$key?>"><?=$name?></option>
+<?php
+    }
+?>
+</select>
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        //print $this->formErrors($this->element->getMessages())
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+<?php
+        }
+    }
+?>

@@ -1,0 +1,30 @@
+<div id="<?=$this->element->getName()?>_list">
+        <ul>
+        <?php
+            $checked = $this->element->getValue();
+            $id_brand = 0;
+            $model_count = 1;
+            foreach ($this->element->getmultiOptions() as $key=>$name) {
+                if ($id_brand != $name->id_brand) {
+                    $parent = $name->getBrand();
+                    print '</ul><h2><div>' . $parent->name . '</div><div class="rel-brand" id="deselectall" rel="brand' . $parent->id . '">eliminar todo <img class="coll mod-todos" src="/sprites/null.png" width="14" height="11" alt="" /></div></h2><ul id="brand' . $parent->id . '">';
+                    $id_brand = $parent->id;                    
+                    $model_count = 1;
+                }                
+        ?>
+        <li><input id="<?=$this->element->getName()?>-<?=$key?>" name="<?=$this->element->getName()?>[]" <?php if (count($checked) > 0) { foreach ($checked as $check) if ($check == $key) print "checked"; } else { print "checked"; } ?> type="checkbox" value="<?=$key?>" class="standard_checkbox" />
+            <label class="label_checkbox_fix" for="<?=$this->element->getName()?>-<?=$key?>"><?=$name?></label>
+        </li>
+        <?php
+                if ($model_count == 10) {
+        ?>
+        <div class=break></div>            
+        <?php
+                    $model_count = 0;
+                }
+        
+                $model_count++;
+            }
+        ?>
+    </ul>
+</div>

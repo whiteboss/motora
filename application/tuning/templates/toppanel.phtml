@@ -1,0 +1,28 @@
+<!--
+<div class="MOB MOB-TOPPER">
+    
+    <a href="#slide_modal" class="second"><img class="Imobmenu" src="/zeta/0M.png" width="30" height="28" alt="" /></a>
+    <a href="" class="MOB-BREAD">Inicio</a>
+</div>
+-->
+
+<div class="Qtopper w100">
+    <div class="container">
+        <div><a href="<?= $this->url(array(), 'main') ?>"><img class="QLogo" src="/zeta/0.png" width="155" height="36" alt="" /></a></div>
+        <div class="pull-right">
+            <form class="form-horizontal" id="search_form" name="search_form" enctype="application/x-www-form-urlencoded" method="get" action="<?=$this->url(array(), 'search');?>">
+                <input type="hidden" name="search_type" value="all">
+                <input class="Qsearch" id="search_str" name="q" type="text" maxlength="50" placeholder="Buscar..." /><input type="image" class="Isearch" src="/zeta/0.png" width="13" height="13" alt="" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="Qmenu w100">
+    <div class="container">
+        
+        <?= $this->MainMenu() ?>        
+        <?php print $this->loggedInAs(); ?>
+        
+    </div>
+</div>

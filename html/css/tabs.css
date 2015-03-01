@@ -1,0 +1,83 @@
+#tabsmain {float: left; clear: left; width: 100%;}
+#tabscontents {float: left; clear: left; width: 615px; background: #FFF; border: 0px #DDDDDD solid; border-top: none !important; margin: 0 10px 50px 10px;}
+
+#tabsheader ul#tabsprimary {float: left; clear: both; margin: 15px 10px 20px 10px; border-bottom: 1px #BBB solid; padding: 0; width: 657px; border-left: 1px #BBB solid;}
+#tabsheader ul#tabsprimary li {list-style-type: none; float: left; border: 1px #BBB solid; border-left: none; border-bottom: none; font-family: Arial, Myriad Pro, Calibri; color: #1C75BC; font-size: 100%; padding: 7px 9px; text-decoration: undrline; bckground: #F6F6F6; cursor: pointer;}
+#tabsheader ul#tabsprimary li:hover {text-decoration: underline; background: #E8E8E8;}
+#tabsheader ul#tabsprimary a {text-decoration: none; color: #1C75BC;}
+
+/*#tabsheader ul#tabsprimary a,#tabsheader ul#tabsprimary span,#tabsheader ul#tabsprimary a.current {
+	width: 8em;
+	display: block;
+	float: left;
+	padding: 4px 0;
+	margin: 1px 2px 0 0;
+	text-align: center;
+	font-family: tahoma, verdana, sans-serif;
+	font-size: 85%;
+	text-decoration: none;
+	color: #333;
+}*/
+
+/*#tabsheader ul#tabsprimary span,#tabsheader ul#tabsprimary a.current,#tabsheader ul#tabsprimary a.current:hover {
+	border: 1px solid #666;
+	border-bottom: none;
+	background: #FFF3B3;
+	padding-bottom: 6px;
+	margin-top: 0;
+}*/
+
+/*#tabsheader ul#tabsprimary a {
+	background: #FFFAE1;
+	border: 1px solid #AAA;
+	border-bottom: none;
+}*/
+
+/*#tabsheader ul#tabsprimary a:hover {
+	margin-top: 0;
+	border-color: #666;
+	background: #FFF7CD;
+	padding-bottom: 5px;
+}*/
+
+#tabsheader ul#tabssecondary {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	bottom: -1.4em;
+	left: 1px;
+	width: 50em; /* a width is required for Opera, older Mozilla browsers, and Konqueror browsers */
+}
+
+#tabsheader ul#tabssecondary li a,#tabsheader ul#tabssecondary li span {
+	width: auto;
+	display: block;
+	float: left;
+	padding: 0 10px;
+	margin: 0;
+	text-align: auto;
+	border: none;
+	border-right: 1px dotted #AAA;
+	background: none;
+
+}
+
+#tabsheader ul#tabssecondary li a {
+	color: #06C;
+	text-decoration: underline;
+}
+
+#tabsheader ul#tabssecondary li a:hover {
+	color: #333;
+	background: transparent;
+	padding: 0 10px;
+	border: none;
+	border-right: 1px dotted #tabsAAA;
+}
+
+#tabsheader ul#tabssecondary li a:active {
+	color: #000;
+	background: transparent;
+}
+
+#tabsheader ul#tabssecondary li:last-child a { border: none; }

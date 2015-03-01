@@ -1,0 +1,95 @@
+<div class="container">
+
+	<div class="w100 mb10"></div>
+	
+	<div class="Q74">
+		
+		<?php 
+                    //include('popular_companies.phtml') 
+                    print $this->PopularPosts();
+                ?>
+        
+		<div class="BRC">
+			<a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('company_type' => $this->company->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$this->company->type] ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey"><?= $this->company->name ?></span>
+		<?php
+                        $identity = Zend_Auth::getInstance()->getIdentity();
+                        $owner = $this->company->getOwner();
+                        if (!is_null($identity) || $this->isGodOfProject()) :
+                            if (($owner && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                    ?>
+                        &nbsp;&nbsp;
+                        <a href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'edit'), 'company') ?>" title="Editar"><img class="Ieditar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                        <a id="event-delete" href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'delete'), 'company') ?>" title="Eliminar"><img class="Ieliminar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                    <?php
+                            endIf;
+                        endIf;
+                    ?>
+		</div>
+	    
+		<div class="Q31">
+                    <?= $this->profileHead() ?>
+		    
+		    <?= $this->LugaresNoticias() ?>		    
+		</div>
+		<div class="Q64">
+                    <div class="Qblock Qblock5">
+                    <?php
+                        if (count($this->items) > 0) :
+                            foreach ($this->items as $item) :
+                                $photo = $item->getPhoto();
+                                $style = $item->getStyle();
+                                $commentCount = (int) $item->commentCount();
+                                $musicCounter = $item->getMusicCounter(0);
+                                if (!is_null($musicCounter)) {
+                                    $musicCounter = $musicCounter->counter;    
+                                } else {
+                                    $musicCounter = 0;
+                                }
+                    ?>  
+                    
+                        <div class="US6">
+                            <div class="Qavatar1">
+                                <a href="<?= $this->url(array('musicId' => $item->id), 'music') ?>"><img src="/files/music/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                            </div>
+                        </div>
+
+                        <div class="QmusicD US8 pull-right">
+                            <span><a class="f14" href="<?= $this->url(array('musicId' => $item->id), 'music') ?>"><strong><?= $item->getName() ?></strong></a>&nbsp; <span class="f9 grey"><?= $item->getDate() ?></span><a class="Qtag lnone" href="<?= $this->url(array('categoryId' => $style->id), 'musicstyle') ?>"><?= $style ?></a></span>
+                            <br>
+                            <span class="grey f11 lh17">2 de junio, 2013 <strong><a class="purple lhov" href=""></a><?= $user->getUserName() ?></strong> publicado</span>
+                            <audio id="player2" src="/files/music/<?= $item->getMusicFile() ?>" type="audio/mp3" controls="controls" preload="none"></audio>
+                            <div class="w100 clear f10 grey">
+                                <a class="grey lnone" href="<?= $this->url(array('musicId' => $item->id), 'music') ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                <a class="grey lnone" href="<?= $this->url(array('musicId' => $item->id), 'music') ?>" title="<?= $item->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $item->viewed ?></a>
+                                <?php
+                                    if ($item->is_download == 1) :
+                                ?>
+                                <a class="grey lnone" href="<?= $this->url(array('musicId' => $item->id, 'songId' => 0), 'downloadmusic') ?>" title="<?= $musicCounter ?> descargas"><img class="Idown" src="/zeta/0.png" width="10" height="16" alt=""><?= $musicCounter ?></a>
+                                <?php
+                                    endIf;
+                                ?>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('audio').mediaelementplayer();
+                        </script>
+
+                        <div class="w100 clear mb30"></div>
+                                    
+                    <?php
+                            endForeach;
+                        else :
+                    ?>
+                    No hay música
+                    <?php        
+                        endIf;
+                    ?>
+                    </div>
+		</div>
+		
+	</div>
+	
+        <?php include('right_block.phtml') ?>
+
+</div>

@@ -1,0 +1,5 @@
+<?php
+    $attrs = $this->element->getAttribs();
+    $options = $attrs['options'];
+?>
+<div class="checkbox-div"><input type="hidden" name="<?=$this->element->getName()?>" value="<?= $options['uncheckedValue'] ?>"><input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="checkbox" value="1" <?php echo $this->element->isChecked() ? ' checked="checked"' : '' ?> class="standard_checkbox" /> <label class="label_checkbox_fix" for="<?=$this->element->getName()?>"><?=$this->element->getLabel()?></label></div>

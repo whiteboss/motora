@@ -1,0 +1,327 @@
+<input type="hidden" id="editWindow" value="0" />
+<input type="hidden" id="linkToLocation" value="0" />
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&language=es"></script> 
+<script type="text/javascript"> 
+
+    var map; 
+    var markers = [];
+    var c_markers = [];
+    var night_style = [
+        {
+            "featureType": "all",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "invert_lightness": true
+                },
+                {
+                    "saturation": 10
+                },
+                {
+                    "lightness": 30
+                },
+                {
+                    "gamma": 0.5
+                },
+                {
+                    "hue": "#435158"
+                }
+            ]
+        }
+    ];
+
+        var globalLocation = "<?= $this->location ?>";
+        var markerClusterer = null;
+        
+        var clusterStyles = [
+        {
+            textColor: 'white',
+            textSize: 13,
+            url: '/sprites/map/large/smallclusterimage.png',
+            height: 33,
+            width: 33
+        },
+        {
+            textColor: 'white',
+            textSize: 13,
+            url: '/sprites/map/large/mediumclusterimage.png',
+            height: 33,
+            width: 33
+        },
+        {
+            textColor: 'white',
+            textSize: 13,
+            url: '/sprites/map/large/largeclusterimage.png',
+            height: 33,
+            width: 33
+        }];
+
+        function getMarkersFromXML()
+        {
+            
+            var cats = $('#cat_list input[type=checkbox]:checked').serializeArray();
+
+            $.ajax({
+                url: '/xml',
+                type: 'post',
+                data: { 'catIds': cats },
+                dataType: 'xml',
+                error: function() {
+                    throw 'Error on retrieving data';
+                },
+                success: function( data ) {
+                    
+                    if (markers) {
+                        for (i in markers) {
+                          markers[i].setMap(null);
+                        }
+                        markers = [];
+                    }
+                    
+                    if (markerClusterer != null) {
+                       markerClusterer.clearMarkers();
+                    }
+                    
+                    if (data) {
+                    
+                        $(data).find("marker").each(function() {
+                            var markerData = jQuery(this);
+                            var latlng = new google.maps.LatLng(parseFloat(markerData.attr("lat")), parseFloat(markerData.attr("lng")));
+                            var markerId = markerData.attr("id");
+                            var catId = markerData.attr("catId");
+
+                            var marker = new google.maps.Marker({
+                                            id: markerId,
+                                            catId: catId,
+                                            position: latlng,
+                                            map: map,
+                                            clickable: true,
+                            <?php if ($this->isGodOfProject()) : ?>
+                                            draggable: true,
+                            <?php endIf; ?>
+                                            icon: markerData.attr("icon")
+                                        });
+
+                                        //markers[markerId] = marker;
+                                        markers.push(marker);
+                                        c_markers[markerId] = markers.length - 1;
+
+                                        google.maps.event.addListener(marker, 'click', function() {
+                                            if (infowindow) infowindow.close();
+                                            $.ajax({
+                                                url: '/getmarkerinfo',
+                                                type: 'get',
+                                                data: { markerId: marker.id },
+                                                error: function() {
+                                                    throw 'Error on retrieving marker';
+                                                },
+                                                success: function( data ) {
+                                                    infowindow.setContent(data);
+                                                    infowindow.open(map, marker);
+                                                }
+                                            });
+
+                                        });
+
+                            <?php if ($this->isGodOfProject()) : ?>
+                                        google.maps.event.addListener(marker, 'dragend', function() {
+                                            moveMarkerToLocation(marker.id, marker.position.lat(), marker.position.lng())
+                                        });
+                            <?php endIf; ?>
+                        });
+
+                        markerClusterer = new MarkerClusterer(map, markers, {
+                            maxZoom: 15,
+                            gridSize: 60,
+                            styles: clusterStyles
+                        });
+                        
+                    }
+                    
+                },
+                error: function () {
+                    alert("Internal error");
+                }                
+            });
+        }
+
+        function initialize()
+        {
+            var latlng = new google.maps.LatLng<?= $this->location ?>;
+            var myOptions = {
+              zoom: <?= $this->map_zoom?>,
+              center: latlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              name: "Santiago",
+<?php
+    if (date("G",time()) >= 21 || date("G",time()) <= 6) :
+?>
+              styles: night_style
+<?php
+    endIf;
+?>
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+            
+            infowindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(map, 'click', function() {
+                if (infowindow) infowindow.close();
+            });
+
+            google.maps.event.addListener(map, 'mousemove', function(event) {
+                if(globalLocation != map.getCenter()){
+                    $("#getLinkForm").css("display","none");
+                    $("#getLinkToLocation").css("background-color", "");
+                    $("#linkToLocation").val(0);
+                }
+            });
+
+<?php
+        if ($this->isGodOfProject()) :
+?>
+            google.maps.event.addListener(map, 'click', function(event) {
+                addMarker(event.latLng);
+            });
+<?php endIf; ?>
+    
+        } // initialize
+
+        $(document).ready(function() {
+            initialize();
+            getMarkersFromXML();
+            
+            $("#getLinkToLocation").click(function(e)
+            {
+                e.preventDefault();
+                $("#linkToLocation").val(1);
+                $("#addMarker").val(0);
+                $("#getLinkForm").css("display","block");
+
+                globalLocation = map.getCenter();
+                linkToLocation(map.getCenter());
+                //
+                infowindow.close();
+                //
+            });
+            
+<?php
+            if ($this->isGodOfProject()) :
+?>
+            $("#addMarkerLink").click(function(e)
+            {
+                var MarkerLink = $("#addMarkerLink").css("background-color");
+                if(MarkerLink != "rgb(255, 165, 0)")
+                {                    
+                    $("#addMarkerLink").css("background-color", "orange");
+                    $("#linkToLocation").val(0);
+                    $("#getLinkToLocation").css("background-color", "");
+                    $("#getLinkForm").css("display","none");
+                }
+                else
+                {                    
+                    $("#addMarkerLink").css("background-color", "");
+                    infowindow.close();
+                }
+            });
+<?php 
+            endIf;
+?>            
+
+            $('.rubric-marker-all').live('change', function()
+            {
+                allRubricMarkerFilter(this);
+            });
+            
+        });
+
+        function linkToLocation(location)
+        {
+            var strLink = "http://<?= $_SERVER['SERVER_NAME'] ?>/?location="+location;
+            $("#linkToLocationInput").val(strLink);
+            $("#linkToLocationInput").select();
+            var myLatlngLink = new google.maps.LatLng+location;//(location);
+
+            map.setCenter(myLatlngLink);
+            return true;
+        }
+
+</script>
+<div class="w100 QMP1">
+<?php if ($this->noFilter != 1) : ?>
+
+    <div class="w100 clear qmap_filter_cont" id="filterList" style="display: none;">
+        <div class="container">
+        <div id="cat_list" class="qmap_sections">
+            
+            <ul id="category_1">
+            
+<?php
+    $categoryId = 0;
+    foreach ($this->mapSubCategories as $key => $mapSubCategories) :
+        if ($key == "proj") continue;
+?>
+                <li>
+                    <input id="<?= $key ?>" type="checkbox" name="catIds[]"
+<?php
+                if ($this->section) {
+                    if (!is_array($this->section)) {
+                        if ($this->section == $mapSubCategories['id']) {
+                            echo 'checked';
+                        }
+                    } else {
+                        //if (in_array($mapSubCategories['id_parent'], $this->section)) {
+                        if (in_array($mapSubCategories['id'], $this->section)) {
+                            echo 'checked';
+                        }
+                    }
+                }
+
+                //?topsection[]=2&topsection[]=4&section[]=15
+                if (!$this->topSection && !$this->section) {
+                    echo 'checked';
+                } elseif (is_array($this->topSection) && in_array($mapSubCategories['id_parent'], $this->topSection)) {
+                    echo 'checked';
+                }
+?> value="<?= $key ?>" onchange="getMarkersFromXML();" />
+
+                    <label for="<?= $key ?>"><?= $mapSubCategories ?></label>
+                </li>
+
+
+<?php endforeach; ?>
+                
+                <li class="checkall"><label><input type="checkbox" name="catIds[]" checked="" value="1" class="rubric-marker-all">Cambiar todo</label></li>
+            </ul>                
+
+            <form class="form-horizontal pull-left" onsubmit="return false;">
+            <input type="text" id="markerNameLocation" placeholder="Buscar en el mapa..." class="map_query" />
+            <span id="markerLocation"><img class="Imapabuscar point" width="15" height="15" src="/zeta/0.png" alt="" /></span>
+            </form>
+            <a class="lnone" id="getLinkToLocation">Recibir link</a>
+            <div id="getLinkForm" style="display: none;">
+                <input type="text" id="linkToLocationInput"/>
+            </div>
+
+        <?php if ($this->isGodOfProject()) : ?>
+
+            <a class="lnone" id="addMarkerLink">Agregar punto</a>
+
+        <?php endif; ?>
+
+        
+        </div>
+        
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="w100 clear"><div class="container"><a id="closeFilter" class="point"><img class="Ifiltro" src="/zeta/0.png" width="5" height="9" alt="" />Instrumentos</a></div></div>
+</div>
+<style>
+    div.gmnoprint[style="margin: 5px; z-index: 0; position: absolute; cursor: pointer; right: 0px; top: 0px;"], div.gmnoprint[style="margin: 5px; z-index: 1000000; position: absolute; cursor: pointer; right: 0px; top: 0px;"] {top: 30px !important;}
+</style>
+<div id="map_canvas" class="mar-bot3"></div>
+
+   
+

@@ -1,0 +1,121 @@
+<div class="container">
+
+    <div class="Q74">
+	
+	<?php 
+            print $this->PopularPeoples();        
+        ?>
+
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Eventos</span></div>
+
+        <div class="US1">
+
+            <div class="Qblock Qblock5">
+                <?php if (!$this->events): ?>
+                    <p class="f18 lh24">Todavìa no tienes ningun evento publicado en nuestro sitio, <a href="<?= $this->url(array(), 'createevent') ?>">publicalo aqui</a>.</p>
+                <?php else: ?>
+
+                    <?php
+                    $identity = $this->getUserByIdentity();
+
+                    foreach ($this->events as $event) :
+                        $photo = $event->getPhoto();
+                        $place = $event->getPlaceName();
+                        $last = $event->isLastEvent();
+                        ?>
+
+                        <div class="w100 clear grey mb10">Va a participar en el evento:</div>
+                        <div class="US5">
+                            <div class="Qprev-d">
+                                <div class="Qprev-date"><?= $event->getDayStart() ?></div>
+                                <div class="w100">de <?= $event->getFormatMonthStart() ?></div>
+                                <div class="w100 grey"><?= $event->getDayOfWeekStart() ?></div>
+                                <?php
+                                    if ($event->start_date != $event->end_date) :
+                                ?>
+                                <div class="w100 f9 mb5 grey">hasta</div>
+                                <div class="Qprev-date"><?= $event->getDayEnd() ?></div>
+                                <div class="w100">de <?= $event->getFormatMonthEnd() ?></div>
+                                <div class="w100 grey"><?= $event->getDayOfWeekEnd() ?></div>
+                                <?php
+                                    endIf;
+                                ?>
+                                <?php
+                                if (!$last) :
+                                    if (!is_null($identity) && !$event->isWalked($identity->id)) :
+                                        ?>                                                                                        
+                                        <div id="attend" class="B-ire" href="#" rel="<?= $event->id ?>">Voy</div>
+                                        <?php
+                                    elseif (!is_null($identity) && $event->isWalked($identity->id)) :
+                                        ?>
+                                        <div id="dismiss" class="B-ire" href="#" rel="<?= $event->id ?>">Voy</div>
+                                        <?php
+                                    else :
+                                        ?>                        
+                                        <a data-toggle="modal" role="button" href="#auth"><div class="B-ire">Voy</div></a>
+                                    <?php
+                                    endIf;
+                                endIf;
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="US6">
+                            <div class="Qavatar1">
+                                <a href="<?= $event->getUrl() ?>"><img src="/files/events/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                            </div>
+                        </div>
+
+                        <div class="US7">
+                            <p class="f18"><a class="lhov" href="<?= $event->getUrl() ?>"><?= $event->name ?></a></p>
+                            <p class="f11 grey2 lh17"><?= $event->description ?></p>
+                            <p class="f11 lh17">
+                            <div>Donde: 
+                                <?php
+                                if (!is_null($event->id_company) && $event->id_company > 0) :
+                                    ?>
+                                    <a class="purple" href="<?= $place->getUrl() ?>"><?= $place->name ?></a>
+                                    <?php
+                                else :
+                                    print $place;
+                                endif;
+                                ?>
+                            </div>
+                            <div class="US9 f10">
+                                <div class="Iire-cont"><img src="/zeta/0.png" class="Iire" width="6" height="16" alt=""></div><div><span id="attending-<?= $event->id ?>"><?= $event->num_attending ?></span></div>
+                                <div class="Ilooks-cont"><img src="/zeta/0.png" class="Ilooks" width="14" height="16" alt=""></div><div><?= $event->counter ?></div>                                <div class="Iqr-cont"><img src="/zeta/0.png" class="Iqr" width="15" height="16" alt="" /></div><div><a data-target="#eventQR<?= $event->id ?>" href="<?= $this->url(array('eventId' => $event->id, 'action' => 'qr'), 'event') ?>" role="button" data-toggle="modal">QR</a></div>
+                                <!-- Modal -->
+                                <div id="eventQR<?= $event->id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <div class="modal-body" data-remote="<?= $this->url(array('eventId' => $event->id, 'action' => 'qr'), 'event') ?>">                                            
+                                    </div>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+
+                        <div class="w100 clear mb30"></div>                        
+
+
+                        <?php
+                    endforeach;
+                    ?>                    
+
+                <?php endif ?>                            
+            </div>
+
+        </div>
+
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>

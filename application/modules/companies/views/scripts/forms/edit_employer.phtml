@@ -1,0 +1,15 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#position").charCount({ allowed: 40 });
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->position?>
+    <div class="standard_departer"></div>
+    <?=$this->element->add_item?>    
+</div>
+
+</form>

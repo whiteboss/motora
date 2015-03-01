@@ -1,0 +1,60 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#name").charCount({ allowed: 45 });
+                $("#name_eng").charCount({ allowed: 40 });
+                $("#description").charCount({ allowed: 450, css: "countertextarea" });
+		$("#address").charCount({ allowed: 150 });
+                $("#path").charCount({ allowed: 300 });
+		$("#phone").charCount({ allowed: 16 });
+ 		$("#position").charCount({ allowed: 50 });
+                $("#contact").charCount({ allowed: 16 });                
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+	
+    <?=$this->element->name?>
+    <?=$this->element->name_eng?>
+    <?=$this->element->url?>
+    <?=$this->element->type?>
+    <div class="break line"></div>
+    <?=$this->element->description?>
+    <?=$this->element->address?>
+    <?=$this->element->path?>
+    <?=$this->element->phone?>
+    <style>
+    #form-repres div label.label_checkbox_fix {width: 90% !important;}
+    #form-repres div {width: 100% !important;}
+    #owner_position .standard_element_container {width: 100%;}
+    </style>
+    
+    <div class="break"></div>
+    <div class="standard_element_container">
+        <label class="standard_label">&nbsp;</label>
+        <div class="radio_section" id="form-repres"><?=$this->element->agree?></div>
+        
+        <div id="agreement" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+            <div class="modal-body">
+                <p>agreement *** *** ***</p>
+            </div>
+        </div>
+        
+        <div id="rules" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+            <div class="modal-body">
+                <p>rules *** *** ***</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="line white-shad mar-bot"></div>
+
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

@@ -1,0 +1,128 @@
+
+<?php if ( !empty($this->friends) ): ?>
+
+<script type="text/javascript">
+    var mouse_is_inside = false;
+    $(document).ready(function(){         
+        $('.UZ-2').hover(function(){ 
+            mouse_is_inside=true; 
+        }, function(){ 
+            mouse_is_inside=false; 
+        });
+        
+        $("body").mouseup(function(){ 
+            if(! mouse_is_inside) $(this).find('#info').hide();                
+        });
+        
+        $('#user_profile').live('click', function() {
+            $(this).children('div').toggle();
+        });
+        
+    });    
+</script>
+
+    <?php
+    
+        $auth = Zend_Auth::getInstance();
+        $table = new Users_Model_Table_Friends();
+    
+        $i = 1;
+        foreach ( $this->friends as $friend ):
+            if ($friend->id_user_to == $this->user->id) 
+                $user_friend = $friend->getRequestFriend();
+            else
+                $user_friend = $friend->getFriend();            
+    ?>
+
+	    <div id="user_profile" class="UZ-1" rel="<?= $i ?>">
+		
+		<div id="info" class="UZ-2" style="display: none;">
+		    <img class="UZ-CL coll" src="/sprites/null.png" width="10" height="10" alt="" /></img>
+		    <div class="UZ-3">
+                        <div class="UZ-R"><?= $user_friend->rate ?></div>
+                        <?= $user_friend->getAvatar(64, 64, false); ?>
+                        <p class="f110 bold UZ-N"><?= $user_friend->username ?></p>
+                        <p class="f90"><?= $user_friend->getFullName() ?></p>
+		    </div>
+		    <div class="UZ-4">
+			<div class="BREAK mar-bot"><a class="white" href="<?= $this->url(array('userId' => $user_friend->id), 'profile') ?>"><img class="coll UZ-I" src="/sprites/null.png" width="22" height="20" alt="" />Perfil de usuario</a></div>
+			<div>
+			    <ul>
+			    <li><strong>Actividades</strong></li>
+                            <?php
+                                $posts = $user_friend->getPosts(true);
+                                $events = $user_friend->getEvents(true);
+                                $photoreports = $user_friend->getPhotoReports();
+                            ?>
+			    <li><?=count($posts) > 0 ? '<a href="/user' . $user_friend->id . '/posts" class="white line-hov">Publicaciónes</a><span>' . count($posts) . '</span>' : 'Publicaciónes <span>0</span>';?></li>
+			    <li><?=count($events) > 0 ? '<a href="/user' . $user_friend->id . '/events" class="white line-hov">Eventos</a><span>' . count($events) . '</span>' : 'Eventos<span>0</span>';?></li>
+			    <li><?=count($photoreports) > 0 ? '<a href="/user' . $user_friend->id . '/galleries" class="white line-hov">Galerías</a><span>' . count($photoreports) . '</span>' : 'Galerías<span>0</span>';?></li>
+			    </ul>
+			</div>
+                        <?php
+                            $companies = $user_friend->getCompanies();                            
+                        ?>
+			<div class="UZ-C">
+			    <strong>Empresas</strong>
+                        <?php
+                            if (count($companies) > 0) :
+                        ?>
+                            <div>                        
+                        <?php        
+                                $j = 1;
+                                foreach ($companies as $company) :
+                        ?>			    
+			    <?= $company->getAvatar(41, 41) ?>
+                        <?php
+                                    if ($j == 3) break;
+                                    $j++;
+                                endForeach;
+                        ?>
+                            </div>
+                        <?php                                
+                                if (count($companies) > 3) :
+                        ?>
+			    <p class="BREAK f85"><a class="white" href="<?= $this->url(array('userId' => $user_friend->id), 'profile') ?>">все <?= count($companies) ?> компаний</a></p>
+                        <?php
+                                endIf;
+                            else :
+                        ?>                            
+                            <p class="f85"><em><?= $user_friend->username ?> пока не&nbsp;состоит ни&nbsp;в&nbsp;одной компании</em></p>
+                        <?php    
+                            endIf;
+                        ?>    
+			</div>
+                        
+                        <?php
+                            if ($friend->status == 0 && $this->user->id == $this->myId) :
+                                $friendship_request = $table->checkFriendship($auth->getIdentity()->id, $user_friend->id, 0);
+                        ?>        
+                        <div class="UZ-F">
+                            <div><a href="<?=$this->url(array('requestId' => $item->id), 'friendaccept')?>"><img class="coll" src="/sprites/null.png" width="21" height="21" alt="" /><div>Añadir como amigo</div></a></div>
+                            <div><div><a href="<?=$this->url(array('requestId' => $item->id), 'frienddiscard')?>">Cancelar</a></div></div>
+                        <?php                                
+                                if ($friendship_request) :
+                        ?>
+                            <img src="/sprites/219.gif" width="21" height="21" alt="" /><div id="friend_discard" rel="<?=$user->id?>">Cancelar solicitud</div>    
+                        <?php        
+                                endif;  
+                        ?>                                                        
+                        </div>
+                        <?php
+                            endIf;
+                        ?>		       
+		    </div>
+		</div>
+		    
+		<div class="UZ-R"><?= $user_friend->rate ?></div>
+		<?= $user_friend->getAvatar(64, 64, false) ?>
+		<p class="f110 bold UZ-N"><?= $user_friend->username ?></p>
+		<p class="f90"><em><?= $user_friend->getFullName() ?></em></p>
+		    
+	    </div>
+
+    <?php
+            $i++;
+        endforeach;
+    ?>
+<?php endif; ?>

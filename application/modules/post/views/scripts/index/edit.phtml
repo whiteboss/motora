@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="Q74">
+        
+        <?php 
+            print $this->PopularPosts();
+            $rubric = $this->post->getRubric(); 
+        ?>
+	
+	<div class="BRC">
+	    <a class="grey" href="<?=$this->url(array(''), 'lents');?>">Revista</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('theme_url' => mb_strtolower($rubric, 'UTF-8')), 'theme_seo') ?>"><?= $rubric ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="<?= $this->post->getUrl() ?>" class="f24 grey"><?= $this->post->name ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Editar publicación</span>
+	</div>
+
+        <div class="w100 mb10 grey">
+            Espacio con el signo * son obligatorios para relleno
+        </div>
+    
+        <div class="Qblock">            
+            <?=$this->addPostForm; ?>
+        </div>
+    </div>
+    <?php include('right_block.phtml') ?>
+</div>

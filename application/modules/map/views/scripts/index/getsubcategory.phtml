@@ -1,0 +1,12 @@
+<select id="subCategoryList">
+    <?php foreach ($this->subCategoryList as $subCategoryList) : ?>
+        <option <?php if($this->subCategoryId == $subCategoryList->id) echo "selected='selected'" ?> value="<?= $subCategoryList->id; ?>"><?= $subCategoryList->name; ?></option>
+    <?php endforeach; ?>
+</select>
+
+<script type="text/javascript">    
+    var icons = [];
+    <?php foreach($this->icon as $key=>$icon) :?>
+        icons[<?= $key; ?>] = "<?= $icon; ?>";
+    <?php endforeach; ?>  
+</script>

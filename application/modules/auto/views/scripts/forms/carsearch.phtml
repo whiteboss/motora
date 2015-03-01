@@ -1,0 +1,82 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".chzn-select").chosen({
+            no_results_text: "El series que no se encuentra!",
+        });
+    });
+</script>       
+
+<form class="car-f" id="<?= $this->element->getName() ?>" name="<?= $this->element->getName() ?>" enctype="application/x-www-form-urlencoded" method="<?= $this->element->getMethod() ?>" action="<?= $this->element->getAction() ?>">
+<div id="auto_load_icon" style="display: none;"><img width="32" height="32" src="/sprites/autoload.gif" alt="" /></div>
+
+    <div id="brand_list">
+    <?php
+        $this->element->mark;
+    ?>
+    </div>
+
+    <div class="CARS-3 BREAK">
+        
+        <div id="brand_list">
+            <div class="BREAK">
+            <h5>Mark</h5>
+            <ul id="filter_primary_models">
+                <?= $this->element->mark ?>                
+            </ul>
+        </div>
+            
+        <div class="auf-mods">
+            <div class="BREAK">
+            <h5>Series</h5>
+            <div id="model_list">
+            <?= $this->element->serie ?>                    
+            </div>
+        </div>
+
+        <div id="model_list1" class="CAR-4">
+            <div class="BREAK">
+            <h5>Combustible</h5>
+            <ul><?= $this->element->fuel_kind ?></ul>
+            </div>
+            <div class="BREAK CAR-5">
+            <?= $this->element->withphoto ?> <label for="withphoto"><nobr>Solo con foto</nobr></label>
+            </div>
+        </div>
+
+        <div class="CAR-2">
+            <div id="filter_element_cont">
+                <h2 class="filter_value_header">Precio</h2>
+                <div id="price" class="filter_string_range range">
+                    <div class="fs_inputs">от <?= $this->element->price_from ?> до <?= $this->element->price_to ?></div>
+                </div>
+            </div>
+            <div id="filter_element_cont">
+                <h2 class="filter_value_header">Año</h2>
+                <div id="year" class="filter_string_range range">
+                    <div class="fs_inputs">от <?= $this->element->year_from ?> до <?= $this->element->year_to ?></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="CAR-2">
+            <div id="filter_element_cont">
+                <h2 class="filter_value_header">Kilometraje</h2>
+                <div id="mileage" class="filter_string_range range">
+                    <div class="fs_inputs">от <?= $this->element->mileage_from ?> до <?= $this->element->mileage_to ?></div>
+                </div>
+            </div>
+            <div id="filter_element_cont">
+                <h2 class="filter_value_header">Cilindrada (c.c.)</h2>
+                <div id="engine_volume" class="filter_string_range range">
+                    <div class="fs_inputs">от <?= $this->element->engine_volume_from ?> до <?= $this->element->engine_volume_to ?></div>
+                </div>
+            </div>
+        </div>        
+
+        <div id="search_button" class="CAR_search_results" style="display: block; ">
+            <div id="search_results" class="search_results"><div class="res-showme">К сожалению, по этим условиям предложений нет. Попробуйте поискать с другими параметрами.</span></div></div>
+        </div>
+
+    </div>
+        
+</form>

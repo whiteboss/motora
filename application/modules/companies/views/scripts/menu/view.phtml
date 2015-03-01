@@ -1,0 +1,240 @@
+<div class="Q1 Q1-COM">
+	<?=$this->profileHead()?>
+	
+<div class="Q2">
+	
+	<div class="w74-1">
+		
+		<div class="BREAK mar-bot3"></div>
+		
+		<ul class="DIS-2 BREAK mar-bot">
+                    
+                        <?php
+                        
+                            $owner = $this->company->getOwner();
+                            $identity = $this->getUserByIdentity();
+                            $cat_header = '';
+                        
+                            foreach ( $this->cats as $cat ) :
+                                
+                                if ( $cat->id == $this->cat_id ):
+                                    $cat_header = $cat;
+                                    $cat_id = $cat->id;
+                            ?>
+                            <li class="active">
+                                <div><strong><?=$cat?></strong></div><span><?= $cat->items_count ?></span>
+                                <?php
+                                if (!is_null($owner) || $this->isGodOfProject()) :                            
+                                    if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                                             
+                                ?> 
+                                <a class="black-blue" id="removeCategory" href="<?=$this->url(array('companyId' => $this->company->id, 'categoryId' => $cat->id, 'action' => 'delete'), 'menu')?>">X</a>
+                                <?php
+                                    endIf;
+                                endIf;
+                                ?>                                            
+                            </li>
+                            <?php else: ?>
+                            <a class="black-blue" href="<?=$this->url(array('companyId' => $this->company->id, 'categoryId' => $cat->id), 'menu')?>">
+                            <li><div><strong><?=$cat?></strong></div><span><?= $cat->items_count ?></span>
+                                <?php
+                                if (!is_null($owner) || $this->isGodOfProject()) :                            
+                                    if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                                             
+                                ?>                                                
+                                <a class="black-blue" id="removeCategory" href="<?=$this->url(array('companyId' => $this->company->id, 'categoryId' => $cat->id, 'action' => 'delete'), 'menu')?>">X</a>
+                                <?php
+                                    endIf;
+                                endIf;
+                                ?>
+                            </li></a>
+                            <?php endif; ?>
+                        <?php endforeach; ?>                    
+                    
+                        <?php                             
+                            if (!is_null($owner) || $this->isGodOfProject()) :                            
+                                if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                        
+                                    //if ( count($this->cats) < 10 ):
+                        ?>
+                        <li class="DIS-6"><a href="<?=$this->url(array('companyId' => $this->company->id),'create_menu_category');?>"><strong>Добавить раздел</strong></a></li>                   
+                        <?php 
+                                    //endif;
+                                endif;
+                            endif;
+                        ?>                        
+			
+		</ul>
+		
+		<h2 class="DIS-3 BREAK lh-100"><?= $cat_header ?></h2>
+                <?php if ($this->min_price > 0) : ?>
+                    <p class="mar-bot3">desde <?= $this->min_price ?> руб. hasta <?= $this->max_price ?> руб.</p>
+                <?php endif; ?>
+                        
+                <?php                             
+                        if (!is_null($owner) || $this->isGodOfProject()) :                            
+                            if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                        
+                ?>
+                <a href="<?=$this->url(array('companyId' => $this->company->id, 'categoryId' => $cat_id, 'action' => 'createdish'), 'menu')?>"><?= $this->cat_type == 1 ? 'Добавить блюдо' : 'Добавить напиток' ?></a>                        
+                <?php 
+                            endif;
+                        endif;
+                ?>                                 	
+                    
+		<?php
+                    if ( !empty($this->dishesWithPhoto) ) :
+                ?>
+		<div class="BREAK mar-bot">                    
+                        <?php
+			    $k = 0;
+			    foreach ( $this->dishesWithPhoto as $dish ):
+                        ?>
+                    <div class="DIS-1"><a name="dish-<?= $dish->id ?>"></a>    
+                        <?php
+				$k++;                              
+                                     
+				if (!is_null($owner) || $this->isGodOfProject()) :
+				    if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+				?>
+				<div class="TUR-A">
+                                    <a class="white line-hov" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'edit'), 'dish')?>">Редактировать</a> • 
+                                    <a class="white line-hov" id="toggle-button" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'toggle'), 'dish')?>"><?=($dish->visible ? 'Скрыть' : 'Показать')?></a> • 
+                                    <a class="white line-hov" id="best-button" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'tobest'), 'dish')?>" <?=($dish->is_best ? 'style="color:red;"' : '')?>>Лучшее блюдо!</a> • 
+                                    <a class="white line-hov" id="removeDish" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'delete'), 'dish')?>">Удалить</a>
+				</div>
+				<?php
+				    endIf;
+				endIf;
+                                
+                        ?>
+                    
+                        <div class="bold cursiv f130"><?= $dish->getPrice() ?><img src="/sprites/null.png" class="coll" width="10" height="11" alt="" /></div>
+                        <?php if ( $dish->delivery ): ?><div class="dis-deli"><img title="C доставкой на дом" src="/sprites/null.png" class="coll" width="20" height="11" alt="" /></div><?php endif; ?>
+                        <?php if ( $dish->is_best ): ?><div class="dis-best"><img title="Лучшее блюдо!" src="/sprites/dis2.png" width="53" height="50" alt="" /></div><?php endif; ?>
+                        <?php 
+                                if ( is_null($identity) ) :
+                        ?>
+                        <div class="dis-gusta f85"><a href="<?= $this->url(array(), 'signin') ?>"><div><img class="coll men-lk-0" src="/sprites/null.png" width="13" height="12" alt="" /><div><?= $dish->dishLikeCount() ?></div></div></a></div>
+                        <?php
+                                else:
+                        ?>            
+			<div class="dis-gusta f85"><a id="dish-like" href="<?= $this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'like'), 'dish') ?>"><div><?=$dish->isLiked($identity->id) ? '<img class="coll men-lk-1" width="13" height="12" alt="" src="/sprites/null.png">' : '<img class="coll men-lk-0" width="13" height="12" alt="" src="/sprites/null.png">'?><div><?=$dish->dishLikeCount();?></div></div></a></div>
+			<?php
+                                endif;
+				
+				if (!empty($dish->photo)) :
+				    $photo = $dish->getPhoto();
+				    if (!is_null($photo)) :
+			?>
+				<img class="mar-bot2" src="/files/menu/<?= $photo ?>" width="170" height="170" alt="<?= $dish ?>" />
+			<?php
+				    endIf;
+				endIf;                                        
+			?>
+                        <h1><?= $dish ?></h1>        
+                        <p><?= $dish->description ?> <?php if ($dish->getVolume() > 0) : ?><em class="georgia cursiv">/<?= $dish->getVolume() ?> <?= $this->cat_type == 2 ? '&nbsp;ml' : '&nbsp;gr' ?></em><?php endIf; ?></p>
+                        
+                    </div>
+				
+			<?php
+				if ($k==4) { print '<div class="BREAK mar-bot"></div>'; $k = 0; }
+			    endforeach;
+			?>                    
+			
+		</div>
+                <?php endIf; ?>                     
+		
+                <?php if ( !empty($this->dishesWithoutPhoto) ): ?>
+                
+		<div class="BREAK">
+			
+			<?php
+                            $k = 0;
+                            foreach ( $this->dishesWithoutPhoto as $dish ):
+                                $k++;
+                        ?>
+                    
+                            <div class="DIS-4"> 
+                                <?php
+                                    if (!is_null($owner) || $this->isGodOfProject()) :
+                                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+    				?>
+				<div class="TUR-A">
+                                    <a class="white line-hov" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'edit'), 'dish')?>">Редактировать</a> • 
+                                    <a class="white line-hov" id="toggle-button" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'toggle'), 'dish')?>"><?=($dish->visible ? 'Скрыть' : 'Показать')?></a> • 
+                                    <a class="white line-hov" id="removeDish" href="<?=$this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'delete'), 'dish')?>">Удалить</a>
+				</div>
+				<?php
+                                        endIf;
+                                    endIf;                                
+                                ?>    
+                                
+                                <div class="DIS-5">
+                                    
+                                    <?php if ( $dish->delivery ): ?><div class="dis-deli"><img title="C доставкой на дом" src="/sprites/null.png" class="coll" width="20" height="11" alt="" /></div><?php endif; ?>
+                                    <?php if ( $dish->is_best ): ?><div class="dis-best"><img title="Лучшее блюдо!" src="/sprites/dis3.png" width="25" height="24" alt="" /></div><?php endif; ?>
+                                    
+                                    <h1 class="BREAK">
+				    <div><?= $dish ?></div>
+				    <?php 
+                                            if ( is_null($identity) ) :
+                                    ?>
+                                    <div class="dis-gusta f85"><a href="<?= $this->url(array(), 'signin') ?>"><img class="coll men-lk-0" src="/sprites/null.png" width="13" height="12" alt="" /><div><?= $dish->dishLikeCount() ?></div></a></div>
+                                    <?php
+                                            else:
+                                    ?>            
+                                    <div class="dis-gusta f85"><a id="dish-like" href="<?= $this->url(array('companyId' => $this->company->id, 'dishId' => $dish->id, 'action' => 'like'), 'dish') ?>"><div><?=$dish->isLiked($identity->id) ? '<img class="coll men-lk-1" width="13" height="12" alt="" src="/sprites/null.png">' : '<img class="coll men-lk-0" width="13" height="12" alt="" src="/sprites/null.png">'?><div><?=$dish->dishLikeCount();?></div></div></a></div>
+                                    <?php
+                                            endif;
+                                    ?>
+				    </h1>
+                                    <p><?= $dish->description ?> <?php if ($dish->getVolume() > 0) : ?><em class="georgia cursiv">/<?= $dish->getVolume() ?> <?= $this->cat_type == 2 ? '&nbsp;ml' : '&nbsp;gr' ?></em><?php endIf; ?></p>
+				</div>
+				<div class="bold cursiv f130"><?= $dish->getPrice() ?><img src="/sprites/null.png" class="coll" width="10" height="11" alt="" /></div>
+                            </div>
+
+			<?php
+                            if ($k==2) { print '<div class="BREAK mar-bot"></div>'; $k = 0; }
+                            endforeach;
+                        ?>			
+			</div>	
+		    <?php endif; ?>			
+		                    
+	
+	</div>
+	<div class="w25">
+		
+        <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+            <?= $this->left_banner ?>
+        </div>
+        
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+	
+	</div>
+	
+</div>
+
+<?php
+    if (!is_null($owner) || $this->isGodOfProject()) :                            
+        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#removeDish").click(function(){
+            if(!confirm("Вы действительно хотите удалить блюдо?")) return false;
+        });
+        
+        $("#removeCategory").click(function(){
+            if(!confirm("Вы действительно хотите удалить категорию и все блюда находящиеся в ней?")) return false;
+        });        
+    });    
+</script>
+<?php
+        endIf;
+    endif;        
+?>

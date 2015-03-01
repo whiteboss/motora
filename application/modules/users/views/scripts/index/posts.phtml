@@ -1,0 +1,80 @@
+<div class="container">
+
+    <div class="Q74">
+	
+        <?php 
+            print $this->PopularPeoples();        
+        ?>
+
+        <div class="BRC"><a class="grey" href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('userId' => $this->user->id), 'profile') ?>"><?= $this->user->username ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey">Blog</span></div>
+
+        <div class="US1">
+
+            <div class="Qblock Qblock5">
+                <?php
+                if (count($this->posts) == 0) :
+                    $owner = $this->user;
+                    $identity = $this->getUserByIdentity();
+                    if (!is_null($owner) || $this->isGodOfProject()) :
+                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject()) :
+                            ?>
+                            <p class="f18 lh24">Aun Usted no había creado ninguna publicación en nuestro sitio, pero <a href="<?= $this->url(array(''), 'createpost') ?>">puede hacerlo aqui</a>.</p>
+                            <?php
+                        endif;
+                    endif;
+                else:
+                    ?>
+                    <?php
+                    foreach ($this->posts as $post) :
+                        $photo = $post->getPhoto();
+                        $category = $post->getRubric();
+                        $commentCount = (int) $post->commentCount();
+                        $post_url = $post->getUrl();
+                        ?>
+                        <div class="US10">
+
+                            <div class="w100 clear grey mb10">Publicó una entrada de blog:</div>
+
+                            <div class="US6">
+                                <div class="Qavatar1">
+                                    <a href="<?= $post_url ?>"><img src="/files/post/thumbs/119_<?= $photo ?>" width="119" height="119" alt="" /></a>
+                                </div>
+                            </div>
+
+                            <div class="US8">
+                                <p class="f18"><a class="lhov" href="<?= $post_url ?>"><?= $post->name ?></a></p>
+                                <p class="f11 grey2 lh17">
+                                    <?= $post->description ?>
+                                </p>
+                                <p class="f11 lh17">
+                                <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => mb_strtolower($category, 'UTF-8')), 'theme_seo') ?>"><?= $category->name ?></a></div>
+
+                                <div class="US9 f10 grey">
+                                    <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                    <a class="grey lnone" href="<?= $post_url ?>" title="<?= $post->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $post->viewed ?></a>
+                                </div>
+                                </p>
+                            </div>
+
+                        </div>       
+                        <?php
+                    endforeach;
+                    ?>                                
+
+                <?php endif ?>
+            </div>
+
+        </div>
+        <div class="US2 pull-right">
+
+            <?= $this->ProfileMenuControl() ?>
+
+            <?= $this->LugaresNoticias() ?>
+
+        </div>
+
+    </div>
+
+    <?php include('right_block.phtml') ?>
+
+</div>       

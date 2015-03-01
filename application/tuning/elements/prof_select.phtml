@@ -1,0 +1,27 @@
+<?php
+    if (!is_null($this->element->getLabel())) {
+?>
+<div class="prof_inp_header"><?=$this->element->getLabel()?></div>
+<?php
+    }
+?>
+<div class="prof_input">
+<select name="<?=$this->element->getName()?>" id="<?=$this->element->getName()?>" class="prof_sel">
+<?php
+    foreach ($this->element->getmultiOptions() as $key=>$name) {
+?>
+    <option <?php if($this->element->getValue()==$key) echo "selected";  ?> value="<?=$key?>"><?=$name?></option>
+<?php
+    }
+?>
+</select>
+</div>
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="prof_error"><img class="COLLECTION" src="sprites/null.png" alt="" /><?=$name;?></div>
+<?php
+        }
+    }
+?>

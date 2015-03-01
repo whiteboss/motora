@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#position").charCount({ allowed: 70 });
+                $("#description").charCount({ allowed: 1200, css: "countertextarea" });
+                $("#requirements").charCount({ allowed: 1200, css: "countertextarea" });
+                $("#phone").charCount({ allowed: 18 });
+                $("#email").charCount({ allowed: 30 });
+                $("#person").charCount({ allowed: 70 });
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->position?>
+    <?=$this->element->industry?>
+    <div class="break"></div>
+    <?=$this->element->id_city?>
+    <style>
+    input.short_input {width: 172px;}
+    .radio_section {width: 400px;}
+    .radio_section div {width: 120px;}
+    #salary-form .check_error {width: 100%;}
+    </style>
+    <div class="standard_element_container" id="salary-form">
+        <label class="standard_label">Заработная плата</label>
+        desde <?=$this->element->salary_from?>&nbsp;&nbsp;&nbsp;hasta <?=$this->element->salary_to?>
+	<div class="standard_element_help">
+            Solo en cifras, por favor. Оставьте поля пустыми, если размер заработной платы соискатель узнает после собеседования
+	</div>
+    </div>
+    <div class="break"></div>
+    
+    <?=$this->element->description?>
+    <?=$this->element->requirements?>
+    
+    <?=$this->element->schedule?>
+    <div class="standard_element_container">
+        <label class="standard_label">Возраст</label>
+        desde <?=$this->element->age_from?>&nbsp;&nbsp;&nbsp;hasta <?=$this->element->age_to?>
+	<div class="standard_element_help">
+            Solo en cifras, por favor.
+	</div>
+    </div>
+    <div class="break"></div>
+    <?=$this->element->education?>
+    <?=$this->element->sex?>
+    <div class="break mar-bot3"></div>
+    <div class="line"></div>
+    <?=$this->element->person?>
+    <div class="break"></div>
+    <?=$this->element->phone?>
+    <?=$this->element->email?>
+    
+
+ <div class="break mar-bot"></div>
+    <div class="line mar-bot"></div>
+
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

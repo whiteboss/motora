@@ -1,0 +1,92 @@
+<div class="Q1">
+    <?php include('jobheader.phtml') ?>
+    
+    <div class="w74-1">
+	
+	<div class="BREAK mar-bot"></div>
+            <?php
+                if (count($this->industries) > 0) :
+            ?>
+            <h1 class="JB-H mar-bot">Todos vacantes</h1>
+            <ul class="JB-1 BREAK f120 mar-bot3">
+            <?php
+                    foreach ($this->industries as $industry) :
+            ?>
+                <li><a href="<?= $this->url(array('industryId' => $industry->industry), 'vacanciesbyindustry') ?>" class="black-blue"><?= $industry->getIndustry() ?></a> <?= $industry->industry_count ?></li>
+            <?php
+                    endForeach;
+            ?>
+            </ul>
+            <?php
+                endIf;
+            ?> 
+
+            <h1 class="JB-H mar-bot">Вакансии компаний:</h1>
+	    
+	    <?php
+                if (count($this->vacancies) > 0) :
+            ?>
+	    <?php
+                    $i = 1;
+                    foreach ($this->vacancies as $vacancy):
+            ?>
+                <div class="VACAN-1">				
+
+                    <h3 class="mar-bot2"><em><?= $vacancy->getIndustry() ?> /</em></h3>
+                    <a class="black-blue nl" href="<?=$this->url(array('companyId' => $vacancy->id_company, 'vacancyId' => $vacancy->id, 'action' => 'view'), 'companyvacancy')?>">
+                    <h2 class="mar-bot lh-100"><?= $vacancy ?></h2>
+                    <p class="mar-bot2">Обязанности: <li><?= $vacancy->description ?></li></p>
+
+                    <?php if ($vacancy->salary_from or $vacancy->salary_to): ?>
+                    <p class="f120 bold mar-bot2">з/п
+                    <?php if ($vacancy->salary_from != $vacancy->salary_to): ?>
+                        <span class="vacant_wealth">desde <?= $vacancy->getSalaryFrom() ?><?php if ($vacancy->getSalaryTo()): ?> hasta <?= $vacancy->getSalaryTo() ?> руб.<?php endif; ?></span>
+                    <?php else: ?>
+                        <span class="vacant_wealth"><?= $vacancy->getSalaryFrom() ?> руб.</span>
+                    <?php endif; ?>
+                    </p>
+                    <?php endif; ?>
+
+
+                    </a>
+
+                    <p class="f90"><em>Publicada <?= $this->dateFormatComments($vacancy->date); ?></em></p>				
+
+                </div>                        
+            <?php
+                    if ($i == 2) :
+            ?>
+                    <div class="BREAK mar-bot"></div>				
+            <?php
+                            $i = 0;
+                    endIf;
+
+                    $i++;
+                    endforeach;
+                
+                endIf;    
+            ?>
+            <div class="active_unactive_spacer">&nbsp;</div>
+	
+    </div>
+    
+    <div class="w25">
+
+            <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+                <?= $this->left_banner ?>
+            </div>
+
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+
+    </div>
+</div>
+
+

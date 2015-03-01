@@ -1,0 +1,77 @@
+<form id="signup" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="registration_cont">
+    <div class="reg_bg">
+        <div id="m1">
+            <h1 class="reg_header">BIENVENIDO</h1>
+            <p class="reg_text lh-150">
+                Habiendose registrado Usted pueden encontrar amigos, crear sus própios eventos, conducir el blog, abrir compañías y mucho más.
+            <div class="reg_form_cont">
+                <ul>
+                <li>
+                    <?=$this->element->username?>
+                    <p class="reg_form_substr clear">
+                        Con este nombre le conocerán en el sítio&nbsp;&mdash; irá en cada comentario o publicación.                        
+                    <p class="reg_form_substr">
+                        Use solo símbolos latinos y&nbsp;no&nbsp;más de un espacio.
+                    </p><p>&nbsp;</p>
+                </li>
+                </ul>
+                <ul>
+                <li>
+                    <?=$this->element->email?>
+                </li>
+                <li>
+                    <?=$this->element->password?>
+                </li>
+                <li>
+                    <?=$this->element->confirmPassword?>
+                </li>
+                </ul>
+            </div>
+
+            <div class="reg_form_cont additional_info">
+            <ul>
+            <li>
+                <?=$this->element->firstname?>
+            </li>
+            <li>
+                <?=$this->element->lastname?>
+                <p class="BREAK reg_form_substr">Le aconsejamos indicar información correcta&nbsp;&mdash; eso agilizara la comunicación y ayudará a sus amigos a encontrarle.</p>
+                <p class="BREAK reg_form_substr">Use solo símbolos latinos.</p>
+            </li>
+            </ul>
+            <ul>
+            <li>
+                <span>Cumpleaños</span>
+                <?=$this->element->day_birth?>
+                <?=$this->element->month_birth?>
+                <?=$this->element->year_birth?>
+            </li>
+            <li class="clear">
+                <span>Género</span>
+                <?=$this->element->sex?>
+            </li>
+            <li class="clear">
+                <span>Ciudad</span>
+                <?=$this->element->city_id?>
+            </li>
+            <li class="clear">
+                <div id="other_city">
+                    <span>Tu ciudad</span>
+                    <?=$this->element->city_other?>
+                </div>
+            </li>
+            </ul>
+            </div>
+            
+            <div class="reg_form_sbm_cont">
+                <?=$this->element->register?>
+                <p>Al presionar el botón Registrarse, Usted da su consentimiento a&nbsp;<a class="white" href="/rules/">las reglas del sítio</a> y <a class="white" href="/agreement/">las condiciones del acuerdo de usuario</a>.</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</form>

@@ -1,0 +1,10 @@
+<?php if ( count($this->dishes) > 0 ) foreach ( $this->dishes as $dish ): ?>
+	<div>
+		<img src="/files/menu/<?=$dish->getPhoto()?>" title="<?=$dish?>" alt="<?=$dish?>" align="left" />
+		<ul>
+			<li><?=$dish?></li>
+			<li><?=$dish->description?></li>
+			<li>Precio: <?=$dish->getPrice()?></li>
+		</ul>
+	</div>
+<?php endforeach; ?>

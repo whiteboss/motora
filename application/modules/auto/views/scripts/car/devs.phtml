@@ -1,0 +1,28 @@
+<div class="Q1">
+    <div class="w74-1">
+        <div class="BREAK mar-bot"></div>
+        <h2 class="BRAND-2">Модельные ряды производителей</h2>
+        <?php
+            foreach ($this->brands as $brand) :
+        ?>
+        <a class="BRAND-1 nl black mar-bot2" href="<?= $this->url(array('brandId' => $brand->id), 'carbrand') ?>">
+            <img width="164" height="94" src="/files/brand/<?= $brand->getLogo() ?>" alt="Модельный ряд <?= $brand->name ?>" />
+            <h1><?= $brand->name ?></h1>
+        </a>
+        <?php
+            endForeach;
+        ?>
+    </div>
+    <div class="w25">
+        
+        <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+            <?= $this->left_banner ?>
+        </div>
+        
+        <div id="vk_groups"></div>
+        <script type="text/javascript">
+        VK.Widgets.Group("vk_groups", {mode: 0, width: "256", height: "300"}, 26971787);
+        </script>
+        
+    </div>
+</div>

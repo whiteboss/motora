@@ -1,0 +1,89 @@
+<div class="Q1 Q1-COM">
+	<?=$this->profileHead()?>
+
+    <div class="Q1">
+    
+        <div class="w74-1">                    
+                
+                <?php 
+                    $owner = $this->company->getOwner();
+                    $identity = $this->getUserByIdentity();
+                    if (!is_null($owner) || $this->isGodOfProject()) :                            
+                        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :                        
+                ?>
+		<div class="BREAK mar-bot">
+		<br />
+                <a href="<?=$this->url(array('companyId' => $this->company->id, 'action' => 'new'), 'companyresumes');?>">Добавить соискателя</a>                     
+                </div>
+		<?php 
+                        endif;
+                    endif;
+                ?>
+                <?php
+			if ( !empty($this->list) ):
+		?>
+                
+                <?php
+			$i = 1;	
+			foreach ( $this->list as $resume ):
+		?>
+                    <!--<li><a href="<?=$this->url(array('companyId' => $this->company->id, 'resumeId' => $resume->id), 'companyresume')?>"><?=$resume?></a></li>-->
+			<div class="VACAN-1">				
+				
+				<h3 class="mar-bot2"><em><?= $resume->getIndustry() ?> /</em></h3>
+				<a class="black-blue nl" href="<?=$this->url(array('companyId' => $this->company->id, 'resumeId' => $resume->id), 'companyresume')?>">
+				<h2 class="mar-bot"><?=$resume?></h2>
+				
+				<p class="f120 bold mar-bot2">з/п
+					<span class="vacant_wealth"><?= $resume->getSalaryFrom() ?> руб.</span>
+				</p>
+				
+				</a>
+				
+				<p class="f90"><em>Publicada <?= $this->dateFormatPostList($resume->date, false, true) ?></em></p>				
+				
+				<div class="VACAN-A">
+				<em>
+				<a class="grey" href="<?=$this->url(array('companyId' => $this->company->id, 'resumeId' => $resume->id, 'action' => 'edit'), 'companyresume')?>">Редактировать</a> | 
+				<a id="removeResume" class="grey" href="<?=$this->url(array('companyId' => $this->company->id, 'resumeId' => $resume->id, 'action' => 'delete'), 'companyresume')?>">Удалить</a></em>
+				</div>
+		
+			</div>
+                <?php
+			if ($i == 2) :
+		?>
+			<div class="BREAK mar-bot"></div>				
+		<?php
+				$i = 1;
+			endIf;
+				
+			$i++;
+			
+			endforeach;
+			endif;
+		?>
+		
+		
+                
+                
+            </div>
+        </div>
+</div>
+
+<?php
+    if (!is_null($owner) || $this->isGodOfProject()) :                            
+        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+?>
+<script type="text/javascript">
+$(function(){
+    $('#removeResume').live('click',function() {
+        if ( !confirm('Вы действительно хотите удалить данного соискателя?') ) {
+            return false;
+        }
+    });    
+}); 
+</script>
+<?php
+        endIf;
+    endif;
+?>

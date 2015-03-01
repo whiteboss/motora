@@ -1,0 +1,17 @@
+<?php if ( !is_null($this->company->getRegime()) ): ?>
+<br />Режим работы: <?=$this->company->getRegime()?>
+<?php endif; ?>
+
+<?php if ( !is_null($this->company->getPaymentTypes()) ): ?>
+<br />Способы оплаты: <?=$this->company->getPaymentTypes()?>
+<?php endif; ?>
+
+<?php if ( !is_null($this->company->getDeliveryPhone()) ):?>
+<br />Доставка по телефону <?=$this->company->getDeliveryPhone()?>
+<?php endif; ?>
+
+<?php if ( !is_null($this->company->getHave()) ): ?>
+<br /><em><?=$this->company->getHave()?></em>
+<?php endif; ?>
+
+    

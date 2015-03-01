@@ -1,0 +1,33 @@
+<?php
+    // $items - cars
+    // $models - models
+    $i = 1;
+    //foreach( $this->items as $id_model=>$items) : 
+    $k = 0;
+        foreach( $this->items as $item ) :
+            $k++;
+            //throw new Exception($item->id_car_model);
+            $model = $item->getModel();
+?>            
+    <div id="car" class="unt-a CAR-FL" rel="<?= $i ?>">  
+        <a class="nl black" href="<?= $item->getLink($model) ?>"><?php if (is_null($item->getPhoto())) : ?><img src="/zeta/no_obyav_pic.jpg" width="200" height="144" alt="No hay foto" /><?php else : ?><img src="/files/cars/thumbs/<?= $item->getMinPhoto() ?>" width="200" height="144" alt="Se vende <?= $item->getName() ?>" /><?php endif; ?>
+            <h3><?= $item->getName() ?> '<?= substr($item->getYear(), 2, 2) ?></h3>
+        </a>    
+        <p class="mar-bot2">
+                <span><?= $item->getEngine() ?>, <?php if ($item->mileage > 0) : ?>kilometraje: <?= $item->getMileage() ?><?php else : ?>без пробега<?php endIf ?></span><br />
+                <span><a class="nl black" href="<?= $item->getLink($model) ?>">Ver mas</a></span>
+        </p>
+        <span class="f0"><strong><?= $item->getPrice() ?></strong></span>        
+    </div>            
+<?php  
+
+            if ($k == 4 && $i != count($this->items)) :
+?>
+    <div class="BREAK"></div>        
+<?php        
+                $k = 0;
+            endif;
+            $i++;
+        endforeach;                
+    //endforeach;
+?>

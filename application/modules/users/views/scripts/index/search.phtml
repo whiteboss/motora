@@ -1,0 +1,16 @@
+<?php
+
+
+?>
+
+<h1>Список пользователей</h1>
+
+<?php if ( !empty($this->users) ): ?>
+
+    <?php foreach ( $this->users as $user ): ?>
+
+        <div id="name"><?=$user->getFullName()?></div>
+
+    <?php endforeach; ?>
+
+<?php endif; ?>

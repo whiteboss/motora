@@ -1,0 +1,95 @@
+<div class="container">
+
+	<div class="w100 mb10"></div>
+	
+	<div class="Q74">
+		
+		<?php 
+                    //include('popular_companies.phtml') 
+                    print $this->PopularPosts();
+                ?>
+        
+		<div class="BRC">
+			<a class="grey" href="<?= $this->url(array(), 'companies') ?>">Lugares y empresas</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a class="grey" href="<?= $this->url(array('company_type' => $this->company->getTypeUrl()), 'companybytype') ?>"><?= Companies_Model_Company::$header_types[$this->company->type] ?></a>&nbsp;&nbsp;/&nbsp;&nbsp;<span class="f24 grey"><?= $this->company->name ?></span>
+		<?php
+                        $identity = Zend_Auth::getInstance()->getIdentity();
+                        $owner = $this->company->getOwner();
+                        if (!is_null($identity) || $this->isGodOfProject()) :
+                            if (($owner && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                    ?>
+                        &nbsp;&nbsp;
+                        <a href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'edit'), 'company') ?>" title="Editar"><img class="Ieditar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                        <a id="event-delete" href="<?= $this->url(array('companyId' => $this->company->id, 'action' => 'delete'), 'company') ?>" title="Eliminar"><img class="Ieliminar" src="/zeta/0.png" width="29" height="29" alt="" /></a>
+                    <?php
+                            endIf;
+                        endIf;
+                    ?>
+		</div>
+	    
+		<div class="Q31">
+                    <?= $this->profileHead() ?>
+		    
+		    <?= $this->LugaresNoticias() ?>		    
+		</div>
+		<div class="Q64">
+                    <div class="Qblock Qblock5">
+                    <?php
+                        if (count($this->items) > 0) :
+                            foreach ($this->items as $item) :
+                                $commentCount = (int) $item->commentCount();  
+                                $post_url = $item->getUrl();
+                    ?>        
+
+                        <div class="w100 clear grey f18 mb10">
+                            <a class="black lhov" href="<?= $post_url ?>"><?= $item->name ?></a>
+                        </div>
+                        
+                        <video id="video" width="100%" height="400" controls="controls" preload="none" poster="<?=$item->getVideoPoster() ?>">
+                            <source src="/files/post/video/<?= $item->video ?>" type="video/mp4" />
+                            <?php
+                                if (!is_null($item->video_webm)) :
+                            ?>
+                            <source src="/files/post/video/<?= $item->video_webm ?>" type="video/webm" />
+                            <?php
+                                endIf;
+                            ?>
+                            <object width="100%" height="400" type="application/x-shockwave-flash" data="/js/flashmediaelement.swf">
+                                    <param name="movie" value="/js/flashmediaelement.swf" />
+                                    <param name="flashvars" value="controls=true&amp;file=/files/post/video/<?= $item->video ?>" />
+                                    <img src="<?= $item->getVideoPoster() ?>" width="100%" height="400" alt="No video playback capabilities" />
+                            </object>
+                        </video>     
+
+                        <p class="f11 lh17">
+                            <div>Categoría: <a class="purple" href="<?= $this->url(array('theme_url' => 'video'), 'theme_seo') ?>">Vídeo</a></div>
+                            <div class="US9 f10 grey">
+                                <a class="grey lnone" href="<?= $post_url ?>#commentsList" title="<?= $commentCount ?> commentarios"><img class="Icomm" src="/zeta/0.png" width="10" height="16" alt=""><?= $commentCount ?></a>
+                                <a class="grey lnone" href="<?= $post_url ?>" title="<?= $item->viewed ?> visites"><img class="Iviews" src="/zeta/0.png" width="10" height="16" alt=""><?= $item->viewed ?></a>
+                            </div>
+                        </p>
+
+                        <div class="w100 clear mb30"></div>                    
+                    
+                    <?php
+                            endforeach;
+                    ?>                        
+                        <script>
+                            $('video').mediaelementplayer({
+                                enableAutosize: true
+                            });
+                        </script>
+                    <?php   
+                        else :
+                    ?>
+                    No hay vídeo
+                    <?php        
+                        endIf;
+                    ?>
+                    </div>
+		</div>
+		
+	</div>
+	
+        <?php include('right_block.phtml') ?>
+
+</div>

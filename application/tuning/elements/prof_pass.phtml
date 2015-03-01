@@ -1,0 +1,18 @@
+<?php
+    // label
+    if (!is_null($this->element->getLabel())) { //         $this->formLabel($this->element->getName(),$this->element->getLabel())
+?>
+<div class="prof_inp_header"><?=$this->element->getLabel()?></div>
+<?php
+    }
+?>
+<input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="password" <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> value="<?=$this->element->getValue()?>" class="acc_string" />
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="prof_error"><img class="COLLECTION" src="sprites/null.png" alt="" /><?=$name;?></div>
+<?php
+        }
+    }
+?>

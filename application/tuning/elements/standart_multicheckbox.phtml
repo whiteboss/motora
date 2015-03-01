@@ -1,0 +1,14 @@
+<div id="<?=$this->element->getName()?>_list">
+    <ul>
+        <?php
+            $checked = $this->element->getValue();
+            foreach ($this->element->getmultiOptions() as $key=>$name) {
+        ?>
+        <li><input id="<?=$this->element->getName()?>-<?=$key?>" name="<?=$this->element->getName()?>[]" type="checkbox" <?php if (count($checked) > 0) foreach ($checked as $check) if ($check == $key) print "checked";  ?> value="<?=$key?>" class="standard_checkbox" />
+            <label class="label_checkbox_fix" for="<?=$this->element->getName()?>-<?=$key?>"><?=$name?></label>
+        </li>
+        <?php
+            }
+        ?>
+    </ul>
+</div>

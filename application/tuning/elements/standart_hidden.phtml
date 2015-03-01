@@ -1,0 +1,10 @@
+<input id="<?=$this->element->getName()?>" name="<?=$this->element->getName()?>" type="hidden" <?php if (!is_null($this->maxlength)) { print "maxlength=\"".$this->maxlength."\""; } ?> value="<?=$this->escape($this->element->getValue())?>" />
+<?php
+    if (count($this->element->getMessages()) > 0) {
+        foreach ($this->element->getMessages() as $key=>$name) {
+?>
+<div class="check_error"><span class="COLLECTION"></span><?=$name;?></div>
+<?php
+        }
+    }
+?>

@@ -1,0 +1,116 @@
+<div class="Q1">
+    <?php include('jobheader.phtml') ?>
+    
+    <div class="w74-1">
+	
+	<style>
+	.JB-1 {}
+	.JB-1 li {float: left; width: 50%; margin-bottom: 10px;}
+	.JB-2 {background: #F3F3F3; width: 25%; padding: 22px 1.5%;}
+	.JB-2 p {margin-bottom: 6px;}
+	.JB-3 .unt {width: 30% !important;}
+	.JB-3 h2, .JB-3 h1, .JB-3 p {max-width: 135px;}
+	.JB-H {font-size: 140%; color: #000;}
+	</style>
+	
+	<div class="W-70">
+
+<!--                <?= $this->resumesearchform ?>
+		<p class="f90 mar-bot">
+		    <em>Например, <a class="dashedgrey nl">программист</a></em>
+		</p>-->
+		
+                <?php
+                    if (count($this->industries) > 0) :
+                ?>
+                <h1 class="JB-H mar-bot">Все соискатели</h1>
+		<ul class="JB-1 BREAK f120 mar-bot3">
+                <?php
+                        foreach ($this->industries as $industry) :
+                ?>
+                    <li><a href="<?= $this->url(array('industryId' => $industry['industry']), 'resumesbyindustry') ?>" class="black-blue"><?= Companies_Model_Vacancy::$_industries[ $industry['industry'] ] ?></a> <?= $industry['industry_count'] ?></li>
+                <?php
+                        endForeach;
+                ?>
+		</ul>
+                <?php
+                    endIf;
+
+                    if (count($this->resumes) > 0) :
+                ?>
+                <div class="bold-line mar-bot"></div>
+                <h3>Резюме специалистов:</h3>
+            <?php
+
+            ?>
+	    <div id="c1-1" class="job-1 mar-bot3">
+            <?php
+                        $i = 1;
+                        foreach ($this->resumes as $resume) :
+            ?>            
+                <div class="VACAN-1">				
+
+                    <h3 class="mar-bot2"><em><?= $resume->getIndustry() ?> /</em></h3>                    
+                    <?php
+                        if (isset($resume->id_user)) :
+                    ?>
+                    <a class="black-blue nl" href="<?=$this->url(array('userId' => $resume->id_user), 'userresume')?>">
+                    <?php
+                        else :
+                    ?>
+                    <a class="black-blue nl" href="<?=$this->url(array('companyId' => $resume->id_company, 'resumeId' => $resume->id, 'action' => 'view'), 'companyresume')?>">
+                    <?php    
+                        endif;
+                    ?>
+                        <h2 class="mar-bot"><?= $resume->position ?></h2>
+                        <p class="f120 bold mar-bot2">з/п от <?= $resume->getSalaryFrom() ?> руб.</p>
+                    </a>
+
+                    <p class="f90"><em>Publicada <?= $this->dateFormatPostList($resume->date, false, true); ?></em></p>				
+                </div>        
+            <?php       
+                        endForeach;
+            ?>   
+	    </div>
+            <?php
+                    else :
+            ?>
+            <div id="c1-1" class="job-1 mar-bot3">Соискателей не обнаружено</div>    
+            <?php    
+                    endIf;
+            ?>
+                
+            <style>
+		ul.job-0 li {width: 306px; float: left; font-size: 140%; color: #999; margin-bottom: 5px;}
+		ul.job-0 li a {font-weight: bold;}
+		.job-1 .unt {width: 189px; padding: 15px; border-right: 1px #DFDFDF solid; color: #333;}
+		.job-1 .right {padding-right: 0 !important;  padding-left: 0 !important; border-right: none !important;}
+		.job-1 p {font-family: georgia; margin-bottom: 3px;}
+		.job-1 a.grey {color: #333;}
+	    </style>    
+                
+        </div>
+        
+    </div>
+    
+    <div class="w25">
+	
+        <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+            <?= $this->left_banner ?>
+        </div>
+	
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+	
+    </div>
+    
+</div>
+
+

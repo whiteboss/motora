@@ -1,0 +1,14 @@
+<?php 
+    $i = $this->from;
+    foreach($this->companies as $company) : 
+?><div id="company" class="Qlugares" rel="<?= $i ?>">    
+        <a class="black lnone" href="<?=$this->url(array("companyId" => $company->id), "company")?>">
+            <span class="Qlugares1">
+                <?= $company->getAvatar('', false, 'mid_'); ?>
+            </span>
+            <span class="f14"><?= $company->name ?></span>
+        </a>
+    </div><?php
+        $i++;
+    endForeach;
+?>

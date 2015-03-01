@@ -1,0 +1,19 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+                $("#message").charCount({ allowed: 1000, css: "countertextarea" });
+	});
+</script>
+
+<form id="replymessage" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div class="smc">
+    <div>
+        <?=$this->element->userTo?>
+        <?=$this->element->id_user_to?>
+        <?=$this->element->referrer?>
+        <?=$this->element->message?>
+        <?=$this->element->sendMessage?>
+    </div>
+</div>
+
+</form>

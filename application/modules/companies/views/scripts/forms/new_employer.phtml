@@ -1,0 +1,31 @@
+<div id="fr-h">
+    <div>
+    <a href="/company<?=$this->company->id?>/employers" title="Команда компании"><img class="COLLECTION i-back" width="28" height="29" src="/sprites/null.png" /></a>
+    <a class="straight lineon" href="/company<?=$this->company->id?>/employers">Todo el equipo</a>
+    <h2>Invitacón al equipo</h2>
+    <span>Espacio con el signo * son obligatorios para relleno<br />
+    Usted puede enviar una invitacion a su empleado o amigo, que tambien será un parte del equipo.
+    </span>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#position").charCount({ allowed: 40 });
+	});
+</script>
+
+<form id="new_item" name="<?=$this->element->getName()?>" enctype="application/x-www-form-urlencoded" method="<?=$this->element->getMethod()?>" action="<?=$this->element->getAction()?>">
+
+<div id="FORM_CONTAINER">
+    <?=$this->element->userTo?>
+    <?=$this->element->id_user?>
+    <?=$this->element->position?>
+
+    <div class="standard_departer"></div>
+
+    <?=$this->element->add_item?>
+    
+</div>
+
+</form>

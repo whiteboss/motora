@@ -1,0 +1,48 @@
+<div class="w100 clear FOO0">
+<div class="w100 clear FOO1">
+        
+    <div class="container PTS">
+	<div class="FOO7">
+	    <p>
+	    <a href="/"><img class="Flogo" src="/zeta/0.png" alt="" /></a>
+	    </p>
+	    <p class="f9 grey">
+		© 2013 Motora.cl
+		<br />
+		<a class="grey lnone" href="mailto:mailbox@motora.cl">mailbox@motora.cl</a>
+	    </p>
+	</div>
+	<div class="F006">
+	    <ul class="FOO2 f11">
+		<li><a href="<?= $this->url(array(), 'main') ?>">Inicio</a></li>
+		<li><a href="<?= $this->url(array(), 'companies') ?>">Lugares</a></li>
+		<li><a href="<?= $this->url(array(), 'map') ?>">Mapa</a></li>
+		<li><a href="<?= $this->url(array(), 'peoples') ?>">Usuarios</a></li>
+		<li>&nbsp;</li>
+		<?php
+            if (!$this->getLogged()) :
+	    ?>
+		<li class="FOO3"><a id="facebook" href="<?= $this->url(array('social' => 'facebook'), 'auth') ?>" class="conFB lnone">Conectar</a></li>
+	    <?php
+		else :
+		    $user = $this->GetUserByIdentity();
+	    ?>
+                    <li class="grey"><a class="FOO8 bor4" href="<?= $this->url(array('userId' => $user->id), 'profile') ?>"><nobr><?= $user->getAvatar(21, 21, false, '', '21_') ?> <?= $user->username ?></a> | &nbsp; <a href="<?= (!is_null($user->uid) ? $this->url(array('social' => $user->identity), 'logout') : $this->url(array(''), 'logout')) ?>">Cerrar sesión</nobr></a></li>
+	    <?php        
+		endIf;
+	    ?>
+	    </ul>
+	</div>
+	<div class="F004 f11">
+	    Noticias y agenda de la vida nocturna de Chile, todo en un solo lugar: musica, comidas, arte y moda. Todos los derechos reservados. El uso de materiales sólo con la autorización previa. 
+	</div>
+	<div class="FOO5 f11">
+	    <span>Síquenos en</span>
+	    <a href="http://www.facebook.com/pages/Qlickcl/265987913519758" title="Nuestra página de Facebook"><img class="Ffacebook" src="/zeta/0.png" width="22" height="22" alt="" /></a>
+	    <a href="https://twitter.com/QlickChile" title="Nuestras noticias en Twitter"><img class="Ftwitter" src="/zeta/0.png" width="22" height="22" alt="" /></a>
+	    <a href="http://www.flickr.com/photos/98065337@N07" title="Nuestras fotos en Flickr"><img class="Fflickr" src="/zeta/0.png" width="22" height="22" alt="" /></a>
+	</div>
+    </div>
+    
+</div>
+</div>

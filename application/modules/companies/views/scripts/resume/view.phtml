@@ -1,0 +1,274 @@
+<div class="Q1 Q1-COM">
+	<?=$this->profileHead()?>
+
+<div class="Q1">
+    
+    <div class="w74-1">
+	
+		<div class="mar-bot">
+                        <a href="<?= $this->url(array('companyId' => $this->company->id), 'companyresumes') ?>"><img class="COLLECTION i-back" width="28" height="29" src="/sprites/null.png" alt="" /></a>
+                        <a class="straight lineon" href="<?= $this->url(array('companyId' => $this->company->id), 'companyresumes') ?>">Все соискатели от нашей компании</a><span class="COLLECTION"></span>                
+                <?php
+                    $owner = $this->company->getOwner();
+                    $identity = $this->getUserByIdentity();
+                    
+                    if (!is_null($this->resume)) :
+                        $resume = $this->resume;
+                    
+                        if (!is_null($owner) || $this->isGodOfProject()) :
+                            if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+                ?>
+                        | <a href="<?=$this->url(array('companyId' => $this->company->id, 'resumeId' => $resume->id, 'action' => 'edit'), 'companyresume')?>">Редактировать</a>
+                        | <a id="resume-delete" href="<?=$this->url(array('companyId' => $this->company->id, 'resumeId' => $resume->id, 'action' => 'delete'), 'companyresume')?>">Удалить</a>
+                <?php
+                            endIf;
+                        endIf;
+                ?>
+                </div>
+                
+                <div class="break vac-0 mar-bot3">
+		
+			<div class="RESU-0">
+			
+				<h1><?=$resume->getFio()?></h1>
+				<h2 class="mar-bot3"><?=implode(', ', $resume->getIndustryList())?>: <?=$resume->getPosition()?></h2>
+				
+				<div class="RESU-1-1">
+				<div class="RESU-1">
+                                <?php
+                                    switch ($resume->sex) {
+                                        case '0' : $class = 'V-ANYMALE'; break;
+                                        case '1' : $class = 'V-MALE'; break;
+                                        case '2' : $class = 'V-FEMALE'; break;
+                                        default : $class = 'V-ANYMALE';
+                                    }
+                                ?>    
+				<div class="VACN-2 <?= $class ?>">
+				</div>
+				<p class="f120 lh-130">
+					<?=$resume->getSex()?>
+				</p>
+				</div>
+				
+				<div class="RESU-1">
+                                <?php
+                                    switch ($resume->schedule) {
+                                        case '0' : $class = 'V-FULLTIME'; break;
+                                        case '1' : $class = 'V-FREEWORK'; break;
+                                        case '2' : $class = 'V-CHANGEWORK'; break;
+                                        case '3' : $class = 'V-PARTWORK'; break;
+                                        case '4' : $class = 'V-REMOTEWORK'; break;
+                                        case '5' : $class = 'V-VAHTAWORK'; break;
+                                        default : $class = 'V-FULLTIME';
+                                    }
+                                ?>
+				<div class="VACN-2 <?= $class ?>">
+				</div>
+				<p class="f120 lh-130">
+					<?=$resume->getSchedule()?>
+				</p>
+				</div>
+				
+				<div class="RESU-1">
+                                <?php
+                                    switch ($resume->education) {
+                                        case '0' : $class = 'V-MIDDLEGRADE'; break;
+                                        case '1' : $class = 'V-PROFGRADE'; break;
+                                        case '2' : $class = 'V-UNFINISHEDGRADE'; break;
+                                        case '3' : $class = 'V-HIGHGRADE'; break;
+                                        case '4' : $class = 'V-STEPENGRADE'; break;
+                                        default : $class = 'V-MIDDLEGRADE';
+                                    }
+                                ?>    
+				<div class="VACN-2 <?= $class ?>"> 
+				</div>
+				<p class="f120 lh-130">
+					<?=$resume->getEducation()?>
+				</p>
+				</div>
+				</div>
+				
+				<div class="BREAK mar-bot"></div>
+				
+				<div class="BREAK">
+					<div class="RESU-2 RESU-3">
+						<strong>Fecha de nacimiento</strong>
+						<p class="mar-bot3"><?=$resume->getBirthDate()?></p>
+					</div>
+					<div class="RESU-2 RESU-4">
+						<strong>Опыт работы в данной области</strong>
+						<p class="mar-bot3"><?=$resume->getExperience()?></p>
+					</div>
+					<div class="RESU-2">
+						<strong>Минимальная зарплата</strong>
+						<p class="mar-bot3"><?= $resume->getSalaryFrom() ?> руб.</p>
+					</div>
+				</div>
+				
+				<?php if ( $resume->skills ): ?>
+				<h3>Навыки и знания</h3>
+				<div class="RESU-5 lh-130 mar-bot3">
+				<?=$resume->skills?>    
+				</div>
+				<?php else : ?>
+				      
+				<?php endif; ?>
+				
+				<?php if ( !is_null($resume->work) ): ?>
+				<h3>Карьера</h3>
+				<?php foreach( $resume->getWorks() as $work ):?>
+				
+				<div class="W-28-2 mar-bot lh-150">
+					<div class="BREAK mar-bot2"><span class="f150"><strong><?= $work->company ?></strong></span></div>
+					с <?= $work->start ?> по <?php if ($work->end == 0) : print 'настоящее время'; else : print $work->end; endIf; ?>
+				</div>
+				
+				<div class="w70 mar-bot">
+					<?php if ($work->position): ?><div class="BREAK mar-bot2"><span class="f150"><strong><?= $work->position ?></strong></span></div><?php endif;?>
+					<?= $work->responsibility ?>
+				</div>
+				<div class="BREAK"></div>
+				<?php endforeach; ?>			
+				<?php else : ?>
+				    <h3>Без опыта работы</h3>    
+				<?php endif; ?>
+				
+				<div class="BREAK mar-bot"></div>
+				    
+				
+				<?php
+					if ( !is_null($resume->institute) ):
+				    ?>
+				    <h3>Образование</h3>
+					    <?php
+						foreach( $resume->getInstitutes() as $inst ):
+						    //if ($inst->end == 0) $inst_end = 'настоящее время'; else $inst_end = $inst->end;
+					    ?>
+					    
+						<?php if ($inst->speciality): ?><div class="W-28-2 mar-bot lh-150">
+						<div class="BREAK mar-bot2"><span class="f150"><strong><?=$inst->speciality?></strong></span></div>
+						</div><?php endif;?>
+						<div class="w70 mar-bot">
+						<div class="BREAK mar-bot2"><span class="f150"><strong><?=$inst->name?></strong></span></div>
+						с <?= $inst->start ?> по <?php if ($inst->end == 0) : print 'настоящее время'; else : print $inst->end; endIf; ?>
+						</div>
+						<div class="BREAK"></div>
+					    
+					    
+
+					    <?php endforeach; ?>
+
+				    <?php else : ?>
+				    <h3>Учебные заведения не указаны</h3>    
+				    <?php endif; ?>
+				    
+				    <div class="BREAK mar-bot"></div>
+				    
+				     <?php    
+					if (!is_null($resume->certificates) && $resume->certificates != '') :
+				    ?>
+					<h3>Сертификаты, курсы, достижения</em></h3>        
+					<div class="RESU-5 lh-130 mar-bot3">	
+					<?=$resume->certificates?>
+					</div>
+				    <?php
+					endIf;
+				    ?>
+				
+				<div class="BREAK mar-bot3">
+					
+				<?php 
+                                    $langs = $resume->getLanguages();
+                                    if ( count($langs) > 0 ):                                        
+                                ?>
+				   <h3>Знание языков</h3>
+					<?php foreach( $langs as $lang ):?>
+					
+					<div class="W-25"><span class="f150"><?=$lang->language?>&nbsp;&nbsp;</span><br /><?=$lang->level?></div>
+					<?php endforeach; ?>
+				<?php endif; ?>
+				
+				</div>
+				
+				
+				<?php if ( $resume->hobbies ): ?>
+				<div class="BREAK mar-bot">
+					    <h3>Особые навыки, хобби</h3>
+					    <div class="RESU-5 lh-130 mar-bot3">
+					    <?=$resume->hobbies?>
+					    </div>
+				</div>
+				<?php endif; ?>
+				
+				
+				
+				<div class="BREAK mar-bot3">
+				
+				<?php if ( $resume->driving ): ?>
+					<h3>Водительские права: <?=implode(', ', $resume->getDriving())?></h3>
+				<?php else : ?>
+					<h3>Водительских прав нет</h3>
+				<?php endif; ?>  
+				
+				</div>
+				
+				<?php if ( $resume->hobbies ): ?>
+				<div class="BREAK mar-bot">
+					    <h3>Контактная информация</h3>
+					    <div class="RESU-5 lh-130 mar-bot3">
+					    Teléfono: <?=$resume->getPhone()?>
+					    <br />
+					    E-mail: <a href="mailto:<?= $resume->email ?>"><?= $resume->email ?></a>
+					    </div>
+				</div>
+				<?php endif; ?>
+				
+				
+			</div>
+			
+		</div>
+	
+					<?php
+                            //endForeach;
+                        endIf;
+                    ?>
+	
+    </div>
+    
+    <div class="w25">
+	
+            <div class="COBAYASHI-RUBIT-BABKI mar-bot">
+                <?= $this->left_banner ?>
+            </div>
+	    
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <fb:like-box href="http://www.facebook.com/pages/Qlick/265987913519758?ref=hl" width="292" show_faces="true" stream="false" header="false"></fb:like-box>
+	
+    </div>
+    
+</div>
+
+<?php
+    if (!is_null($owner) || $this->isGodOfProject()) :
+        if ((!is_null($identity) && $owner->id == $identity->id) || $this->isGodOfProject())  :
+?>
+<script type="text/javascript">
+$(function(){
+    $('#resume-delete').live('click',function() {
+        if ( !confirm('Вы действительно хотите удалить данное резюме?') ) {
+            return false;
+        }
+    });   
+}); 
+</script>
+<?php
+        endIf;
+    endif;
+?>

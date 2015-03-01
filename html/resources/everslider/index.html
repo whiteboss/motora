@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Everslider - Responsive jQuery Carousel Plugin</title>
+	<meta name="description" content="responsive jquery carousel plugin">
+	<meta name="author" content="flGravity">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<!-- Mobile Specific Metas -->
+	<script type="text/javascript">
+		var browser			= navigator.userAgent;
+		var browserRegex	= /(Android|BlackBerry|IEMobile|Nokia|iP(ad|hone|od)|Opera M(obi|ini))/;
+		var isMobile		= false;
+		if(browser.match(browserRegex)) {
+			isMobile			= true;
+			addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+			function hideURLbar(){
+				window.scrollTo(0,1);
+			}
+		}
+	</script>
+	
+	<!-- Google Web Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+		
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/amazium.css">
+	<link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" href="css/everslider.css">
+	<link rel="stylesheet" href="css/everslider-custom.css">
+	
+	<!-- JavaScript -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="js/jquery.everslider.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			/* Image slider */
+			$('#image_slider').everslider({
+				mode: 'normal',
+				maxVisible: 1,
+				slideEasing: 'easeInOutQuart',
+				slideDuration: 500
+			});
+			
+			/* Featured slider	*/		
+			$('#featured_slider').everslider({
+				mode: 'circular',
+				itemKeepRatio: false,
+				navigation: false,
+				mouseWheel: true
+			});
+			
+			/* Fullwidth slider */
+			$('#fullwidth_slider').everslider({
+				mode: 'carousel',
+				moveSlides: 1,
+				slideEasing: 'easeInOutCubic',
+				slideDuration: 700,
+				navigation: true,
+				keyboard: true,
+				nextNav: '<span class="alt-arrow">Next</span>',
+				prevNav: '<span class="alt-arrow">Next</span>',
+				ticker: true,
+				tickerAutoStart: true,
+				tickerHover: true,
+				tickerTimeout: 2000
+			});
+			
+			/* Fullwidth slider with "fade" effect */
+			$('#fullwidth_slider_fade').everslider({
+				mode: 'carousel',
+				effect: 'fade',
+				moveSlides: 1,
+				fadeEasing: 'linear',
+				fadeDuration: 500,
+				fadeDelay: 200,
+				fadeDirection: 1,
+				navigation: true,
+				keyboard: true,
+				swipeThreshold: 10,
+				nextNav: '<span class="alt-arrow">Next</span>',
+				prevNav: '<span class="alt-arrow">Next</span>',
+				ticker: true,
+				tickerAutoStart: false,
+				tickerTimeout: 2000
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="row top">
+		<div class="grid_12">
+			<h1 class="page-header">Everslider - Responsive jQuery Carousel Plugin</h1>
+			<div class="base clearfix text-center">
+				<a class="btn btn-action" href="http://codecanyon.net/item/everslider-responsive-jquery-carousel-plugin/5132868?ref=flGravity" title="Purhase 'Everslider - Responsive jQuery Carousel Plugin' from Codecanyon!" target="_parent"><span>Buy Now!</span></a>
+				<a class="btn" href="docs/index.html"><span>Documentation</span></a> or
+				<a class="btn" href="http://codecanyon.net/item/everslider-responsive-wordpress-carousel-plugin/5631013?ref=flGravity" title="Get Everslider for WordPress!"><span>WordPress Version</span></a>
+			</div>
+		</div>
+	</div> 
+	
+	<!-- end row -->
+	
+	<div class="row base">
+	
+		<!-- fullwidth slider -->
+		<div class="grid_12">
+			<h2>Fullwidth carousel</h2>
+			<p>Everslider in timer mode can be used to promote your products or show hot news!</p>
+			<div id="fullwidth_slider" class="everslider fullwidth-slider">
+				<ul class="es-slides">
+					<li>
+						<img src="pictures/pic1.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Hardware CSS3 Transitions</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic2.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Retina Controls</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic3.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Mobile & Tablets</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic4.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Touch swipe support</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic5.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Callbacks and Custom Events</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- fullwidth slider -->
+		
+	</div>
+		
+	<!-- end row -->
+	
+	<div class="row base">
+		
+		<!-- image slider -->
+		<div class="grid_6">
+			<h2>Image slider</h2>
+			<p>When number of visible slides is limited to one Everslider carousel can work as responsive, touch enabled image or content slider</p>
+			<div id="image_slider" class="everslider image-slider">
+				<ul class="es-slides">
+					<li>
+						<div class="featured-pic"><img src="pictures/pic1.jpg" alt="Example"></div>
+						<div class="image-caption">
+							<span>No compromises with Everslider!</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic2.jpg" alt="Example">
+						<div class="image-caption">
+							<span>CSS3 animations easy!</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic3.jpg" alt="Example">
+						<div class="image-caption">
+							<span>Callbacks & events</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic4.jpg" alt="Example">
+						<div class="image-caption">
+							<span>Responsive design</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic5.jpg" alt="Example">
+						<div class="image-caption">
+							<span>Mobile browsers support</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end image slider -->
+		
+		<!-- featured slider -->
+		<div class="grid_6">
+			<h2>Featured carousel</h2>
+			<p>Everslide is great plugin to create carousel of your recent blog posts or featured works in portfolio!</p>
+			<div id="featured_slider" class="everslider featured-slider">
+				<ul class="es-slides">
+					<li>
+						<div class="featured-pic">
+							<a title="Preview project" href="#">Preview</a>
+							<img src="pictures/pic1.jpg" alt="Example">
+						</div>
+						<div class="featured-title">
+							<a href="#" title="Click to preview">Featured work</a>
+							<span>Here goes description or tags</span>
+						</div>
+					</li>
+					<li>
+						<div class="featured-pic">
+							<a title="Preview project" href="#">Preview</a>
+							<img src="pictures/pic2.jpg" alt="Example">
+						</div>
+						<div class="featured-title">
+							<a href="#" title="Click to preview">Featured work</a>
+							<span>Here goes description or tags</span>
+						</div>
+					</li>
+					<li>
+						<div class="featured-pic">
+							<a title="Preview project" href="#">Preview</a>
+							<img src="pictures/pic3.jpg" alt="Example">
+						</div>
+						<div class="featured-title">
+							<a href="#" title="Click to preview">Featured work</a>
+							<span>Here goes description or tags</span>
+						</div>
+					</li>
+					<li>
+						<div class="featured-pic">
+							<a title="Preview project" href="#">Preview</a>
+							<img src="pictures/pic4.jpg" alt="Example">
+						</div>
+						<div class="featured-title">
+							<a href="#" title="Click to preview">Featured work</a>
+							<span>Here goes description or tags</span>
+						</div>
+					</li>
+					<li>
+						<div class="featured-pic">
+							<a title="Preview project" href="#">Preview</a>
+							<img src="pictures/pic5.jpg" alt="Example">
+						</div>
+						<div class="featured-title">
+							<a href="#" title="Click to preview">Featured work</a>
+							<span>Here goes description or tags</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div> 
+		<!-- end featured slider -->
+		
+	</div>
+			
+	<!-- end row -->
+	
+	<div class="row base">
+	
+		<!-- fullwidth slider -->
+		<div class="grid_12">
+			<h2>Fullwidth carousel with "Fade" effect</h2>
+			<p>When carousel effect is set to <em>"fade"</em> you can set delay between animation of individual slides what creates something like "chain animation"</p>
+			<div id="fullwidth_slider_fade" class="everslider fullwidth-slider">
+				<ul class="es-slides">
+					<li>
+						<img src="pictures/pic1.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Hardware CSS3 Transitions</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic2.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Retina Controls</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic3.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Mobile & Tablets</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic4.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Touch swipe support</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+					<li>
+						<img src="pictures/pic5.jpg" alt="Example">
+						<div class="fullwidth-title">
+							<a href="#">Callbacks and Custom Events</a>
+							<span>Description goes right here. It can be of any lenght and with few paragraphs</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- end fullwidth slider -->
+		
+	</div>
+	
+	<!-- end row -->
+		 
+	<footer class="row">
+		<div class="grid_12">
+			<span class="copyright">&copy; 2013 flGravity</span>
+		</div>
+	</footer>
+	
+	<!-- Scripts for preview -->
+	<script type="text/javascript" src="js/respond.min.js"></script>
+	<script type="text/javascript" src="js/jquery.scrollUp.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+		    $.scrollUp({animation: 'slide'});
+		    $('a[href="#"]').click(function(){ return false; });
+		});
+	</script>
+</body>
+</html>
